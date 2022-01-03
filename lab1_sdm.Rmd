@@ -55,24 +55,33 @@ dir_data <- here("data/sdm")
 dir.create(dir_data, showWarnings = F)
 ```
 
+If you have a problem installing the `rJava` package like so:
+
+  ![](img/lab1_sdm/rJAVA-failed-screen.png)
+
+Please install the Java Virtual Machine (JVM) for your operating system by visiting these links:
+
+- [rJava - Troubleshooting](https://github.com/s-u/rJava#troubleshooting)
+- [Java Download](https://www.java.com/en/download/manual.jsp)
+
 ## Choose a Species
 
 Please enter your species of choice for this lab here:
 
 * [Lab 1. Choose Species](
-https://docs.google.com/spreadsheets/d/1GQsLzo2q2zwu-86RTdBYk6ekcbzMOi1PU35MWghCBsY/edit?usp=sharing) Google Form
+https://forms.gle/uer6qwTjB3uS56yh6) Google Form
 
 Be sure to check nobody already chose this species here:
 
 * [Lab 1. Choose Species (Responses)](https://docs.google.com/spreadsheets/d/1GQsLzo2q2zwu-86RTdBYk6ekcbzMOi1PU35MWghCBsY/edit?resourcekey#gid=454637140) Google Sheet
 
-I also highly recommend choosing a species with at least 100 occurrences (try code below first).
+I also highly recommend choosing a species with at least 100 occurrences (try code below first). You can edit your choice through the form.
 
 ## Get Species Observations
 
 For illustrative purposes, I'll choose the Brown-throated sloth (_Bradypus variegatus_) since we're going to start slow with Machine Learning.
 
-![](https://www.zooportraits.com/wp-content/uploads/2018/06/shutterstock_125014706.jpg)
+![](img/lab1_sdm/sloth_shutterstock_125014706.jpeg)
 
 ```{r}
 obs_csv <- file.path(dir_data, "obs.csv")
@@ -235,7 +244,20 @@ pts_env <- raster::extract(env_stack, as_Spatial(pts), df=TRUE) %>%
 write_csv(pts_env, pts_env_csv)
 ```
 
+In the end this table is the **data** that feeds into our species distribution model, where:
+
+- `y` is the `present` column with values of `1` (present) or `0` (absent)
+- `x` is all other columns:  `r paste(setdiff(names(pts_env), c("present", "ID")), collapse = ", ")`
+
+```{r}
+pts_env %>% 
+  select(-ID) %>% 
+  DT::datatable()
+```
+
 ## Term Plots
+
+In the vein of exploratory data analyses, let's look at how differentiable the presence vs absence is for each predictor. A plot for a specific predictor and response is called a "term plot". In this case we'll look for predictors where the presence (present = `1`) occupies a distinct "niche" from the background absence points (present = `0`).
 
 ```{r}
 pts_env %>% 

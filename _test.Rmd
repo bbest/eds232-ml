@@ -6,7 +6,12 @@ editor_options:
 
 ```{r setup, include=F}
 knitr::opts_chunk$set(echo = T)
+
+pts_env <- readr::read_csv("data/sdm/pts_env.csv")
 ```
+
+- `y` is the `present` column with values of `1` (present) or `0` (absent)
+- `x` is all other columns: `r paste(setdiff(names(pts_env), c("present", "ID")), collapse = ", ")`
 
 ## Test
 
