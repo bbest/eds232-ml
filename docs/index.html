@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,30 +85,52 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
+
   <!--radix_placeholder_meta_tags-->
   <title>EDS 232: EDS 232: Machine Learning in Environmental Science</title>
 
-  <meta property="description" itemprop="description" content="A minimal website skeleton and theme for MEDS course with distill (by RStudio)"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A minimal website skeleton and theme for MEDS course with distill (by RStudio)"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
-  <meta property="twitter:description" content="A minimal website skeleton and theme for MEDS course with distill (by RStudio)"/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Species Distribution Models: Ecological Explanation and Prediction Across Space and Time;citation_publication_date=2009;citation_volume=40;citation_doi=10.1146/annurev.ecolsys.110308.120159;citation_issn=1543-592X;citation_author=Jane Elith;citation_author=John R. Leathwick"/>
+  <meta name="citation_reference" content="citation_title=Machine Learning: New Ideas and Tools in Environmental Science and Engineering;citation_publication_date=2021;citation_publisher=American Chemical Society;citation_volume=55;citation_doi=10.1021/acs.est.1c01339;citation_issn=0013-936X;citation_author=Shifa Zhong;citation_author=Kai Zhang;citation_author=Majid Bagheri;citation_author=Joel G. Burken;citation_author=April Gu;citation_author=Baikun Li;citation_author=Xingmao Ma;citation_author=Babetta L. Marrone;citation_author=Zhiyong Jason Ren;citation_author=Joshua Schrier;citation_author=Wei Shi;citation_author=Haoyue Tan;citation_author=Tianbao Wang;citation_author=Xu Wang;citation_author=Bryan M. Wong;citation_author=Xusheng Xiao;citation_author=Xiong Yu;citation_author=Jun-Jie Zhu;citation_author=Huichun Zhang"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"character","attributes":{},"value":["A minimal website skeleton and theme for MEDS course with distill (by RStudio)"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -455,7 +477,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1862,7 +1884,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2442,7 +2467,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+  <script src="site_libs/datatables-binding-0.19/datatables.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+  <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+  <link href="site_libs/dt-ext-rowgroup-1.10.20/css/rowGroup.dataTables.min.css" rel="stylesheet" />
+  <script src="site_libs/dt-ext-rowgroup-1.10.20/js/dataTables.rowGroup.min.js"></script>
+  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2462,7 +2498,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"EDS 232: Machine Learning in Environmental Science","description":"A minimal website skeleton and theme for MEDS course with distill (by RStudio)","authors":[]}
+{"title":"EDS 232: Machine Learning in Environmental Science","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2476,24 +2512,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="index.html">Home</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
-Topics
+Labs
  
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="topic_1.html">Topic 1: Add a new site page</a>
-<a href="topic_2.html">Topic 2: Update site title &amp; subtitle</a>
-<a href="topic_3.html">Topic 3: Add images</a>
-<a href="topic_4.html">Topic 4: Change the theme</a>
-<a href="topic_5.html">Topic 5: Basic formatting</a>
-<a href="topic_6.html">Topic 6: Internal &amp; external links</a>
-<a href="topic_7.html">Topic 7: Remove tables of contents</a>
-<a href="topic_8.html">Topic 8: Add a dropdown menu from navigation bar item</a>
-<a href="topic_9.html">Topic 9: Change site fonts</a>
-<a href="topic_10.html">Topic 10: Add a table</a>
+<a href="lab1_sdm.html">1. Species Distribution Modeling</a>
 </div>
 </div>
-<a href="assignments.html">Assignments</a>
+<a href="glossary.html">Glosssary</a>
 <a href="resources.html">Resources</a>
 <a href="https://github.com/bbest/eds232-ml">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2510,7 +2537,7 @@ Topics
 <h1>EDS 232: Machine Learning in Environmental Science</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>A minimal website skeleton and theme for MEDS course with distill (by RStudio)</p>
+
 </div>
 
 
@@ -2519,159 +2546,71 @@ Topics
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#welcome-to-the-meds-distill-template">Welcome to the MEDS distill template</a>
-<ul>
-<li><a href="#some-starting-points">Some starting points:</a></li>
-</ul></li>
-<li><a href="#course-description">Course description</a></li>
-<li><a href="#teaching-team">Teaching team</a></li>
-<li><a href="#important-links">Important links</a></li>
-<li><a href="#weekly-course-schedule">Weekly course schedule</a></li>
-<li><a href="#learning-objectives">Learning objectives</a></li>
-<li><a href="#course-requirements">Course requirements</a>
-<ul>
-<li><a href="#computing">Computing</a></li>
-<li><a href="#textbook">Textbook</a></li>
-<li><a href="#other-requirements">Other requirements</a></li>
-</ul></li>
-<li><a href="#tentative-topics">Tentative topics</a></li>
+<li><a href="#course-schedule">Course Schedule</a></li>
+<li><a href="#course-description">Course Description</a></li>
+<li><a href="#instructor">Instructor</a></li>
+<li><a href="#readings">Readings</a></li>
 </ul>
 </nav>
 </div>
+<blockquote>
+<p>“Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.” – Stephen Hawking.</p>
+</blockquote>
+<h1 id="course-schedule">Course Schedule</h1>
+<ul>
+<li><strong>Lectures/Labs</strong>: MW 9:30am - 10:45am on Zoom</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<img src="img/usgs_sat.jpeg" alt="Update this image by dropping your new image into the img folder of the project, then open the index.Rmd &amp; change the path to point to the new image. Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (https://unsplash.com/photos/35Z2ylLRCO8)." width="100%" />
-<p class="caption">
-Figure 1: Update this image by dropping your new image into the img folder of the project, then open the index.Rmd &amp; change the path to point to the new image. Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (<a href="https://unsplash.com/photos/35Z2ylLRCO8" class="uri">https://unsplash.com/photos/35Z2ylLRCO8</a>).
-</p>
+<details>
+<summary>
+show
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"_functions.R"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>get_sched</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>dt_sched</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
 </div>
+</details>
+<div id="htmlwidget-5d63845ab66d82a5da0e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5d63845ab66d82a5da0e">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9","TBD"],["Species","Species","Species","Species","Species","Communities","Communities","Reserves","Reserves","Mid-Term","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Google Earth Engine","Google Earth Engine","Google Earth Engine","Ethics","Expert Panel","Final"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>","Logistic Regression","Decision Trees","Performance Evaluation","HOLIDAY","Biodiversity; Clustering","Ordination","Conservation Planning","Multi-criteria Optimization","Mid-Term Exam","Neural Networks","Computer Vision and Feature Generation","TensorFlow","Convolutional Neural Networks","HOLIDAY","GEE Supervised Classification","GEE Unsupervised Classification","GEE TensorFlow","Bias","Discussion","Final Exam"],["<a href='https://bbest.github.io/eds211-team/lab1_proposal.html'     target='_blank'>Species: explore<\/a>","Species: regress","Species: classify","Species: evaluate","","Communities: cluster","Communities: ordinate","Reserves: setup","Reserves: run","","iNat: subset","iNat: features","iNat: model","iNat: CNN","","GEE: RandomForest wetlands","GEE: cluster landcover","GEE: tensorflow objects","","",""],["<a href='https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs'     target='_blank'>Zhong et al. (2021)<\/a>","<a href='https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs'     target='_blank'>Elith & Leathwick (2009)<\/a>","","","","","","","","","","","","","","","","","","",""],["","","","","","1. Species (20 pts)","","2. Communities (10 pts)","","3. Reserves (10 pts)","","","","","","4. iNaturalist (20 pts)","","","","5. Google Earth Engine (15 pts)",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
-<h2 id="welcome-to-the-meds-distill-template">Welcome to the MEDS distill template</h2>
-<p>Welcome to the MEDS Course Website template! This template is made with <a href="https://rstudio.github.io/distill/">distill</a>, a package to build lightweight and robust websites in R. This method for creating a course website may make the most sense for MEDS teachers who are familiar with RStudio, R Markdown, git and GitHub (or who want to learn!). For those of you who do <em>not</em> want to create your website with distill in R, but still want a course website, check out <a href="https://course-in-a-box.p2pu.org/">Course-in-a-Box</a> to create a site with no prior coding experience.</p>
-<p>For those wanting to take the distill/R websites path: this template acts as both a starting point for your site, and place to learn basics ways to customize it (different topics currently populate the different modules, which I expect teachers will replace with different weeks or lessons or topics as useful for your courses).</p>
-<h3 id="some-starting-points">Some starting points:</h3>
+<h1 id="course-description">Course Description</h1>
+<p>Machine learning can help process big/complex data and extract knowledge. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include supervised learning (decision tree, random forest, support vector machines, neural networks) and unsupervised learning (clustering, dimensionality reduction, deep learning). Problems and exercises are framed within environmental science applications. The course will use programming languages like R and Python to support learning how to do advanced scientific programming to solve real environmental problems.</p>
+<h1 id="instructor">Instructor</h1>
+<p>Ben Best (ben@ecoquants.com)</p>
 <ul>
-<li><p>Follow along with the “Getting started with the MEDS distill template” (COMING SOON) instructions to set up your own distill website. Please reach out to Allison for help getting your website started, and submit problems and suggestions as issues <a href="https://github.com/allisonhorst/meds-distill-template">here</a>.</p></li>
-<li><p>The “Weekly materials” section of this template site can be updated with your course materials, but also in this template serves the additional purpose of showing you how to customize some things on your page.</p></li>
-<li><p>See the <a href="https://allisonhorst.github.io/EDS_212_essential-math/">EDS 212 Website</a> for an example of what a customized live course site can look like using this template.</p></li>
+<li><strong>Office hours</strong>: Tuesdays TBD on Zoom</li>
 </ul>
-<p style="color: #ba5e00">
-<b>TO UPDATE THIS PAGE:</b> Open and edit the <b>index.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!
-</p>
-<h2 id="course-description">Course description</h2>
-<p style="color: #ba5e00">
-<b>NOTE:</b> A lot of this home page information can be directly from your syllabus.
-</p>
-<p>Add your course description here.</p>
-<h2 id="teaching-team">Teaching team</h2>
-<p><strong>Instructor:</strong> Mike Wazowski (wazowski@monstersinc.org)</p>
+<h1 id="readings">Readings</h1>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+show
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/crsh/citr'>citr</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/citr/man/md_cite.html'>md_cite</a></span><span class='op'>(</span><span class='st'>"Bennett"</span>, bib_file<span class='op'>=</span><span class='st'>"eds211-team.bib"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
 <ul>
-<li><strong>Office:</strong> Closet 100</li>
-<li><strong>Office hours:</strong> Friday 9pm - 11pm</li>
-</ul>
-<p><strong>Teaching assistant:</strong> Boo (boo@monstersinc.org)</p>
+<li>Week 1:
 <ul>
-<li><strong>Office:</strong> Boo’s Room</li>
-<li><strong>Office hours:</strong> Saturday 7am - 8am</li>
+<li><span class="citation" data-cites="zhongMachineLearningNew2021"><a href="#ref-zhongMachineLearningNew2021" role="doc-biblioref">Zhong et al.</a> (<a href="#ref-zhongMachineLearningNew2021" role="doc-biblioref">2021</a>)</span></li>
+<li><span class="citation" data-cites="elithSpeciesDistributionModels2009"><a href="#ref-elithSpeciesDistributionModels2009" role="doc-biblioref">Elith and Leathwick</a> (<a href="#ref-elithSpeciesDistributionModels2009" role="doc-biblioref">2009</a>)</span></li>
+</ul></li>
 </ul>
-<h2 id="important-links">Important links</h2>
-<ul>
-<li><p>Link to full course syllabus (here is the <a href="https://docs.google.com/document/d/1b2CElvwKk-haEA1axY5KvTEBbiSPUf7dIRUNX7gCI6w/edit?usp=sharing">MEDS optional syllabus template</a>)</p></li>
-<li><p>Link to Code of Conduct (Bren / UCSB)</p></li>
-<li><p>Link to course GitHub Classroom, other essential resources</p></li>
-</ul>
-<h2 id="weekly-course-schedule">Weekly course schedule</h2>
-<ul>
-<li><strong>Lectures:</strong> MW 8am - 9:15am (Warehouse Room 1)</li>
-<li><strong>Labs:</strong> Th 10am - 12pm (Warehouse Room 2)</li>
-</ul>
-<h2 id="learning-objectives">Learning objectives</h2>
-<p>Condimentum id venenatis a condimentum. Ultricies mi quis hendrerit dolor magna eget est. Turpis egestas maecenas pharetra convallis. Sem nulla pharetra diam sit amet. Diam volutpat commodo sed egestas egestas fringilla. Mauris in aliquam sem fringilla ut morbi tincidunt augue interdum. Ornare massa eget egestas purus viverra accumsan in.</p>
-<ul>
-<li>Vulputate eu scelerisque felis imperdiet proin.</li>
-<li>Euismod nisi porta lorem mollis aliquam.</li>
-<li>Urna molestie at elementum eu facilisis sed odio morbi quis.</li>
-<li>Convallis a cras semper auctor neque. Semper quis lectus nulla at volutpat diam ut venenatis tellus.</li>
-</ul>
-<h2 id="course-requirements">Course requirements</h2>
-<h3 id="computing">Computing</h3>
-<ul>
-<li><p>Minimum device requirements</p></li>
-<li><p>Software requirements</p></li>
-<li><p>Account requirements</p></li>
-</ul>
-<h3 id="textbook">Textbook</h3>
-<ul>
-<li>Required textbook / information</li>
-</ul>
-<h3 id="other-requirements">Other requirements</h3>
-<ul>
-<li>Anything else</li>
-<li>Important for students to know</li>
-</ul>
-<h2 id="tentative-topics">Tentative topics</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Week</th>
-<th>Lecture topics</th>
-<th>Lab topics</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>Topics</td>
-<td>Topics</td>
-</tr>
-</tbody>
-</table>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-elithSpeciesDistributionModels2009" class="csl-entry" role="doc-biblioentry">
+Elith, Jane, and John R. Leathwick. 2009. <span>“Species <span>Distribution Models</span>: <span>Ecological Explanation</span> and <span>Prediction Across Space</span> and <span>Time</span>.”</span> <em>Annu. Rev. Ecol. Evol. Syst.</em> 40 (1): 677–97. <a href="https://doi.org/10.1146/annurev.ecolsys.110308.120159">https://doi.org/10.1146/annurev.ecolsys.110308.120159</a>.
+</div>
+<div id="ref-zhongMachineLearningNew2021" class="csl-entry" role="doc-biblioentry">
+Zhong, Shifa, Kai Zhang, Majid Bagheri, Joel G. Burken, April Gu, Baikun Li, Xingmao Ma, et al. 2021. <span>“Machine <span>Learning</span>: <span>New Ideas</span> and <span>Tools</span> in <span>Environmental Science</span> and <span>Engineering</span>.”</span> <em>Environ. Sci. Technol.</em> 55 (19): 12741–54. <a href="https://doi.org/10.1021/acs.est.1c01339">https://doi.org/10.1021/acs.est.1c01339</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2683,7 +2622,10 @@ Figure 1: Update this image by dropping your new image into the img folder of th
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

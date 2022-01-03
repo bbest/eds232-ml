@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,27 +85,28 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: Course resources</title>
+  <title>EDS 232: Resources</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: Course resources"/>
+  <meta property="og:title" content="EDS 232: Resources"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: Course resources"/>
+  <meta property="twitter:title" content="EDS 232: Resources"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["Course resources"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["Resources"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -452,7 +453,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1859,7 +1860,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2439,7 +2443,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2459,7 +2463,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Course resources","authors":[]}
+{"title":"Resources","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2473,24 +2477,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="index.html">Home</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
-Topics
+Labs
  
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="topic_1.html">Topic 1: Add a new site page</a>
-<a href="topic_2.html">Topic 2: Update site title &amp; subtitle</a>
-<a href="topic_3.html">Topic 3: Add images</a>
-<a href="topic_4.html">Topic 4: Change the theme</a>
-<a href="topic_5.html">Topic 5: Basic formatting</a>
-<a href="topic_6.html">Topic 6: Internal &amp; external links</a>
-<a href="topic_7.html">Topic 7: Remove tables of contents</a>
-<a href="topic_8.html">Topic 8: Add a dropdown menu from navigation bar item</a>
-<a href="topic_9.html">Topic 9: Change site fonts</a>
-<a href="topic_10.html">Topic 10: Add a table</a>
+<a href="lab1_sdm.html">1. Species Distribution Modeling</a>
 </div>
 </div>
-<a href="assignments.html">Assignments</a>
+<a href="glossary.html">Glosssary</a>
 <a href="resources.html">Resources</a>
 <a href="https://github.com/bbest/eds232-ml">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2504,7 +2499,7 @@ Topics
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Course resources</h1>
+<h1>Resources</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2516,17 +2511,30 @@ Topics
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#more-on-distill">More on <code>distill</code></a></li>
+<li><a href="#books">Books</a></li>
+<li><a href="#courses">Courses</a></li>
 </ul>
 </nav>
 </div>
-<p style="color: #ba5e00">
-<b>TO UPDATE THIS PAGE:</b> Open and edit the <b>resources.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!
-</p>
-<h3 id="more-on-distill">More on <code>distill</code></h3>
+<h1 id="books">Books</h1>
 <ul>
-<li>RStudio’s <a href="https://rstudio.github.io/distill/"><code>distill</code> website</a></li>
-<li>Inspiration and examples from the <a href="https://distillery.rbind.io/showcase.html">distillery</a></li>
+<li>ML
+<ul>
+<li><a href="https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems | Amazon</a></li>
+<li><a href="https://www.amazon.com/Machine-Learning-techniques-predictive-modeling/dp/1788295862">Machine Learning with R: Expert techniques for predictive modeling | Amazon</a></li>
+</ul></li>
+<li>ML &amp; Env
+<ul>
+<li><a href="https://link.springer.com/book/10.1007/978-3-319-96978-7">Machine Learning for Ecology and Sustainable Natural Resource Management | Springer</a></li>
+</ul></li>
+</ul>
+<h1 id="courses">Courses</h1>
+<ul>
+<li>ML
+<ul>
+<li><a href="https://www.coursera.org/learn/machine-learning">Machine Learning | Coursera</a></li>
+<li><a href="https://www.kaggle.com/learn">Courses | Kaggle</a></li>
+</ul></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

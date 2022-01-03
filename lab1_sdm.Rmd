@@ -1,0 +1,230 @@
+---
+title: 'Lab 1. Species Distribution Modeling'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = F)
+```
+
+# Learning Objectives {-}
+
+- Fetch species observations from the Global Biodiversity Information Facility (GBIF.org).
+
+## Overview
+
+This lab will introduce you to machine learning by predicting presence of a species of you choosing from observations and environmental data. We will largely follow guidance found at [Species distribution modeling | R Spatial](https://rspatial.org/raster/sdm/). 
+
+# Explore
+
+This first part of the lab involves fetching data for your species of interest, whether terrestrial or marine.
+
+## Install Packages
+
+```{r}
+if (!require(librarian)){
+  install.packages("librarian")
+  library(librarian)
+}
+librarian::shelf(
+  dismo, dplyr, DT, ggplot2, here, htmltools, leaflet, mapview, purrr, raster, readr, rgbif, rgdal, rJava, sdmpredictors, sf, spocc, tidyr)
+select <- dplyr::select
+
+dir_data <- here("data/sdm")
+dir.create(dir_data, showWarnings = F)
+```
+
+## Get Species Observations
+
+![](https://www.zooportraits.com/wp-content/uploads/2018/06/shutterstock_125014706.jpg)
+
+```{r}
+obs_csv <- file.path(dir_data, "obs.csv")
+obs_geo <- file.path(dir_data, "obs.geojson")
+
+# get species occurrence data from GBIF with coordinates
+(res <- spocc::occ(
+  query = 'Bradypus variegatus', 
+  from = 'gbif', has_coords = T))
+
+# extract data frame from result
+df <- res$gbif$data[[1]] 
+nrow(df) # number of rows
+
+# convert to points of observation from lon/lat columns in data frame
+obs <- df %>% 
+  sf::st_as_sf(
+    coords = c("longitude", "latitude"),
+    crs = st_crs(4326))
+
+readr::write_csv(df, obs_csv)
+sf::write_sf(obs, obs_geo)
+
+# show points on map
+mapview::mapview(obs, map.types = "Stamen.Terrain")
+```
+
+- **Code Tweak 1**. Swap your own species name, ie not `"Bradypus variegatus"`.
+
+- **Code Tweak 2**. Update your `occ()` function to return a maximum of 10,000 records. (Hint: `?occ`)
+
+- **Code Tweak 3**. Swap out the base map with a different basemap provider other than `Stamen.Terrain`. View various options for [leaflet-providers](http://leaflet-extras.github.io/leaflet-providers/preview/). 
+
+- **Question 1**. How many observations total are in GBIF for your species? (Hint: `?occ`)
+
+- **Question 2**.  Do you see any odd observations, like marine species on land or vice versa? If so, please see the [Data Cleaning](
+https://rspatial.org/raster/sdm/2_sdm_occdata.html#data-cleaning) and explain what you did to fix or remove these points.
+
+<!-- 
+- **Question X**. Use the ‘rasterize’ function to create a raster of the number of observations and make a map. Use “wrld_simpl” from the maptools package for country boundaries.
+
+- **Question X**. Map the uncertainty associated with the georeferences. Some records in data returned by gbif have that. You can also extract it from the data returned by the geocode function.
+-->
+
+## Get Environmental Data
+
+Next, you'll use the Species Distribution Model predictors R package `sdmpredictors` to get underlying environmental data for your observations. First you'll get underlying environmental data for predicting the niche on the species observations. Then you'll generate pseudo-absence points with which to sample the environment. The model will differentiate the environment of the presence points from the pseudo-absence points.
+
+### Presence
+
+```{r}
+dir_env <- file.path(dir_data, "env")
+
+# set a default data directory
+options(sdmpredictors_datadir = dir_env)
+
+# choosing terrestrial
+env_datasets <- sdmpredictors::list_datasets(terrestrial = TRUE, marine = FALSE)
+
+# show table of datasets
+env_datasets %>% 
+  select(dataset_code, description, citation) %>% 
+  DT::datatable()
+
+# choose datasets for a vector
+env_datasets_vec <- c("WorldClim", "ENVIREM")
+
+# get layers
+env_layers <- sdmpredictors::list_layers(env_datasets_vec)
+DT::datatable(env_layers)
+
+# choose layers after some inspection and perhaps consulting literature
+env_layers_vec <- c("WC_alt", "WC_bio1", "WC_bio2", "ER_tri", "ER_topoWet")
+
+# get layers
+env_stack <- load_layers(env_layers_vec)
+
+# interactive plot layers, hiding all but first (select others)
+mapview(env_stack, hide = T)
+```
+
+Notice how the extent is currently global for the layers. Let's crop the environmental rasters to a reasonable study area around our species observations.
+
+```{r}
+obs_hull_geo <- file.path(dir_data, "obs_hull.geojson")
+
+# make convex hull around points of observation
+obs_hull <- sf::st_convex_hull(st_union(obs))
+
+# show points on map
+mapview(
+  list(obs, obs_hull))
+
+# save obs hull
+write_sf(obs_hull, obs_hull_geo)
+
+obs_hull_sp <- sf::as_Spatial(obs_hull)
+
+env_stack <- raster::mask(env_stack, obs_hull_sp) %>% 
+  raster::crop(extent(obs_hull_sp))
+
+mapview(obs) + 
+  mapview(env_stack, hide = T)
+```
+
+### Pseudo-Absence
+
+```{r}
+absence_geo <- file.path(dir_data, "absence.geojson")
+pts_geo     <- file.path(dir_data, "pts.geojson")
+pts_env_csv <- file.path(dir_data, "pts_env.csv")
+
+# get raster count of observations
+r_obs <- rasterize(
+  sf::as_Spatial(obs), env_stack[[1]], field=1, fun='count')
+
+mapview(obs) + 
+  mapview(r_obs)
+
+# create mask for 
+r_mask <- mask(env_stack[[1]] > -Inf, r_obs, inverse=T)
+
+absence <- dismo::randomPoints(r_mask, nrow(obs)) %>% 
+  as_tibble() %>% 
+  st_as_sf(coords = c("x", "y"), crs = 4326)
+
+mapview(obs, col.regions = "green") + 
+  mapview(absence, col.regions = "gray")
+
+# combine presence and absence into single set of labeled points 
+pts <- rbind(
+  obs %>% 
+    mutate(
+      present = 1) %>% 
+    select(present),
+  absence %>% 
+    mutate(
+      present = 0)) %>% 
+  mutate(
+    ID = 1:n()) %>% 
+  relocate(ID)
+write_sf(pts, pts_geo)
+
+# extract raster values for points
+pts_env <- raster::extract(env_stack, as_Spatial(pts), df=TRUE) %>% 
+  tibble() %>% 
+  # join present and geometry columns to raster value results for points
+  left_join(
+    pts %>% 
+      select(ID, present),
+    by = "ID") %>% 
+  relocate(present, .after = ID) %>% 
+  # extract lon, lat as single columns
+  mutate(
+    #present = factor(present),
+    lon = st_coordinates(geometry)[,1],
+    lat = st_coordinates(geometry)[,2]) %>% 
+  select(-geometry)
+
+write_csv(pts_env, pts_env_csv)
+```
+
+## Term Plots
+
+```{r}
+pts_env %>% 
+  select(-ID) %>% 
+  mutate(
+    present = factor(present)) %>% 
+  pivot_longer(-present) %>% 
+  ggplot() +
+  geom_density(aes(x = value, fill = present)) + 
+  scale_fill_manual(values = alpha(c("gray", "green"), 0.5)) +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+  theme_bw() + 
+  facet_wrap(~name, scales = "free") +
+  theme(
+    legend.position = c(1, 0),
+    legend.justification = c(1, 0))
+```
+
+<!--
+
+# Ensemble
+
+Maybe zoon R package.
+
+-->
+

@@ -1,113 +1,46 @@
 ---
 title: "EDS 232: Machine Learning in Environmental Science"
-description: "A minimal website skeleton and theme for MEDS course with distill (by RStudio)"
-site: distill::distill_website
+bibliography: ["ml-env.bib"]
+output:
+  distill::distill_article:
+    pandoc_args: null
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
 ```
 
-```{r, out.width = "100%", fig.cap = "Update this image by dropping your new image into the img folder of the project, then open the index.Rmd & change the path to point to the new image. Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (https://unsplash.com/photos/35Z2ylLRCO8)."}
+> “Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.”
+-- Stephen Hawking.
 
-# UPDATE IMAGE HERE 
-# or copy/paste this code elsewhere, updating the file path, to add other images to your site!
-knitr::include_graphics("img/usgs_sat.jpeg")
+# Course Schedule
+
+- **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
+
+```{r}
+source(here::here("_functions.R"))
+get_sched() %>% 
+  dt_sched()
 ```
 
-## Welcome to the MEDS distill template
+# Course Description
 
-Welcome to the MEDS Course Website template! This template is made with [distill](https://rstudio.github.io/distill/), a package to build lightweight and robust websites in R. This method for creating a course website may make the most sense for MEDS teachers who are familiar with RStudio, R Markdown, git and GitHub (or who want to learn!). For those of you who do *not* want to create your website with distill in R, but still want a course website, check out [Course-in-a-Box](https://course-in-a-box.p2pu.org/) to create a site with no prior coding experience.
+Machine learning can help process big/complex data and extract knowledge. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include supervised learning (decision tree, random forest, support vector machines, neural networks) and unsupervised learning (clustering, dimensionality reduction, deep learning). Problems and exercises are framed within environmental science applications. The course will use programming languages like R and Python to support learning how to do advanced scientific programming to solve real environmental problems.
 
-For those wanting to take the distill/R websites path: this template acts as both a starting point for your site, and place to learn basics ways to customize it (different topics currently populate the different modules, which I expect teachers will replace with different weeks or lessons or topics as useful for your courses). 
+# Instructor
 
-### Some starting points:
+Ben Best (ben\@ecoquants.com)
 
-- Follow along with the "Getting started with the MEDS distill template" (COMING SOON) instructions to set up your own distill website. Please reach out to Allison for help getting your website started, and submit problems and suggestions as issues [here](https://github.com/allisonhorst/meds-distill-template). 
+- **Office hours**: Tuesdays TBD on Zoom
 
-- The "Weekly materials" section of this template site can be updated with your course materials, but also in this template serves the additional purpose of showing you how to customize some things on your page.
+# Readings
 
-- See the [EDS 212 Website](https://allisonhorst.github.io/EDS_212_essential-math/) for an example of what a customized live course site can look like using this template.
+```{r, eval=F}
+library(citr)
+md_cite("Bennett", bib_file="eds211-team.bib")
+```
 
-<p style="color: #ba5e00"><b>TO UPDATE THIS PAGE:</b> Open and edit the <b>index.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!</p>
+- Week 1:
+  * @zhongMachineLearningNew2021
+  * @elithSpeciesDistributionModels2009
 
-## Course description
-
-<p style="color: #ba5e00"><b>NOTE:</b> A lot of this home page information can be directly from your syllabus.</p>
-
-Add your course description here.
-
-## Teaching team
-
-**Instructor:** Mike Wazowski (wazowski\@monstersinc.org)
-
--   **Office:** Closet 100
--   **Office hours:** Friday 9pm - 11pm
-
-**Teaching assistant:** Boo (boo\@monstersinc.org)
-
--   **Office:** Boo's Room
--   **Office hours:** Saturday 7am - 8am
-
-## Important links
-
--   Link to full course syllabus (here is the [MEDS optional syllabus template](https://docs.google.com/document/d/1b2CElvwKk-haEA1axY5KvTEBbiSPUf7dIRUNX7gCI6w/edit?usp=sharing))
-
--   Link to Code of Conduct (Bren / UCSB)
-
--   Link to course GitHub Classroom, other essential resources
-
-## Weekly course schedule
-
--   **Lectures:** MW 8am - 9:15am (Warehouse Room 1)
--   **Labs:** Th 10am - 12pm (Warehouse Room 2)
-
-## Learning objectives
-
-Condimentum id venenatis a condimentum. Ultricies mi quis hendrerit dolor magna eget est. Turpis egestas maecenas pharetra convallis. Sem nulla pharetra diam sit amet. Diam volutpat commodo sed egestas egestas fringilla. Mauris in aliquam sem fringilla ut morbi tincidunt augue interdum. Ornare massa eget egestas purus viverra accumsan in.
-
--   Vulputate eu scelerisque felis imperdiet proin.
--   Euismod nisi porta lorem mollis aliquam.
--   Urna molestie at elementum eu facilisis sed odio morbi quis.
--   Convallis a cras semper auctor neque. Semper quis lectus nulla at volutpat diam ut venenatis tellus.
-
-## Course requirements
-
-### Computing
-
--   Minimum device requirements
-
--   Software requirements
-
--   Account requirements
-
-### Textbook
-
--   Required textbook / information
-
-### Other requirements
-
--   Anything else
--   Important for students to know
-
-## Tentative topics
-
-| Week | Lecture topics | Lab topics |
-|------|----------------|------------|
-| 1    | Topics         | Topics     |
-| 2    | Topics         | Topics     |
-| 3    | Topics         | Topics     |
-| 4    | Topics         | Topics     |
-| 5    | Topics         | Topics     |
-| 6    | Topics         | Topics     |
-| 7    | Topics         | Topics     |
-| 8    | Topics         | Topics     |
-| 9    | Topics         | Topics     |
-| 10   | Topics         | Topics     |

@@ -1,0 +1,97 @@
+---
+title: "Glossary"
+bibliography: ml-env.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+All definitions are from [@humphriesMachineLearningWildlife2018] unless otherwise referenced.
+
+-   **AUC** (Area under the ROC Curve)\
+    An evaluation metric for classification problems that consider a variety of classification thresholds. Values greater than 0.8 are considered 'good' in ecology.
+
+-   **back propogation**\
+    Mostly used in neural networks for performing gradient descent (see below) on neural networks. Basically, predictive error is calculated backwards through a neural network graph (the representation of the data flow through neural network nodes). See Rumelhart et al. (1986) for a good description.
+
+-   **bagging**\
+    Also known as bootstrap aggregating, it is an algorithm designed to reduce variance and over-fitting through model averaging. This is the meta-algorithm used in any random forests implementation. Many decision trees are grown (a forest) and can be over-learned (see over-fitting below). Individual trees might have high variance, but low bias. Averaging the predictions across the trees reduces the variance and thus reduces over-learning across the whole dataset.
+
+-   **big data**\
+    A term that describes large structured or un-structured datasets most commonly found in business, but extends into ecology through image recognition problems, or high resolution spatial modeling.
+
+-   **boosting**\
+    Boosting is a meta-algorithm used to minimize loss in a machine learning algorithm through iterative cross-validation. This is the meta-algorithm used in the generalized boosted regression modeling method (i.e., boosted regression trees). At each step, the predictive error is measured by cross validation, which is then used to inform the next step. This removes issues of over-learning because it is constantly testing itself to ensure predictive power does not decrease. The best model is selected by where the error has been minimized the most over the process.
+
+-   **categorical variable**\
+    A variable with a discrete qualitative value (e.g., names of cities, or months of the year). Sometimes, continuous variables can be broken down into categories for analysis; however, it is very difficult to create a continuous variable from a categorical one.
+
+-   **classification**\
+    A category of supervised learning that takes an input and predicts a class (i.e. a categorical variable). Mostly used for presence/absence modeling in ecology.
+
+-   **clustering**\
+    A method associated with unsupervised learning where the inherent groupings in a dataset are learned without any a priori input. For example, principal component analysis (PCA) is a type of unsupervised clustering algorithm.
+
+-   **continuous variable**\
+    A variable that can have an infinite number of values but within a range (e.g., a person's age is continuous).
+
+-   **data mining**\
+    The act of extracting useful information from structured or unstructured data from various sources. Some people use this as an analogy for machine learning, but they are separate, yet related fields. For example, using a machine learning algorithm to automatically download information from the internet could be considered data mining. Unsupervised learning could also be considered data mining, and some machine learning algorithms take advantage of this to build models.
+
+-   **data science**\
+    The study of data analysis, algorithmic development and technology to solve analytical problems. Many ecologists actually classify as data scientists (without even knowing it); particularly those with a quantitative background and strong programming skills.
+
+-   **decision tree**\
+    A type of supervised learning that is mostly used in classification problems but can be extended to regression. This is also known in the ecological literature as CART (classification and regression trees) and is the basis for algorithms like generalized boosted regression modeling (gbm), TreeNet, or random forests.
+
+-   **deep learning**\
+    Deep learning is advanced machine learning using neural nets for a variety of purposes. It uses vast amounts of data but can output highly flexible and realistic results for simultaneous model outputs. Although not used in ecology yet (save for image recognition), there are vast implications for ecosystem modeling.
+
+-   **dependent variable**\
+    The dependent variable is what is measured and is affected by the independent variables. Also known as: target variable, or response variable.
+
+-   **ensemble**\
+    A merger of the predictions from many models through methods like averaging.
+
+-   **frequentist statistics**\
+    Refers to statistics commonly used in ecology and elsewhere that are geared towards hypothesis testing and p-values. They aim to calculate the probability of an outcome of an event or experiment occurring again under the same conditions.
+
+-   **gradient descent**\
+    A technique to minimize the loss (e.g., root mean squared error) by computing the best combination of weights and biases in an iterative fashion. This is the basis for boosting.
+
+-   **holdout data**\
+    A dataset that is held back independently from the dataset used to build the model. Also known as the testing or validation data.
+
+-   **imputation**\
+    A technique used for handling missing data by filling in the gaps with either statistical metrics (mean or mode) or machine learning. In ecology, nearest neighbor observation imputation is sometimes used.
+
+-   **independent variable(s)**\
+    This is the variable or set of variables that affects the dependent variable. Also known as the predictor variable(s), covariate(s) or the explanatory variable(s)
+
+-   **loss**\
+    The measure of how bad a model is as defined by a loss function. In linear regression (for example), the loss function is typically the mean squared error.
+
+-   **machine learning**\
+    This refers to the techniques involved in dealing with vast and/or complex data by developing and running algorithms that learn without a priori knowledge or explicit programming. Machine learning methods are often referred to as black box, but we argue that this is not the case and that any machine learning algorithm is transparent when one takes the time to understand the underlying equations.
+
+-   **neural network**\
+    A model inspired by the human brain and neural connections. A neuron takes multiple input values and outputs a single value that is typically a weighted sum of the inputs. This is then passed on to the next neuron in the series.
+
+-   **over-fitting**\
+    This happens when a model matches training data so closely that it cannot make correct predictions to new data. We argue that the term "over-fitting" is often mis-used in a machine learning context. Fitting suggests that an equation is fit to a dataset in order to explain the relationship. However, in machine learning, this sort of fitting does not occur. Patterns in the data are generally learned by minimizing variance in data through splits or data averaging (e.g. regression trees or support vector machines). A more appropriate term would be "over-learning" or perhaps "over-training" (both used in the machine learning community) where functions describe data poorly and result into a poor prediction. However, algorithms that use back-propagation and cross-validation limit and, in some cases, eliminate over-learning. In species distribution modeling (using binary presence/absence data), this can be measured using AUC/ROC.
+
+-   **recursive partitioning**\
+    This is the technique used to create CARTs (i.e., CART is a type of recursive partitioning, but recursive partioning is not CART), and thus the offshoot algorithms (e.g., boosted regression trees and random forests). The method strives to correctly classify data by splitting it into sub-populations based on independent variables. Each sub-population can be split an infinite number of times, or until a threshold or criteria is reached. See Strobl et al. (2009) for a comprehensive overview.
+
+-   **supervised learning**\
+    This type of learning occurs when the algorithm consists of a dependent variable which is predicted from a series of independent variables.
+
+-   **testing set**\
+    See holdout set above. This is used to generate independent validation of the model. This can be done iteratively (as in boosting).
+
+-   **training set**\
+    This is the set of data that is used to build the model and is usually independent of the testing set. Could also be known as assessment data.
+
+-   **unsupervised learning**\
+    The goal of this technique is to model the underlying structure of the data in order to learn more about it without having a dependent variable. Clustering falls into this category

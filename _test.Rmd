@@ -1,0 +1,18 @@
+---
+title: 'Lab 1. Species Distribution Modeling'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T)
+```
+
+## Test
+
+```{r}
+2 + 2
+```
+
+
+

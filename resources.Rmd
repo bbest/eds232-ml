@@ -1,15 +1,25 @@
 ---
-title: "Course resources"
+title: "Resources"
+output:
+  distill::distill_article:
+    pandoc_args: null
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<p style="color: #ba5e00"><b>TO UPDATE THIS PAGE:</b> Open and edit the <b>resources.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!</p>
+# Books
 
-### More on `distill`
+- ML
+  * [Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems | Amazon](https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646)
+  * [Machine Learning with R: Expert techniques for predictive modeling | Amazon](https://www.amazon.com/Machine-Learning-techniques-predictive-modeling/dp/1788295862)
+- ML & Env
+  * [Machine Learning for Ecology and Sustainable Natural Resource Management | Springer](https://link.springer.com/book/10.1007/978-3-319-96978-7)
 
--   RStudio's [`distill` website](https://rstudio.github.io/distill/)
--   Inspiration and examples from the [distillery](https://distillery.rbind.io/showcase.html)
+# Courses
+
+- ML
+  * [Machine Learning | Coursera](https://www.coursera.org/learn/machine-learning)
+  * [Courses | Kaggle](https://www.kaggle.com/learn)
 
