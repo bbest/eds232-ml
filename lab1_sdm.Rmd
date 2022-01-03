@@ -5,37 +5,72 @@ editor_options:
 ---
 
 ```{r setup, include=F}
-knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(echo = T)
 ```
 
 # Learning Objectives {-}
 
-- Fetch species observations from the Global Biodiversity Information Facility (GBIF.org).
+- Explore
+  - Fetch species observations from the Global Biodiversity Information Facility (GBIF.org) using an R package that wraps a function around their API.
+  - Fetch environmental data for defining environmental relationship in the species distribution model (SDM).
+  - Generate pseudo-absences, or background, points with which to differentiate from the species presence points in the SDM.
+  - Extract underlying environmental data from points.
+  - Plot term plots of each environmental predictor with the species response.
 
-## Overview
+# Overview
 
-This lab will introduce you to machine learning by predicting presence of a species of you choosing from observations and environmental data. We will largely follow guidance found at [Species distribution modeling | R Spatial](https://rspatial.org/raster/sdm/). 
+This lab will introduce you to machine learning by predicting presence of a species of you choosing from observations and environmental data. We will largely follow guidance found at [Species distribution modeling | R Spatial ](https://rspatial.org/raster/sdm/) using slightly newer R packages and functions.
 
 # Explore
 
 This first part of the lab involves fetching data for your species of interest, whether terrestrial or marine.
 
+
 ## Install Packages
 
+You'll need to have the following R Software installed:
+
+- [R](https://cran.r-project.org)
+- [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+You're also encouraged to use [git](https://git-scm.com/downloads) to version your software, ideally in a [Github](https://github.com) repository.
+
+You'll use the [`librarian::shelf()`](https://cran.r-project.org/web/packages/librarian/vignettes/intro-to-librarian.html) function to load required software packages, installing them if needed.
+
 ```{r}
+# load packages, installing if missing
 if (!require(librarian)){
   install.packages("librarian")
   library(librarian)
 }
 librarian::shelf(
   dismo, dplyr, DT, ggplot2, here, htmltools, leaflet, mapview, purrr, raster, readr, rgbif, rgdal, rJava, sdmpredictors, sf, spocc, tidyr)
-select <- dplyr::select
+select <- dplyr::select # overwrite raster::select
 
+# set random seed for reproducibility
+set.seed(42)
+
+# directory to store data
 dir_data <- here("data/sdm")
 dir.create(dir_data, showWarnings = F)
 ```
 
+## Choose a Species
+
+Please enter your species of choice for this lab here:
+
+* [Lab 1. Choose Species](
+https://docs.google.com/spreadsheets/d/1GQsLzo2q2zwu-86RTdBYk6ekcbzMOi1PU35MWghCBsY/edit?usp=sharing) Google Form
+
+Be sure to check nobody already chose this species here:
+
+* [Lab 1. Choose Species (Responses)](https://docs.google.com/spreadsheets/d/1GQsLzo2q2zwu-86RTdBYk6ekcbzMOi1PU35MWghCBsY/edit?resourcekey#gid=454637140) Google Sheet
+
+I also highly recommend choosing a species with at least 100 occurrences (try code below first).
+
 ## Get Species Observations
+
+For illustrative purposes, I'll choose the Brown-throated sloth (_Bradypus variegatus_) since we're going to start slow with Machine Learning.
 
 ![](https://www.zooportraits.com/wp-content/uploads/2018/06/shutterstock_125014706.jpg)
 

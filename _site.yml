@@ -5,8 +5,6 @@ description: |
 output_dir: "docs"
 navbar:
   right:
-    - text: "Home"
-      href: index.html
     - text: "Labs"
       menu:
         - text: "1. Species Distribution Modeling"
@@ -24,7 +22,7 @@ output:
     toc: true
     toc_float: true
     # toc_depth: 4
-    code_folding: "show"
+    # code_folding: "show"
     pandoc_args: ["--number-sections"]
 theme: theme.css
 include: [".nojekyll"]
