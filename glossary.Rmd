@@ -63,7 +63,7 @@ All definitions are from [@humphriesMachineLearningWildlife2018] unless otherwis
 -   **holdout data**\
     A dataset that is held back independently from the dataset used to build the model. Also known as the testing or validation data.
 
--   **imputation**\
+-   **imputation**<a name="imputation"></a>\
     A technique used for handling missing data by filling in the gaps with either statistical metrics (mean or mode) or machine learning. In ecology, nearest neighbor observation imputation is sometimes used.
 
 -   **independent variable(s)**\

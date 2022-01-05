@@ -26,7 +26,7 @@ get_sched() %>%
 
 # Course Description
 
-Machine learning can help process big/complex data and extract knowledge. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include supervised learning (decision tree, random forest, support vector machines, neural networks) and unsupervised learning (clustering, dimensionality reduction, deep learning). Problems and exercises are framed within environmental science applications. The course will use programming languages like R and Python to support learning how to do advanced scientific programming to solve real environmental problems.
+Machine learning can help process big complex data and extract knowledge. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include supervised learning (decision tree, random forest, support vector machines, neural networks) and unsupervised learning (clustering, dimensionality reduction, deep learning). Problems and exercises are framed within environmental science applications. The course will use programming languages like R and Python to support learning how to do advanced scientific programming to solve real environmental problems.
 
 # Instructor
 

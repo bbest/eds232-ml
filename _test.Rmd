@@ -4,36 +4,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-# citr
-
-```{r, eval=F}
-library("citr")
-md_cite("Zhong 2021", bib_file = "ml-env.bib", in_paren=F)
-```
-
-
-# RefManageR
-
-```{r setup, include = FALSE, cache = FALSE, eval=F}
-library(RefManageR)
-bib <- ReadBib("ml-env.bib", check = FALSE)
-BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "numeric")
-
-# Citet(bib, "zhongMachineLearningNew2021", .opts = list(longnamesfirst = FALSE, hyperlink = "to.doc", super = TRUE))
-NoCite(bib, "zhongMachineLearningNew2021")
-```
-
-# References
-
-```{r results = "asis", echo = FALSE}
-library(RefManageR)
-bib <- ReadBib("ml-env.bib", check = FALSE)
-BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "authoryear")
-
-NoCite(bib, "zhongMachineLearningNew2021")
-NoCite(bib, "elithSpeciesDistributionModels2009")
-
-PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
-```
-
-
+Test $present \sim .$ this.
