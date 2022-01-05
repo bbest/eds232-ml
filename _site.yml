@@ -7,8 +7,10 @@ navbar:
   right:
     - text: "Labs"
       menu:
-        - text: "1. Species Distribution Modeling"
-          href: lab1_sdm.html
+        - text: "1a. Species Distribution Modeling - Explore"
+          href: lab1_sdm-explore.html
+        - text: "1b. Species Distribution Modeling - Regression"
+          href: lab1_sdm-regress.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"

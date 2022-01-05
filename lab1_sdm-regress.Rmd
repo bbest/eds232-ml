@@ -84,8 +84,8 @@ knitr::include_graphics("https://docs.google.com/drawings/d/e/2PACX-1vRRvQdrDELT
 mdl <- lm(present ~ ., data = d)
 summary(mdl)
 
-y_predict <- predict(mdl, pts_env, type="response")
-y_true    <- pts_env$present
+y_predict <- predict(mdl, d, type="response")
+y_true    <- d$present
 
 range(y_predict)
 range(y_true)
@@ -120,7 +120,7 @@ Excellent, our response is now constrained between 0 and 1. Next, let's look at 
 
 ```{r termplots glm}
 # show term plots
-termplot(mdl, partial.resid = TRUE, se = TRUE, main = F)
+termplot(mdl, partial.resid = TRUE, se = TRUE, main = F, ylim="free")
 ```
 
 ## Generalized Additive Model
