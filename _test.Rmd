@@ -4,20 +4,36 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=F}
-knitr::opts_chunk$set(echo = T)
+# citr
 
-pts_env <- readr::read_csv("data/sdm/pts_env.csv")
+```{r, eval=F}
+library("citr")
+md_cite("Zhong 2021", bib_file = "ml-env.bib", in_paren=F)
 ```
 
-- `y` is the `present` column with values of `1` (present) or `0` (absent)
-- `x` is all other columns: `r paste(setdiff(names(pts_env), c("present", "ID")), collapse = ", ")`
 
-## Test
+# RefManageR
 
-```{r}
-2 + 2
+```{r setup, include = FALSE, cache = FALSE, eval=F}
+library(RefManageR)
+bib <- ReadBib("ml-env.bib", check = FALSE)
+BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "numeric")
+
+# Citet(bib, "zhongMachineLearningNew2021", .opts = list(longnamesfirst = FALSE, hyperlink = "to.doc", super = TRUE))
+NoCite(bib, "zhongMachineLearningNew2021")
 ```
 
+# References
+
+```{r results = "asis", echo = FALSE}
+library(RefManageR)
+bib <- ReadBib("ml-env.bib", check = FALSE)
+BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "authoryear")
+
+NoCite(bib, "zhongMachineLearningNew2021")
+NoCite(bib, "elithSpeciesDistributionModels2009")
+
+PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
+```
 
 

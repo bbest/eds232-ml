@@ -28,19 +28,19 @@ dt_sched <- function(d_sched){
         ifelse(
           is.na(Lab_link),
           Lab,
-          glue::glue("<a href='{Lab_link}'     target='_blank'>{Lab}</a>"))),
-      Reading = ifelse(
-        is.na(Reading),
+          glue::glue("<a href='{Lab_link}' target='_blank'>{Lab}</a>"))),
+      `Reading *` = ifelse(
+        is.na(`Reading *`),
         "",
         ifelse(
           is.na(Reading_link),
-          Reading,
-          glue::glue("<a href='{Reading_link}'     target='_blank'>{Reading}</a>"))),
+          `Reading *`,
+          glue::glue("<a href='{Reading_link}' target='_blank'>{`Reading *`}</a>"))),
       `Lab Due` = ifelse(
         is.na(`Lab Due`),
         "",
         glue::glue("{`Lab Due`} ({`Lab Pts`} pts)"))) %>%
-    select(Week, Date, Module, Lecture, Lab, Reading, `Lab Due`)
+    select(Week, Date, Module, Lecture, Lab, `Reading *`, `Lab Due`)
 
   i_mod <- which(names(d_sched) == "Module") - 1
 

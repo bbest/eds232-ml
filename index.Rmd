@@ -17,11 +17,12 @@ knitr::opts_chunk$set(echo = F)
 
 - **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
 
-```{r}
+```{r schedule}
 source(here::here("_functions.R"))
 get_sched() %>% 
   dt_sched()
 ```
+\* NOTE: Reading PDFs are in a Google Drive folder requiring a UCSB Google login for access to prevent copyright infringement. The full reference with source DOI link are listed below under [Readings](#readings).
 
 # Course Description
 
@@ -35,12 +36,14 @@ Ben Best (ben\@ecoquants.com)
 
 # Readings
 
-```{r, eval=F}
-library(citr)
-md_cite("Bennett", bib_file="eds211-team.bib")
-```
+```{r references, results = "asis", echo = FALSE}
+librarian::shelf(RefManageR)
+bib <- ReadBib("ml-env.bib", check = FALSE)
+BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "authoryear")
 
-- Week 1:
-  * @zhongMachineLearningNew2021
-  * @elithSpeciesDistributionModels2009
+NoCite(bib, "zhongMachineLearningNew2021")
+NoCite(bib, "elithSpeciesDistributionModels2009")
+
+PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
+```
 

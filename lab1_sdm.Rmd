@@ -33,11 +33,11 @@ You'll need to have the following R Software installed:
 - [R](https://cran.r-project.org)
 - [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
 
-You're also encouraged to use [git](https://git-scm.com/downloads) to version your software, ideally in a [Github](https://github.com) repository.
+You're also encouraged to use [git](https://git-scm.com/downloads) to version your code, ideally in a [Github](https://github.com) repository.
 
 You'll use the [`librarian::shelf()`](https://cran.r-project.org/web/packages/librarian/vignettes/intro-to-librarian.html) function to load required software packages, installing them if needed.
 
-```{r}
+```{r packages vars}
 # load packages, installing if missing
 if (!require(librarian)){
   install.packages("librarian")
@@ -46,6 +46,7 @@ if (!require(librarian)){
 librarian::shelf(
   dismo, dplyr, DT, ggplot2, here, htmltools, leaflet, mapview, purrr, raster, readr, rgbif, rgdal, rJava, sdmpredictors, sf, spocc, tidyr)
 select <- dplyr::select # overwrite raster::select
+options(readr.show_col_types = FALSE)
 
 # set random seed for reproducibility
 set.seed(42)
@@ -87,27 +88,31 @@ For illustrative purposes, I'll choose the Brown-throated sloth (_Bradypus varie
 
 ![](img/lab1_sdm/sloth_shutterstock_125014706.jpeg)
 
-```{r}
+```{r get obs}
 obs_csv <- file.path(dir_data, "obs.csv")
 obs_geo <- file.path(dir_data, "obs.geojson")
+redo    <- FALSE
 
-# get species occurrence data from GBIF with coordinates
-(res <- spocc::occ(
-  query = 'Bradypus variegatus', 
-  from = 'gbif', has_coords = T))
-
-# extract data frame from result
-df <- res$gbif$data[[1]] 
-nrow(df) # number of rows
-
-# convert to points of observation from lon/lat columns in data frame
-obs <- df %>% 
-  sf::st_as_sf(
-    coords = c("longitude", "latitude"),
-    crs = st_crs(4326))
-
-readr::write_csv(df, obs_csv)
-sf::write_sf(obs, obs_geo)
+if (!file.exists(obs_geo) | redo){
+  # get species occurrence data from GBIF with coordinates
+  (res <- spocc::occ(
+    query = 'Bradypus variegatus', 
+    from = 'gbif', has_coords = T))
+  
+  # extract data frame from result
+  df <- res$gbif$data[[1]] 
+  readr::write_csv(df, obs_csv)
+  
+  # convert to points of observation from lon/lat columns in data frame
+  obs <- df %>% 
+    sf::st_as_sf(
+      coords = c("longitude", "latitude"),
+      crs = st_crs(4326)) %>% 
+    select(prov, key) # save space (joinable from obs_csv)
+  sf::write_sf(obs, obs_geo, delete_dsn=T)
+}
+obs <- sf::read_sf(obs_geo)
+nrow(obs) # number of rows
 
 # show points on map
 mapview::mapview(obs, map.types = "Stamen.Terrain")
@@ -136,7 +141,7 @@ Next, you'll use the Species Distribution Model predictors R package `sdmpredict
 
 ### Presence
 
-```{r}
+```{r get env}
 dir_env <- file.path(dir_data, "env")
 
 # set a default data directory
@@ -164,106 +169,131 @@ env_layers_vec <- c("WC_alt", "WC_bio1", "WC_bio2", "ER_tri", "ER_topoWet")
 env_stack <- load_layers(env_layers_vec)
 
 # interactive plot layers, hiding all but first (select others)
-mapview(env_stack, hide = T)
+# mapview(env_stack, hide = T) # makes the html too big for Github
+plot(env_stack, nc=2)
 ```
 
 Notice how the extent is currently global for the layers. Let's crop the environmental rasters to a reasonable study area around our species observations.
 
-```{r}
-obs_hull_geo <- file.path(dir_data, "obs_hull.geojson")
+```{r clip env_raster}
+obs_hull_geo  <- file.path(dir_data, "obs_hull.geojson")
+env_stack_grd <- file.path(dir_data, "env_stack.grd")
 
-# make convex hull around points of observation
-obs_hull <- sf::st_convex_hull(st_union(obs))
+if (!file.exists(obs_hull_geo) | redo){
+  # make convex hull around points of observation
+  obs_hull <- sf::st_convex_hull(st_union(obs))
+  
+  # save obs hull
+  write_sf(obs_hull, obs_hull_geo)
+}
+obs_hull <- read_sf(obs_hull_geo)
 
 # show points on map
 mapview(
   list(obs, obs_hull))
 
-# save obs hull
-write_sf(obs_hull, obs_hull_geo)
+if (!file.exists(env_stack_grd) | redo){
+  obs_hull_sp <- sf::as_Spatial(obs_hull)
+  env_stack <- raster::mask(env_stack, obs_hull_sp) %>% 
+    raster::crop(extent(obs_hull_sp))
+  writeRaster(env_stack, env_stack_grd, overwrite=T)  
+}
+env_stack <- stack(env_stack_grd)
 
-obs_hull_sp <- sf::as_Spatial(obs_hull)
-
-env_stack <- raster::mask(env_stack, obs_hull_sp) %>% 
-  raster::crop(extent(obs_hull_sp))
-
-mapview(obs) + 
-  mapview(env_stack, hide = T)
+# show map
+# mapview(obs) + 
+#   mapview(env_stack, hide = T) # makes html too big for Github
+plot(env_stack, nc=2)
 ```
 
 ### Pseudo-Absence
 
-```{r}
+```{r make absence pts}
 absence_geo <- file.path(dir_data, "absence.geojson")
 pts_geo     <- file.path(dir_data, "pts.geojson")
 pts_env_csv <- file.path(dir_data, "pts_env.csv")
 
-# get raster count of observations
-r_obs <- rasterize(
-  sf::as_Spatial(obs), env_stack[[1]], field=1, fun='count')
+if (!file.exists(absence_geo) | redo){
+  # get raster count of observations
+  r_obs <- rasterize(
+    sf::as_Spatial(obs), env_stack[[1]], field=1, fun='count')
+  
+  # show map
+  # mapview(obs) + 
+  #   mapview(r_obs)
+  
+  # create mask for 
+  r_mask <- mask(env_stack[[1]] > -Inf, r_obs, inverse=T)
+  
+  # generate random points inside mask
+  absence <- dismo::randomPoints(r_mask, nrow(obs)) %>% 
+    as_tibble() %>% 
+    st_as_sf(coords = c("x", "y"), crs = 4326)
+  
+  write_sf(absence, absence_geo, delete_dsn=T)
+}
+absence <- read_sf(absence_geo)
 
-mapview(obs) + 
-  mapview(r_obs)
-
-# create mask for 
-r_mask <- mask(env_stack[[1]] > -Inf, r_obs, inverse=T)
-
-absence <- dismo::randomPoints(r_mask, nrow(obs)) %>% 
-  as_tibble() %>% 
-  st_as_sf(coords = c("x", "y"), crs = 4326)
-
+# show map of presence, ie obs, and absence
 mapview(obs, col.regions = "green") + 
   mapview(absence, col.regions = "gray")
 
-# combine presence and absence into single set of labeled points 
-pts <- rbind(
-  obs %>% 
-    mutate(
-      present = 1) %>% 
-    select(present),
-  absence %>% 
-    mutate(
-      present = 0)) %>% 
-  mutate(
-    ID = 1:n()) %>% 
-  relocate(ID)
-write_sf(pts, pts_geo)
+if (!file.exists(pts_env_csv) | redo){
 
-# extract raster values for points
-pts_env <- raster::extract(env_stack, as_Spatial(pts), df=TRUE) %>% 
-  tibble() %>% 
-  # join present and geometry columns to raster value results for points
-  left_join(
-    pts %>% 
-      select(ID, present),
-    by = "ID") %>% 
-  relocate(present, .after = ID) %>% 
-  # extract lon, lat as single columns
-  mutate(
-    #present = factor(present),
-    lon = st_coordinates(geometry)[,1],
-    lat = st_coordinates(geometry)[,2]) %>% 
-  select(-geometry)
+  # combine presence and absence into single set of labeled points 
+  pts <- rbind(
+    obs %>% 
+      mutate(
+        present = 1) %>% 
+      select(present, key),
+    absence %>% 
+      mutate(
+        present = 0,
+        key     = NA)) %>% 
+    mutate(
+      ID = 1:n()) %>% 
+    relocate(ID)
+  write_sf(pts, pts_geo, delete_dsn=T)
 
-write_csv(pts_env, pts_env_csv)
+  # extract raster values for points
+  pts_env <- raster::extract(env_stack, as_Spatial(pts), df=TRUE) %>% 
+    tibble() %>% 
+    # join present and geometry columns to raster value results for points
+    left_join(
+      pts %>% 
+        select(ID, present),
+      by = "ID") %>% 
+    relocate(present, .after = ID) %>% 
+    # extract lon, lat as single columns
+    mutate(
+      #present = factor(present),
+      lon = st_coordinates(geometry)[,1],
+      lat = st_coordinates(geometry)[,2]) %>% 
+    select(-geometry)
+  write_csv(pts_env, pts_env_csv)
+}
+pts_env <- read_csv(pts_env_csv)
+
+pts_env %>% 
+  # show first 10 presence, last 10 absence
+  slice(c(1:10, (nrow(pts_env)-9):nrow(pts_env))) %>% 
+  DT::datatable(
+    rownames = F,
+    options = list(
+      dom = "t",
+      pageLength = 20))
 ```
 
-In the end this table is the **data** that feeds into our species distribution model, where:
+In the end this table is the **data** that feeds into our species distribution model (`y ~ X`), where:
 
 - `y` is the `present` column with values of `1` (present) or `0` (absent)
-- `x` is all other columns:  `r paste(setdiff(names(pts_env), c("present", "ID")), collapse = ", ")`
-
-```{r}
-pts_env %>% 
-  select(-ID) %>% 
-  DT::datatable()
-```
+- `X` is all other columns:  `r paste(setdiff(names(pts_env), c("present", "ID")), collapse = ", ")`
 
 ## Term Plots
 
-In the vein of exploratory data analyses, let's look at how differentiable the presence vs absence is for each predictor. A plot for a specific predictor and response is called a "term plot". In this case we'll look for predictors where the presence (present = `1`) occupies a distinct "niche" from the background absence points (present = `0`).
+In the vein of [exploratory data analyses](https://r4ds.had.co.nz/exploratory-data-analysis.html), before going into modeling let's look at the data. Specifically, let's look at how obviously differentiated is the presence versus absence for each predictor -- a more pronounced presence peak should make for a more confident model. A plot for a specific predictor and response is called a "term plot". In this case we'll look for predictors where the presence (present = `1`) occupies a distinct "niche" from the background absence points (present = `0`).
 
-```{r}
+```{r plot terms}
 pts_env %>% 
   select(-ID) %>% 
   mutate(
