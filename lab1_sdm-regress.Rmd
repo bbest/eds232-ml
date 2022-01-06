@@ -150,8 +150,11 @@ Maxent is probably the most commonly used species distribution model ([Elith 201
 librarian::shelf(
   maptools, sf)
 
+mdl_maxent_rds <- file.path(dir_data, "mdl_maxent.rds")
+
 # show version of maxent
-maxent()
+if (!interactive())
+  maxent()
 
 # get environmental rasters
 # NOTE: the first part of Lab 1. SDM - Explore got updated to write this clipped environmental raster stack
@@ -165,7 +168,11 @@ obs_sp <- read_sf(obs_geo) %>%
   sf::as_Spatial() # maxent prefers sp::SpatialPoints over newer sf::sf class
 
 # fit a maximum entropy model
-mdl <- maxent(env_stack, obs_sp)
+if (!file.exists(mdl_maxent_rds)){
+  mdl <- maxent(env_stack, obs_sp)
+  readr::write_rds(mdl, mdl_maxent_rds)
+}
+mdl <- read_rds(mdl_maxent_rds)
 
 # plot variable contributions per predictor
 plot(mdl)
