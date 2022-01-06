@@ -1,5 +1,5 @@
 librarian::shelf(
-  dplyr, DT, glue, googlesheets4, readr, stringr, tidyr)
+  dplyr, DT, glue, googlesheets4, htmltools, purrr, readr, shiny, stringr, tidyr)
 options(readr.show_col_types = F)
 
 # edit: * [schedule | eds232-ml - Google Sheets](https://docs.google.com/spreadsheets/d/1lolwZ2CNAtUkTWPauyPEe_oVMknqS2yVvfnB1fiErzQ/edit#gid=0)
@@ -14,14 +14,29 @@ get_sched <- function(){
 
 dt_sched <- function(d_sched){
   d <- d_sched %>%
+    # slice(1:3) %>%
     mutate(
+      lec_youtube = map_chr(
+        Lecture_youtube,
+        function(x){
+          if (is.na(x))
+            return("")
+          paste(
+            " ",
+            a(
+              icon('youtube'),
+              href   = x,
+              target = '_blank') %>%
+              as.character())
+        }), #) %>%
+      # select(Lecture_youtube, lec_youtube)
       Lecture = ifelse(
         is.na(Lecture),
         "",
         ifelse(
           is.na(Lecture_link),
           Lecture,
-          glue::glue("<a href='{Lecture_link}' target='_blank'>{Lecture}</a>"))),
+          glue::glue("<a href='{Lecture_link}' target='_blank'>{Lecture}</a>{lec_youtube}"))),
       Lab     = ifelse(
         is.na(Lab),
         "",
