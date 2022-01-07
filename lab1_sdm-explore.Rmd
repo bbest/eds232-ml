@@ -53,7 +53,7 @@ set.seed(42)
 
 # directory to store data
 dir_data <- here("data/sdm")
-dir.create(dir_data, showWarnings = F)
+dir.create(dir_data, showWarnings = F, recursive = T)
 ```
 
 If you have a problem installing the `rJava` package like so:
