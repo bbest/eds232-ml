@@ -1,6 +1,6 @@
 ---
 title: "EDS 232: Machine Learning in Environmental Science"
-bibliography: ["ml-env.bib"]
+#bibliography: ["ml-env.bib"]
 output:
   distill::distill_article:
     pandoc_args: null
@@ -10,18 +10,19 @@ output:
 knitr::opts_chunk$set(echo = F)
 ```
 
-> “Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.”
--- Stephen Hawking.
+> "Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone's list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last." -- Stephen Hawking.
 
 # Course Schedule
 
-- **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
+-   **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
+-   The Zoom link is shared in your Google Calendar invite and on the \#eds-232 Slack Channel for MEDS. It's not share publicly to avoid [Zoombombing](https://en.wikipedia.org/wiki/Zoombombing)
 
 ```{r schedule}
 source(here::here("_functions.R"))
 get_sched() %>% 
   dt_sched()
 ```
+
 \* NOTE: Reading PDFs are in a Google Drive folder requiring a UCSB Google login for access to prevent copyright infringement. The full reference with source DOI link are listed below under [Readings](#readings).
 
 # Course Description
@@ -32,9 +33,24 @@ Machine learning enables predictions from big, complex data into actionable insi
 
 Ben Best (ben\@ecoquants.com)
 
-- **Office hours**: Tuesdays TBD on Zoom
+-   **Office hours**: Tuesdays TBD on Zoom
 
-# Readings
+# Grading
+
+The majority of points (100 total) will come from the labs. The exams will draw questions from lecture, lab and reading materials. Participation will be based on class attendance.
+
+| Type  | Item                    | Due         | Points |
+|-------|-------------------------|-------------|--------|
+| Lab   | 1\. Species             | Wed, Jan 19 | 20     |
+| Lab   | 2\. Communities         | Wed, Jan 26 | 10     |
+| Lab   | 3\. Reserves            | Wed, Feb 2  | 10     |
+| Exam  | Mid-Term                | Wed, Feb 2  | 10     |
+| Lab   | 4\. iNaturalist         | Wed, Feb 23 | 20     |
+| Lab   | 5\. Google Earth Engine | Wed, Mar 9  | 15     |
+| Exam  | Final                   | TBD         | 10     |
+| Other | Participation           |             | 5      |
+
+# Readings {#readings}
 
 ```{r references, results = "asis", echo = FALSE}
 librarian::shelf(RefManageR)
@@ -46,4 +62,3 @@ NoCite(bib, "elithSpeciesDistributionModels2009")
 
 PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
 ```
-

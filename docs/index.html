@@ -103,11 +103,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2526,6 +2525,7 @@ Labs
 <li><a href="#course-schedule">Course Schedule</a></li>
 <li><a href="#course-description">Course Description</a></li>
 <li><a href="#instructor">Instructor</a></li>
+<li><a href="#grading">Grading</a></li>
 <li><a href="#readings">Readings</a></li>
 </ul>
 </nav>
@@ -2536,10 +2536,11 @@ Labs
 <h1 id="course-schedule">Course Schedule</h1>
 <ul>
 <li><strong>Lectures/Labs</strong>: MW 9:30am - 10:45am on Zoom</li>
+<li>The Zoom link is shared in your Google Calendar invite and on the #eds-232 Slack Channel for MEDS. It’s not share publicly to avoid <a href="https://en.wikipedia.org/wiki/Zoombombing">Zoombombing</a></li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-fea6b42bfa5fc3513885" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fea6b42bfa5fc3513885">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9","TBD"],["Species","Species","Species","Species","Species","Communities","Communities","Reserves","Reserves","Mid-Term","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Google Earth Engine","Google Earth Engine","Google Earth Engine","Reflection","Reflection","Final"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>  <a href=\"https://youtu.be/KmQzGVx6lO8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing' target='_blank'>Logistic Regression<\/a>  <a href=\"https://youtu.be/5z5dcmHg1tY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","Decision Trees","Performance Evaluation","HOLIDAY","Biodiversity; Clustering","Ordination","Conservation Planning","Multi-criteria Optimization","Mid-Term Exam","Neural Networks","Computer Vision and Feature Generation","TensorFlow","Convolutional Neural Networks","HOLIDAY","GEE Supervised Classification","GEE Unsupervised Classification","GEE TensorFlow","Ethics, Justice and Bias","Expert Panel Discussion","Final Exam"],["<a href='https://bbest.github.io/eds232-ml/lab1_sdm-explore.html' target='_blank'>Species: explore<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1_sdm-regress.html' target='_blank'>Species: regress<\/a>","Species: classify","Species: evaluate","","Communities: cluster","Communities: ordinate","Reserves: setup","Reserves: run","","iNat: subset","iNat: features","iNat: model","iNat: CNN","","GEE: RandomForest wetlands","GEE: cluster landcover","GEE: tensorflow objects","","",""],["<a href='https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Zhong et al. (2021)<\/a>","<a href='https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Elith & Leathwick (2009)<\/a>","","","","","","","","","","","","","","","","","","",""],["","","","","","1. Species (20 pts)","","2. Communities (10 pts)","","3. Reserves (10 pts)","","","","","","4. iNaturalist (20 pts)","","","","5. Google Earth Engine (15 pts)",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading *<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0ce4eb4b50e1c1f81173" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0ce4eb4b50e1c1f81173">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9","TBD"],["Species","Species","Species","Species","Species","Communities","Communities","Reserves","Reserves","Mid-Term","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Google Earth Engine","Google Earth Engine","Google Earth Engine","Reflection","Reflection","Final"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>  <a href=\"https://youtu.be/KmQzGVx6lO8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing' target='_blank'>Logistic Regression<\/a>  <a href=\"https://youtu.be/5z5dcmHg1tY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","Decision Trees","Performance Evaluation","HOLIDAY","Biodiversity; Clustering","Ordination","Conservation Planning","Multi-criteria Optimization","Mid-Term Exam","Neural Networks","Computer Vision and Feature Generation","TensorFlow","Convolutional Neural Networks","HOLIDAY","GEE Supervised Classification","GEE Unsupervised Classification","GEE TensorFlow","Ethics, Justice and Bias","Expert Panel Discussion","Final Exam"],["<a href='https://bbest.github.io/eds232-ml/lab1_sdm-explore.html' target='_blank'>Species: explore<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1_sdm-regress.html' target='_blank'>Species: regress<\/a>","Species: classify","Species: evaluate","","Communities: cluster","Communities: ordinate","Reserves: setup","Reserves: run","","iNat: subset","iNat: features","iNat: model","iNat: CNN","","GEE: RandomForest wetlands","GEE: cluster landcover","GEE: tensorflow objects","","",""],["<a href='https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Zhong et al. (2021)<\/a>","<a href='https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Elith & Leathwick (2009)<\/a>","","","","","","","","","","","","","","","","","","",""],["","","","","","1. Species (20 pts)","","2. Communities (10 pts)","","3. Reserves (10 pts)","","","","","","4. iNaturalist (20 pts)","","","","5. Google Earth Engine (15 pts)",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading *<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <p>* NOTE: Reading PDFs are in a Google Drive folder requiring a UCSB Google login for access to prevent copyright infringement. The full reference with source DOI link are listed below under <a href="#readings">Readings</a>.</p>
 <h1 id="course-description">Course Description</h1>
@@ -2549,10 +2550,72 @@ Labs
 <ul>
 <li><strong>Office hours</strong>: Tuesdays TBD on Zoom</li>
 </ul>
+<h1 id="grading">Grading</h1>
+<p>The majority of points (100 total) will come from the labs. The exams will draw questions from lecture, lab and reading materials. Participation will be based on class attendance.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Item</th>
+<th>Due</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lab</td>
+<td>1. Species</td>
+<td>Wed, Jan 19</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Lab</td>
+<td>2. Communities</td>
+<td>Wed, Jan 26</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Lab</td>
+<td>3. Reserves</td>
+<td>Wed, Feb 2</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Exam</td>
+<td>Mid-Term</td>
+<td>Wed, Feb 2</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Lab</td>
+<td>4. iNaturalist</td>
+<td>Wed, Feb 23</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Lab</td>
+<td>5. Google Earth Engine</td>
+<td>Wed, Mar 9</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>Exam</td>
+<td>Final</td>
+<td>TBD</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Other</td>
+<td>Participation</td>
+<td></td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
 <h1 id="readings">Readings</h1>
 <div class="layout-chunk" data-layout="l-body">
-<p><a name=bib-elithSpeciesDistributionModels2009></a><a href="#cite-elithSpeciesDistributionModels2009">Elith, J. and J. R. Leathwick</a> (2009). “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time.” In: <em>Annu. Rev. Ecol. Evol. Syst.</em> 40.1, pp. 677-697. ISSN: 1543-592X. DOI: <a href="https://doi.org/10.1146%2Fannurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
-<p><a name=bib-zhongMachineLearningNew2021></a><a href="#cite-zhongMachineLearningNew2021">Zhong, S., K. Zhang, M. Bagheri, et al.</a> (2021). “Machine Learning: New Ideas and Tools in Environmental Science and Engineering.” In: <em>Environ. Sci. Technol.</em> 55.19, pp. 12741-12754. ISSN: 0013-936X. DOI: <a href="https://doi.org/10.1021%2Facs.est.1c01339">10.1021/acs.est.1c01339</a>.</p>
+<p><a name=bib-elithSpeciesDistributionModels2009></a><a href="#cite-elithSpeciesDistributionModels2009">Elith, J. and J. R. Leathwick</a> (2009). “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time”. In: <em>Annu. Rev. Ecol. Evol. Syst.</em> 40.1, pp. 677-697. ISSN: 1543-592X. DOI: <a href="https://doi.org/10.1146%2Fannurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
+<p><a name=bib-zhongMachineLearningNew2021></a><a href="#cite-zhongMachineLearningNew2021">Zhong, S., K. Zhang, M. Bagheri, et al.</a> (2021). “Machine Learning: New Ideas and Tools in Environmental Science and Engineering”. In: <em>Environ. Sci. Technol.</em> 55.19, pp. 12741-12754. ISSN: 0013-936X. DOI: <a href="https://doi.org/10.1021%2Facs.est.1c01339">10.1021/acs.est.1c01339</a>.</p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2566,10 +2629,7 @@ Labs
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
