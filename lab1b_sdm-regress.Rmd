@@ -141,6 +141,22 @@ summary(mdl)
 plot(mdl, scale=0)
 ```
 
+```{r gam-todo, eval=F, echo=F}
+# TODO: model selection ?mgcv::gam
+AIC(b0,bt) ## interaction worse than additive
+bt <- gam(y~s(x0)+s(x1)+s(x2)+s(x3)+ti(x1,x2,k=6),
+            data=dat,method="REML")
+bs <- gam(y~s(x0,x1,k=40)+s(x2)+s(x3),data=dat,
+          method="REML")
+AIC(b0,bt,bs) ## additive still better.
+## Now do automatic terms selection as well
+b1 <- gam(y~s(x0)+s(x1)+s(x2)+s(x3),data=dat,
+       method="REML",select=TRUE)
+
+# TODO: ?predict.gam
+pred <- predict.gam(mdl, newd)
+```
+
 ## Maxent (Maximum Entropy)
 
 Maxent is probably the most commonly used species distribution model ([Elith 2011](http://dx.doi.org/10.1111/j.1472-4642.2010.00725.x)) since it performs well with few input data points, only requires presence points (and samples background for comparison) and is easy to use with a Java graphical user interface (GUI).

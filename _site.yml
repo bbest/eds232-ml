@@ -8,9 +8,11 @@ navbar:
     - text: "Labs"
       menu:
         - text: "1a. Species Distribution Modeling - Explore"
-          href: lab1_sdm-explore.html
+          href: lab1a_sdm-explore.html
         - text: "1b. Species Distribution Modeling - Regression"
-          href: lab1_sdm-regress.html
+          href: lab1b_sdm-regress.html
+        - text: "1b. Species Distribution Modeling - Trees"
+          href: lab1c_sdm-trees.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"
@@ -28,4 +30,5 @@ output:
     pandoc_args: ["--number-sections"]
 theme: theme.css
 include: [".nojekyll"]
+exclude: ["local"]
 bibliography: ml-env.bib

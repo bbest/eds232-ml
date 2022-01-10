@@ -1,0 +1,186 @@
+---
+title: 'Lab 1c. Species Distribution Modeling - Decision Trees'
+editor_options: 
+  chunk_output_type: console
+---
+
+# Learning Objectives {.unnumbered}
+
+There are two broad categories of Supervised Classification based on the type of response your modeling $y \sim x$, where $y$ is either a continuous value, in which case **Regression**, or it is a categorical value, in which case it's a **Classification**.
+
+A **binary** response, such as presence or absence, is a categorical value, so typically a Classification technique would be used. However, by transforming the response with a logit function, we were able to use Regression techniques like generalized linear (`glm()`) and generalized additive (`gam()`) models.
+
+In this portion of the lab you'll use **Decision Trees** as a **Classification** technique to the data with the response being categorical (`factor(present)`).
+
+-   **Recursive Partitioning** (`rpart()`)\
+    Originally called classification & regression trees (CART), but that's copyrighted (Breiman, 1984).
+
+-   **Random Forest** (`RandomForest()`)\
+    Actually an ensemble model, ie trees of trees.
+
+# Decision Trees
+
+Reading: Boehmke & Greenwell (2020) Hands-On Machine Learning with R. [Chapter 9 Decision Trees](https://bradleyboehmke.github.io/HOML/DT.html)
+
+```{=html}
+<!--
+Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
+```
+```{r setup-rpart}
+# global knitr chunk options
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE)
+
+# load packages
+librarian::shelf(
+  caret,       # m: modeling framework
+  dplyr, ggplot2 ,here, readr, 
+  pdp,         # X: partial dependence plots
+  rpart,       # m: recursive partition modeling
+  rpart.plot,  # m: recursive partition plotting
+  rsample,     # d: split train/test data
+  skimr,       # d: skim summarize data table
+  vip)         # X: variable importance
+
+# options
+options(
+  scipen = 999,
+  readr.show_col_types = F)
+set.seed(42)
+
+# graphical theme
+ggplot2::theme_set(ggplot2::theme_light())
+
+# paths
+dir_data    <- here("data/sdm")
+pts_env_csv <- file.path(dir_data, "pts_env.csv")
+
+# read data
+pts_env <- read_csv(pts_env_csv)
+d <- pts_env %>% 
+  select(-ID) %>%                   # not used as a predictor x
+  mutate(
+    present = factor(present)) %>%  # categorical response
+  na.omit()                         # drop rows with NA
+skim(d)
+```
+
+## Split data into training and testing
+
+```{r dt-data-prereq, echo=TRUE}
+# create training set with 80% of full data
+d_split  <- rsample::initial_split(d, prop = 0.8, strata = "present")
+d_train  <- rsample::training(d_split)
+
+# show number of rows present is 0 vs 1
+table(d$present)
+table(d_train$present)
+```
+
+## Partition, depth=1
+
+```{r rpart-stump, echo=TRUE, fig.width=4, fig.height=3, fig.show='hold', fig.cap="Decision tree illustrating the single split on feature x (left).", out.width="48%"}
+# run decision stump model
+mdl <- rpart(
+  present ~ ., data = d_train, 
+  control = list(
+    cp = 0, minbucket = 5, maxdepth = 1))
+mdl
+
+# plot tree 
+par(mar = c(1, 1, 1, 1))
+rpart.plot(mdl)
+```
+
+## Partition, depth=default
+
+```{r rpart-default, echo=TRUE, fig.width=4, fig.height=3, fig.show='hold', fig.cap="Decision tree $present$ classification.", out.width="48%"}
+# decision tree with defaults
+mdl <- rpart(present ~ ., data = d_train)
+mdl
+rpart.plot(mdl)
+
+# plot complexity parameter
+plotcp(mdl)
+
+# rpart cross validation results
+mdl$cptable
+```
+
+## Feature interpretation
+
+```{r cp-table, fig.cap="Cross-validated accuracy rate for the 20 different $\\alpha$ parameter values in our grid search. Lower $\\alpha$ values (deeper trees) help to minimize errors.", fig.height=3}
+
+# caret cross validation results
+mdl_caret <- train(
+  present ~ .,
+  data       = d_train,
+  method     = "rpart",
+  trControl  = trainControl(method = "cv", number = 10),
+  tuneLength = 20)
+
+ggplot(mdl_caret)
+```
+
+```{r dt-vip, fig.height=5.5, fig.cap="Variable importance based on the total reduction in MSE for the Ames Housing decision tree."}
+vip(mdl_caret, num_features = 40, bar = FALSE)
+```
+
+```{r dt-pdp, fig.width=10, fig.height= 3.5, fig.cap="Partial dependence plots to understand the relationship between lat, WC_bio2 and present."}
+# Construct partial dependence plots
+p1 <- partial(mdl_caret, pred.var = "lat") %>% autoplot()
+p2 <- partial(mdl_caret, pred.var = "WC_bio2") %>% autoplot()
+p3 <- partial(mdl_caret, pred.var = c("lat", "WC_bio2")) %>% 
+  plotPartial(levelplot = FALSE, zlab = "yhat", drape = TRUE, 
+              colorkey = TRUE, screen = list(z = -20, x = -60))
+
+# Display plots side by side
+gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+# Random Forests
+
+Reading: Boehmke & Greenwell (2020) Hands-On Machine Learning with R. [Chapter 11 Random Forests](https://bradleyboehmke.github.io/HOML/random-forest.html)
+
+See also: [Random Forest -- Modeling methods | R Spatial](https://rspatial.org/raster/sdm/6_sdm_methods.html\#random-forest)
+
+```{r setup-rf}
+# load additional packages
+librarian::shelf(
+  ranger)  # random forest modeling
+```
+
+## Fit
+
+```{r out-of-box-rf}
+# number of features
+n_features <- length(setdiff(names(d_train), "present"))
+
+# fit a default random forest model
+mdl_rf <- ranger(present ~ ., data = d_train)
+
+# get out of the box RMSE
+(default_rmse <- sqrt(mdl_rf$prediction.error))
+```
+
+## Feature interpretation
+
+```{r feature-importance}
+# re-run model with impurity-based variable importance
+mdl_impurity <- ranger(
+  present ~ ., data = d_train,
+  importance = "impurity")
+
+# re-run model with permutation-based variable importance
+mdl_permutation <- ranger(
+  present ~ ., data = d_train,
+  importance = "permutation")
+```
+
+```{r feature-importance-plot, fig.cap="Most important variables based on impurity (left) and permutation (right).", fig.height=4.5, fig.width=10}
+p1 <- vip::vip(mdl_impurity, bar = FALSE)
+p2 <- vip::vip(mdl_permutation, bar = FALSE)
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```

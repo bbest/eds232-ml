@@ -87,26 +87,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: Resources</title>
+  <title>EDS 232: Lab 1c. Species Distribution Modeling - Decision Trees</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: Resources"/>
+  <meta property="og:title" content="EDS 232: Lab 1c. Species Distribution Modeling - Decision Trees"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: Resources"/>
+  <meta property="twitter:title" content="EDS 232: Lab 1c. Species Distribution Modeling - Decision Trees"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["Resources"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 1c. Species Distribution Modeling - Decision Trees"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2463,7 +2463,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Resources","authors":[]}
+{"title":"Lab 1c. Species Distribution Modeling - Decision Trees","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2500,7 +2500,7 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Resources</h1>
+<h1>Lab 1c. Species Distribution Modeling - Decision Trees</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2512,33 +2512,472 @@ Labs
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#books">Books</a></li>
-<li><a href="#courses">Courses</a></li>
+<li><a href="#learning-objectives">Learning Objectives</a></li>
+<li><a href="#decision-trees"><span class="toc-section-number">1</span> Decision Trees</a>
+<ul>
+<li><a href="#split-data-into-training-and-testing"><span class="toc-section-number">1.1</span> Split data into training and testing</a></li>
+<li><a href="#partition-depth1"><span class="toc-section-number">1.2</span> Partition, depth=1</a></li>
+<li><a href="#partition-depthdefault"><span class="toc-section-number">1.3</span> Partition, depth=default</a></li>
+<li><a href="#feature-interpretation"><span class="toc-section-number">1.4</span> Feature interpretation</a></li>
+</ul></li>
+<li><a href="#random-forests"><span class="toc-section-number">2</span> Random Forests</a>
+<ul>
+<li><a href="#fit"><span class="toc-section-number">2.1</span> Fit</a></li>
+<li><a href="#feature-interpretation-1"><span class="toc-section-number">2.2</span> Feature interpretation</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
-<h1 id="books">Books</h1>
+<h1 class="unnumbered" id="learning-objectives">Learning Objectives</h1>
+<p>There are two broad categories of Supervised Classification based on the type of response your modeling <span class="math inline">\(y \sim x\)</span>, where <span class="math inline">\(y\)</span> is either a continuous value, in which case <strong>Regression</strong>, or it is a categorical value, in which case it’s a <strong>Classification</strong>.</p>
+<p>A <strong>binary</strong> response, such as presence or absence, is a categorical value, so typically a Classification technique would be used. However, by transforming the response with a logit function, we were able to use Regression techniques like generalized linear (<code>glm()</code>) and generalized additive (<code>gam()</code>) models.</p>
+<p>In this portion of the lab you’ll use <strong>Decision Trees</strong> as a <strong>Classification</strong> technique to the data with the response being categorical (<code>factor(present)</code>).</p>
 <ul>
-<li>ML
-<ul>
-<li><a href="https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems | Amazon</a></li>
-<li><a href="https://www.amazon.com/Machine-Learning-techniques-predictive-modeling/dp/1788295862">Machine Learning with R: Expert techniques for predictive modeling | Amazon</a></li>
-</ul></li>
-<li>ML &amp; Env
-<ul>
-<li><a href="https://link.springer.com/book/10.1007/978-3-319-96978-7">Machine Learning for Ecology and Sustainable Natural Resource Management | Springer</a></li>
-</ul></li>
-<li><a href="https://www.amazon.com/Habitat-Suitability-Distribution-Models-Applications-ebook/dp/B0744JXDPF">Habitat Suitability and Distribution Models: With Applications in R | Amazon</a></li>
+<li><p><strong>Recursive Partitioning</strong> (<code>rpart()</code>)<br />
+Originally called classification &amp; regression trees (CART), but that’s copyrighted (Breiman, 1984).</p></li>
+<li><p><strong>Random Forest</strong> (<code>RandomForest()</code>)<br />
+Actually an ensemble model, ie trees of trees.</p></li>
 </ul>
-<h1 id="courses">Courses</h1>
-<ul>
-<li>ML
-<ul>
-<li><a href="https://www.coursera.org/learn/machine-learning">Machine Learning | Coursera</a></li>
-<li><a href="https://www.kaggle.com/learn">Courses | Kaggle</a></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h1 data-number="1" id="decision-trees"><span class="header-section-number">1</span> Decision Trees</h1>
+<p>Reading: Boehmke &amp; Greenwell (2020) Hands-On Machine Learning with R. <a href="https://bradleyboehmke.github.io/HOML/DT.html">Chapter 9 Decision Trees</a></p>
+<!--
+Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># global knitr chunk options</span>
+<span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>
+  warning <span class='op'>=</span> <span class='cn'>FALSE</span>, 
+  message <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'># load packages</span>
+<span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
+  <span class='va'>caret</span>,       <span class='co'># m: modeling framework</span>
+  <span class='va'>dplyr</span>, <span class='va'>ggplot2</span> ,<span class='va'>here</span>, <span class='va'>readr</span>, 
+  <span class='va'>pdp</span>,         <span class='co'># X: partial dependence plots</span>
+  <span class='va'>rpart</span>,       <span class='co'># m: recursive partition modeling</span>
+  <span class='va'>rpart.plot</span>,  <span class='co'># m: recursive partition plotting</span>
+  <span class='va'>rsample</span>,     <span class='co'># d: split train/test data</span>
+  <span class='va'>skimr</span>,       <span class='co'># d: skim summarize data table</span>
+  <span class='va'>vip</span><span class='op'>)</span>         <span class='co'># X: variable importance</span>
+
+<span class='co'># options</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>
+  scipen <span class='op'>=</span> <span class='fl'>999</span>,
+  readr.show_col_types <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>
+
+<span class='co'># graphical theme</span>
+<span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>theme_set</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># paths</span>
+<span class='va'>dir_data</span>    <span class='op'>&lt;-</span> <span class='fu'>here</span><span class='op'>(</span><span class='st'>"data/sdm"</span><span class='op'>)</span>
+<span class='va'>pts_env_csv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dir_data</span>, <span class='st'>"pts_env.csv"</span><span class='op'>)</span>
+
+<span class='co'># read data</span>
+<span class='va'>pts_env</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>pts_env_csv</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>pts_env</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>ID</span><span class='op'>)</span> <span class='op'>%&gt;%</span>                   <span class='co'># not used as a predictor x</span>
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    present <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>present</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  <span class='co'># categorical response</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='op'>)</span>                         <span class='co'># drop rows with NA</span>
+<span class='fu'>skim</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<caption><span id="tab:setup-rpart">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">d</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">986</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">present</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">0: 499, 1: 487</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">WC_alt</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">341.77</td>
+<td style="text-align: right;">422.02</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">83.00</td>
+<td style="text-align: right;">204.50</td>
+<td style="text-align: right;">461.75</td>
+<td style="text-align: right;">3999.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WC_bio1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">24.72</td>
+<td style="text-align: right;">2.60</td>
+<td style="text-align: right;">4.70</td>
+<td style="text-align: right;">23.80</td>
+<td style="text-align: right;">25.60</td>
+<td style="text-align: right;">26.40</td>
+<td style="text-align: right;">28.50</td>
+<td style="text-align: left;">▁▁▁▂▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WC_bio2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10.07</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">6.10</td>
+<td style="text-align: right;">8.92</td>
+<td style="text-align: right;">9.80</td>
+<td style="text-align: right;">11.10</td>
+<td style="text-align: right;">15.40</td>
+<td style="text-align: left;">▂▇▆▃▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ER_tri</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">30.76</td>
+<td style="text-align: right;">35.72</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">6.25</td>
+<td style="text-align: right;">14.61</td>
+<td style="text-align: right;">41.50</td>
+<td style="text-align: right;">223.22</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ER_topoWet</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11.16</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">7.14</td>
+<td style="text-align: right;">10.07</td>
+<td style="text-align: right;">11.47</td>
+<td style="text-align: right;">12.47</td>
+<td style="text-align: right;">14.69</td>
+<td style="text-align: left;">▂▃▆▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lon</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-66.40</td>
+<td style="text-align: right;">14.72</td>
+<td style="text-align: right;">-86.06</td>
+<td style="text-align: right;">-79.71</td>
+<td style="text-align: right;">-67.62</td>
+<td style="text-align: right;">-54.15</td>
+<td style="text-align: right;">-34.84</td>
+<td style="text-align: left;">▇▅▃▅▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lat</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1.36</td>
+<td style="text-align: right;">10.50</td>
+<td style="text-align: right;">-23.71</td>
+<td style="text-align: right;">-9.52</td>
+<td style="text-align: right;">-0.50</td>
+<td style="text-align: right;">9.12</td>
+<td style="text-align: right;">13.54</td>
+<td style="text-align: left;">▂▃▅▃▇</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 data-number="1.1" id="split-data-into-training-and-testing"><span class="header-section-number">1.1</span> Split data into training and testing</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create training set with 80% of full data</span>
+<span class='va'>d_split</span>  <span class='op'>&lt;-</span> <span class='fu'>rsample</span><span class='fu'>::</span><span class='fu'><a href='https://rsample.tidymodels.org/reference/initial_split.html'>initial_split</a></span><span class='op'>(</span><span class='va'>d</span>, prop <span class='op'>=</span> <span class='fl'>0.8</span>, strata <span class='op'>=</span> <span class='st'>"present"</span><span class='op'>)</span>
+<span class='va'>d_train</span>  <span class='op'>&lt;-</span> <span class='fu'>rsample</span><span class='fu'>::</span><span class='fu'><a href='https://rsample.tidymodels.org/reference/initial_split.html'>training</a></span><span class='op'>(</span><span class='va'>d_split</span><span class='op'>)</span>
+
+<span class='co'># show number of rows present is 0 vs 1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>present</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+  0   1 
+499 487 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d_train</span><span class='op'>$</span><span class='va'>present</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+  0   1 
+399 389 </code></pre>
+</div>
+<h2 data-number="1.2" id="partition-depth1"><span class="header-section-number">1.2</span> Partition, depth=1</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># run decision stump model</span>
+<span class='va'>mdl</span> <span class='op'>&lt;-</span> <span class='fu'>rpart</span><span class='op'>(</span>
+  <span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>d_train</span>, 
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    cp <span class='op'>=</span> <span class='fl'>0</span>, minbucket <span class='op'>=</span> <span class='fl'>5</span>, maxdepth <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>mdl</span>
+</code></pre>
+</div>
+<pre><code>n= 788 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+1) root 788 389 0 (0.50634518 0.49365482)  
+  2) lat&lt; 7.7401 512 128 0 (0.75000000 0.25000000) *
+  3) lat&gt;=7.7401 276  15 1 (0.05434783 0.94565217) *</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># plot tree </span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>rpart.plot</span><span class='op'>(</span><span class='va'>mdl</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:rpart-stump"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/rpart-stump-1.png" alt="Decision tree illustrating the single split on feature x (left)." width="48%" />
+<p class="caption">
+Figure 1: Decision tree illustrating the single split on feature x (left).
+</p>
+</div>
+</div>
+<h2 data-number="1.3" id="partition-depthdefault"><span class="header-section-number">1.3</span> Partition, depth=default</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># decision tree with defaults</span>
+<span class='va'>mdl</span> <span class='op'>&lt;-</span> <span class='fu'>rpart</span><span class='op'>(</span><span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>d_train</span><span class='op'>)</span>
+<span class='va'>mdl</span>
+</code></pre>
+</div>
+<pre><code>n= 788 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+  1) root 788 389 0 (0.50634518 0.49365482)  
+    2) lat&lt; 7.7401 512 128 0 (0.75000000 0.25000000)  
+      4) WC_bio2&gt;=10.25 247  22 0 (0.91093117 0.08906883) *
+      5) WC_bio2&lt; 10.25 265 106 0 (0.60000000 0.40000000)  
+       10) WC_bio1&gt;=26.15 87  10 0 (0.88505747 0.11494253) *
+       11) WC_bio1&lt; 26.15 178  82 1 (0.46067416 0.53932584)  
+         22) lat&gt;=0.617405 32   5 0 (0.84375000 0.15625000) *
+         23) lat&lt; 0.617405 146  55 1 (0.37671233 0.62328767)  
+           46) lat&lt; -2.529476 77  36 0 (0.53246753 0.46753247)  
+             92) lat&gt;=-16.94087 45   8 0 (0.82222222 0.17777778)  
+              184) WC_bio2&gt;=7.2 38   2 0 (0.94736842 0.05263158) *
+              185) WC_bio2&lt; 7.2 7   1 1 (0.14285714 0.85714286) *
+             93) lat&lt; -16.94087 32   4 1 (0.12500000 0.87500000) *
+           47) lat&gt;=-2.529476 69  14 1 (0.20289855 0.79710145)  
+             94) lon&gt;=-75.44386 33  12 1 (0.36363636 0.63636364)  
+              188) WC_alt&gt;=67 12   0 0 (1.00000000 0.00000000) *
+              189) WC_alt&lt; 67 21   0 1 (0.00000000 1.00000000) *
+             95) lon&lt; -75.44386 36   2 1 (0.05555556 0.94444444) *
+    3) lat&gt;=7.7401 276  15 1 (0.05434783 0.94565217) *</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>rpart.plot</span><span class='op'>(</span><span class='va'>mdl</span><span class='op'>)</span>
+
+<span class='co'># plot complexity parameter</span>
+<span class='fu'>plotcp</span><span class='op'>(</span><span class='va'>mdl</span><span class='op'>)</span>
+
+<span class='co'># rpart cross validation results</span>
+<span class='va'>mdl</span><span class='op'>$</span><span class='va'>cptable</span>
+</code></pre>
+</div>
+<pre><code>          CP nsplit rel error    xerror       xstd
+1 0.63239075      0 1.0000000 1.1028278 0.03593877
+2 0.03084833      1 0.3676093 0.3958869 0.02861490
+3 0.01542416      6 0.2005141 0.2699229 0.02452406
+4 0.01285347      8 0.1696658 0.2622108 0.02422420
+5 0.01000000      9 0.1568123 0.2596401 0.02412272</code></pre>
+<div class="figure"><span style="display:block;" id="fig:rpart-default"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/rpart-default-1.png" alt="Decision tree $present$ classification." width="48%" /><img src="lab1c_sdm-trees_files/figure-html5/rpart-default-2.png" alt="Decision tree $present$ classification." width="48%" />
+<p class="caption">
+Figure 2: Decision tree <span class="math inline">\(present\)</span> classification.
+</p>
+</div>
+</div>
+<h2 data-number="1.4" id="feature-interpretation"><span class="header-section-number">1.4</span> Feature interpretation</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># caret cross validation results</span>
+<span class='va'>mdl_caret</span> <span class='op'>&lt;-</span> <span class='fu'>train</span><span class='op'>(</span>
+  <span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>,
+  data       <span class='op'>=</span> <span class='va'>d_train</span>,
+  method     <span class='op'>=</span> <span class='st'>"rpart"</span>,
+  trControl  <span class='op'>=</span> <span class='fu'>trainControl</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"cv"</span>, number <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+  tuneLength <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mdl_caret</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:cp-table"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/cp-table-1.png" alt="Cross-validated accuracy rate for the 20 different $\alpha$ parameter values in our grid search. Lower $\alpha$ values (deeper trees) help to minimize errors." width="624" />
+<p class="caption">
+Figure 3: Cross-validated accuracy rate for the 20 different <span class="math inline">\(\alpha\)</span> parameter values in our grid search. Lower <span class="math inline">\(\alpha\)</span> values (deeper trees) help to minimize errors.
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>vip</span><span class='op'>(</span><span class='va'>mdl_caret</span>, num_features <span class='op'>=</span> <span class='fl'>40</span>, bar <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:dt-vip"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/dt-vip-1.png" alt="Variable importance based on the total reduction in MSE for the Ames Housing decision tree." width="624" />
+<p class="caption">
+Figure 4: Variable importance based on the total reduction in MSE for the Ames Housing decision tree.
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Construct partial dependence plots</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>partial</span><span class='op'>(</span><span class='va'>mdl_caret</span>, pred.var <span class='op'>=</span> <span class='st'>"lat"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>autoplot</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>partial</span><span class='op'>(</span><span class='va'>mdl_caret</span>, pred.var <span class='op'>=</span> <span class='st'>"WC_bio2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>autoplot</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>partial</span><span class='op'>(</span><span class='va'>mdl_caret</span>, pred.var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lat"</span>, <span class='st'>"WC_bio2"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>plotPartial</span><span class='op'>(</span>levelplot <span class='op'>=</span> <span class='cn'>FALSE</span>, zlab <span class='op'>=</span> <span class='st'>"yhat"</span>, drape <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+              colorkey <span class='op'>=</span> <span class='cn'>TRUE</span>, screen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='op'>-</span><span class='fl'>20</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>60</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Display plots side by side</span>
+<span class='fu'>gridExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span>, <span class='va'>p3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:dt-pdp"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/dt-pdp-1.png" alt="Partial dependence plots to understand the relationship between lat, WC_bio2 and present." width="960" />
+<p class="caption">
+Figure 5: Partial dependence plots to understand the relationship between lat, WC_bio2 and present.
+</p>
+</div>
+</div>
+<h1 data-number="2" id="random-forests"><span class="header-section-number">2</span> Random Forests</h1>
+<p>Reading: Boehmke &amp; Greenwell (2020) Hands-On Machine Learning with R. <a href="https://bradleyboehmke.github.io/HOML/random-forest.html">Chapter 11 Random Forests</a></p>
+<p>See also: <a href="https://rspatial.org/raster/sdm/6_sdm_methods.html#random-forest">Random Forest – Modeling methods | R Spatial</a></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load additional packages</span>
+<span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
+  <span class='va'>ranger</span><span class='op'>)</span>  <span class='co'># random forest modeling</span>
+</code></pre>
+</div>
+</div>
+<h2 data-number="2.1" id="fit"><span class="header-section-number">2.1</span> Fit</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># number of features</span>
+<span class='va'>n_features</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sets.html'>setdiff</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d_train</span><span class='op'>)</span>, <span class='st'>"present"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># fit a default random forest model</span>
+<span class='va'>mdl_rf</span> <span class='op'>&lt;-</span> <span class='fu'>ranger</span><span class='op'>(</span><span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>d_train</span><span class='op'>)</span>
+
+<span class='co'># get out of the box RMSE</span>
+<span class='op'>(</span><span class='va'>default_rmse</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>mdl_rf</span><span class='op'>$</span><span class='va'>prediction.error</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.2518964</code></pre>
+</div>
+<h2 data-number="2.2" id="feature-interpretation-1"><span class="header-section-number">2.2</span> Feature interpretation</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># re-run model with impurity-based variable importance</span>
+<span class='va'>mdl_impurity</span> <span class='op'>&lt;-</span> <span class='fu'>ranger</span><span class='op'>(</span>
+  <span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>d_train</span>,
+  importance <span class='op'>=</span> <span class='st'>"impurity"</span><span class='op'>)</span>
+
+<span class='co'># re-run model with permutation-based variable importance</span>
+<span class='va'>mdl_permutation</span> <span class='op'>&lt;-</span> <span class='fu'>ranger</span><span class='op'>(</span>
+  <span class='va'>present</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>d_train</span>,
+  importance <span class='op'>=</span> <span class='st'>"permutation"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>vip</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/vip/man/vip.html'>vip</a></span><span class='op'>(</span><span class='va'>mdl_impurity</span>, bar <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>vip</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/vip/man/vip.html'>vip</a></span><span class='op'>(</span><span class='va'>mdl_permutation</span>, bar <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>gridExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span>, nrow <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:feature-importance-plot"></span>
+<img src="lab1c_sdm-trees_files/figure-html5/feature-importance-plot-1.png" alt="Most important variables based on impurity (left) and permutation (right)." width="960" />
+<p class="caption">
+Figure 6: Most important variables based on impurity (left) and permutation (right).
+</p>
+</div>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2546,6 +2985,15 @@ Labs
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
