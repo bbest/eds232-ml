@@ -2513,17 +2513,20 @@ Labs
 <h3>Contents</h3>
 <ul>
 <li><a href="#learning-objectives">Learning Objectives</a></li>
-<li><a href="#decision-trees"><span class="toc-section-number">1</span> Decision Trees</a>
+<li><a href="#setup"><span class="toc-section-number">1</span> Setup</a>
 <ul>
 <li><a href="#split-data-into-training-and-testing"><span class="toc-section-number">1.1</span> Split data into training and testing</a></li>
-<li><a href="#partition-depth1"><span class="toc-section-number">1.2</span> Partition, depth=1</a></li>
-<li><a href="#partition-depthdefault"><span class="toc-section-number">1.3</span> Partition, depth=default</a></li>
-<li><a href="#feature-interpretation"><span class="toc-section-number">1.4</span> Feature interpretation</a></li>
 </ul></li>
-<li><a href="#random-forests"><span class="toc-section-number">2</span> Random Forests</a>
+<li><a href="#decision-trees"><span class="toc-section-number">2</span> Decision Trees</a>
 <ul>
-<li><a href="#fit"><span class="toc-section-number">2.1</span> Fit</a></li>
-<li><a href="#feature-interpretation-1"><span class="toc-section-number">2.2</span> Feature interpretation</a></li>
+<li><a href="#partition-depth1"><span class="toc-section-number">2.1</span> Partition, depth=1</a></li>
+<li><a href="#partition-depthdefault"><span class="toc-section-number">2.2</span> Partition, depth=default</a></li>
+<li><a href="#feature-interpretation"><span class="toc-section-number">2.3</span> Feature interpretation</a></li>
+</ul></li>
+<li><a href="#random-forests"><span class="toc-section-number">3</span> Random Forests</a>
+<ul>
+<li><a href="#fit"><span class="toc-section-number">3.1</span> Fit</a></li>
+<li><a href="#feature-interpretation-1"><span class="toc-section-number">3.2</span> Feature interpretation</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2538,10 +2541,7 @@ Originally called classification &amp; regression trees (CART), but that’s cop
 <li><p><strong>Random Forest</strong> (<code>RandomForest()</code>)<br />
 Actually an ensemble model, ie trees of trees.</p></li>
 </ul>
-<h1 data-number="1" id="decision-trees"><span class="header-section-number">1</span> Decision Trees</h1>
-<p>Reading: Boehmke &amp; Greenwell (2020) Hands-On Machine Learning with R. <a href="https://bradleyboehmke.github.io/HOML/DT.html">Chapter 9 Decision Trees</a></p>
-<!--
-Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
+<h1 data-number="1" id="setup"><span class="header-section-number">1</span> Setup</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># global knitr chunk options</span>
@@ -2554,6 +2554,7 @@ Access and run the source code for this notebook [here](https://rstudio.cloud/pr
   <span class='va'>caret</span>,       <span class='co'># m: modeling framework</span>
   <span class='va'>dplyr</span>, <span class='va'>ggplot2</span> ,<span class='va'>here</span>, <span class='va'>readr</span>, 
   <span class='va'>pdp</span>,         <span class='co'># X: partial dependence plots</span>
+  <span class='va'>ranger</span>,      <span class='co'># m: random forest modeling</span>
   <span class='va'>rpart</span>,       <span class='co'># m: recursive partition modeling</span>
   <span class='va'>rpart.plot</span>,  <span class='co'># m: recursive partition plotting</span>
   <span class='va'>rsample</span>,     <span class='co'># d: split train/test data</span>
@@ -2584,7 +2585,7 @@ Access and run the source code for this notebook [here](https://rstudio.cloud/pr
 </code></pre>
 </div>
 <table>
-<caption><span id="tab:setup-rpart">Table 1: </span>Data summary</caption>
+<caption><span id="tab:setup">Table 1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Name</td>
@@ -2781,7 +2782,11 @@ Access and run the source code for this notebook [here](https://rstudio.cloud/pr
   0   1 
 399 389 </code></pre>
 </div>
-<h2 data-number="1.2" id="partition-depth1"><span class="header-section-number">1.2</span> Partition, depth=1</h2>
+<h1 data-number="2" id="decision-trees"><span class="header-section-number">2</span> Decision Trees</h1>
+<p>Reading: Boehmke &amp; Greenwell (2020) Hands-On Machine Learning with R. <a href="https://bradleyboehmke.github.io/HOML/DT.html">Chapter 9 Decision Trees</a></p>
+<h2 data-number="2.1" id="partition-depth1"><span class="header-section-number">2.1</span> Partition, depth=1</h2>
+<!--
+Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># run decision stump model</span>
@@ -2813,7 +2818,7 @@ Figure 1: Decision tree illustrating the single split on feature x (left).
 </p>
 </div>
 </div>
-<h2 data-number="1.3" id="partition-depthdefault"><span class="header-section-number">1.3</span> Partition, depth=default</h2>
+<h2 data-number="2.2" id="partition-depthdefault"><span class="header-section-number">2.2</span> Partition, depth=default</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># decision tree with defaults</span>
@@ -2868,7 +2873,7 @@ Figure 2: Decision tree <span class="math inline">\(present\)</span> classificat
 </p>
 </div>
 </div>
-<h2 data-number="1.4" id="feature-interpretation"><span class="header-section-number">1.4</span> Feature interpretation</h2>
+<h2 data-number="2.3" id="feature-interpretation"><span class="header-section-number">2.3</span> Feature interpretation</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># caret cross validation results</span>
@@ -2921,18 +2926,10 @@ Figure 5: Partial dependence plots to understand the relationship between lat, W
 </p>
 </div>
 </div>
-<h1 data-number="2" id="random-forests"><span class="header-section-number">2</span> Random Forests</h1>
+<h1 data-number="3" id="random-forests"><span class="header-section-number">3</span> Random Forests</h1>
 <p>Reading: Boehmke &amp; Greenwell (2020) Hands-On Machine Learning with R. <a href="https://bradleyboehmke.github.io/HOML/random-forest.html">Chapter 11 Random Forests</a></p>
 <p>See also: <a href="https://rspatial.org/raster/sdm/6_sdm_methods.html#random-forest">Random Forest – Modeling methods | R Spatial</a></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load additional packages</span>
-<span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
-  <span class='va'>ranger</span><span class='op'>)</span>  <span class='co'># random forest modeling</span>
-</code></pre>
-</div>
-</div>
-<h2 data-number="2.1" id="fit"><span class="header-section-number">2.1</span> Fit</h2>
+<h2 data-number="3.1" id="fit"><span class="header-section-number">3.1</span> Fit</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># number of features</span>
@@ -2947,7 +2944,7 @@ Figure 5: Partial dependence plots to understand the relationship between lat, W
 </div>
 <pre><code>[1] 0.2518964</code></pre>
 </div>
-<h2 data-number="2.2" id="feature-interpretation-1"><span class="header-section-number">2.2</span> Feature interpretation</h2>
+<h2 data-number="3.2" id="feature-interpretation-1"><span class="header-section-number">3.2</span> Feature interpretation</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># re-run model with impurity-based variable importance</span>

@@ -18,15 +18,9 @@ In this portion of the lab you'll use **Decision Trees** as a **Classification**
 -   **Random Forest** (`RandomForest()`)\
     Actually an ensemble model, ie trees of trees.
 
-# Decision Trees
+# Setup
 
-Reading: Boehmke & Greenwell (2020) Hands-On Machine Learning with R. [Chapter 9 Decision Trees](https://bradleyboehmke.github.io/HOML/DT.html)
-
-```{=html}
-<!--
-Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
-```
-```{r setup-rpart}
+```{r setup}
 # global knitr chunk options
 knitr::opts_chunk$set(
   warning = FALSE, 
@@ -37,6 +31,7 @@ librarian::shelf(
   caret,       # m: modeling framework
   dplyr, ggplot2 ,here, readr, 
   pdp,         # X: partial dependence plots
+  ranger,      # m: random forest modeling
   rpart,       # m: recursive partition modeling
   rpart.plot,  # m: recursive partition plotting
   rsample,     # d: split train/test data
@@ -78,7 +73,16 @@ table(d$present)
 table(d_train$present)
 ```
 
+# Decision Trees
+
+Reading: Boehmke & Greenwell (2020) Hands-On Machine Learning with R. [Chapter 9 Decision Trees](https://bradleyboehmke.github.io/HOML/DT.html)
+
 ## Partition, depth=1
+
+```{=html}
+<!--
+Access and run the source code for this notebook [here](https://rstudio.cloud/project/801185). -->
+```
 
 ```{r rpart-stump, echo=TRUE, fig.width=4, fig.height=3, fig.show='hold', fig.cap="Decision tree illustrating the single split on feature x (left).", out.width="48%"}
 # run decision stump model
@@ -144,12 +148,6 @@ gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
 Reading: Boehmke & Greenwell (2020) Hands-On Machine Learning with R. [Chapter 11 Random Forests](https://bradleyboehmke.github.io/HOML/random-forest.html)
 
 See also: [Random Forest -- Modeling methods | R Spatial](https://rspatial.org/raster/sdm/6_sdm_methods.html\#random-forest)
-
-```{r setup-rf}
-# load additional packages
-librarian::shelf(
-  ranger)  # random forest modeling
-```
 
 ## Fit
 
