@@ -1,0 +1,159 @@
+---
+title: 'Lab 1d. Species Distribution Modeling - Evaluate Models'
+editor_options: 
+  chunk_output_type: console
+---
+
+# Learning Objectives {.unnumbered}
+
+Now you'll complete the modeling workflow with the steps to **evaluate** model performance and **calibrate** model parameters.
+
+```{r fig.cap="Full model workflow with calibrate and evaluate steps emphasized.", echo=F}
+# [model-workflow_evaluate-calibrate - Google Drawings](https://docs.google.com/drawings/d/10hr0L_Iu_2DleLHzQmQWJGocG87yRbSX8jHne7fiZr0/edit)
+knitr::include_graphics("https://docs.google.com/drawings/d/e/2PACX-1vSO_TOz2eZ_qmdIrsrXS1If82bUv1Sno1U5bJ2y8GD7S1PhrrSYMeKCxKy6GtSZp6NC01tBZfUnXPdD/pub?w=933&h=354")
+```
+
+# Setup
+
+```{r setup}
+# global knitr chunk options
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE)
+
+# load packages
+librarian::shelf(
+  dismo, # species distribution modeling: maxent(), predict(), evaluate(), 
+  dplyr, ggplot2, GGally, here, maptools, readr, 
+  raster, readr, rsample, sf,
+  usdm)  # uncertainty analysis for species distribution models: vifcor()
+select = dplyr::select
+
+# options
+set.seed(42)
+options(
+  scipen = 999,
+  readr.show_col_types = F)
+ggplot2::theme_set(ggplot2::theme_light())
+
+# paths
+dir_data      <- here("data/sdm")
+pts_geo       <- file.path(dir_data, "pts.geojson")
+env_stack_grd <- file.path(dir_data, "env_stack.grd")
+mdl_maxv_rds  <- file.path(dir_data, "mdl_maxent_vif.rds")
+
+# read points of observation: presence (1) and absence (0)
+pts <- read_sf(pts_geo)
+
+# read raster stack of environment
+env_stack <- raster::stack(env_stack_grd)
+```
+
+## Split observations into training and testing
+
+```{r dt-data-prereq, echo=TRUE}
+# create training set with 80% of full data
+pts_split  <- rsample::initial_split(
+  pts, prop = 0.8, strata = "present")
+pts_train  <- rsample::training(pts_split)
+pts_test   <- rsample::testing(pts_split)
+
+pts_train_p <- pts_train %>% 
+  filter(present == 1) %>% 
+  as_Spatial()
+pts_train_a <- pts_train %>% 
+  filter(present == 0) %>% 
+  as_Spatial()
+```
+
+# Calibrate: Model Selection
+
+```{r}
+# show pairs plot before multicollinearity reduction with vifcor()
+pairs(env_stack)
+```
+
+```{r}
+# calculate variance inflation factor per predictor, a metric of multicollinearity between variables
+vif(env_stack)
+
+# stepwise reduce predictors, based on a max correlation of 0.7 (max 1)
+v <- vifcor(env_stack, th=0.7) 
+v
+# reduce enviromental raster stack by 
+env_stack_v <- usdm::exclude(env_stack, v)
+
+# show pairs plot after multicollinearity reduction with vifcor()
+pairs(env_stack_v)
+```
+
+```{r}
+# fit a maximum entropy model
+if (!file.exists(mdl_maxv_rds)){
+  mdl_maxv <- maxent(env_stack_v, pts_train)
+  readr::write_rds(mdl_maxv, mdl_maxv_rds)
+}
+mdl_maxv <- read_rds(mdl_maxv_rds)
+
+# plot variable contributions per predictor
+plot(mdl_maxv)
+
+# plot term plots
+response(mdl_maxv)
+
+# predict
+y_maxv <- predict(env_stack, mdl_maxv) #, ext=ext, progress='')
+
+plot(y_maxv, main='Maxent, raw prediction')
+data(wrld_simpl, package="maptools")
+plot(wrld_simpl, add=TRUE, border='dark grey')
+```
+
+# Evaluate: Model Performance
+
+## Area Under the Curve (AUC), Reciever Operater Characteristic (ROC) Curve and Confusion Matrix
+
+```{r}
+pts_test_p <- pts_test %>% 
+  filter(present == 1) %>% 
+  as_Spatial()
+pts_test_a <- pts_test %>% 
+  filter(present == 0) %>% 
+  as_Spatial()
+
+y_maxv <- predict(mdl_maxv, env_stack)
+#plot(y_maxv)
+
+e <- dismo::evaluate(
+  p     = pts_test_p,
+  a     = pts_test_a, 
+  model = mdl_maxv,
+  x     = env_stack)
+e
+
+plot(e, 'ROC')
+
+thr <- threshold(e)[['spec_sens']]
+thr
+p_true <- na.omit(extract(y_maxv, pts_test_p) >= thr)
+a_true <- na.omit(extract(y_maxv, pts_test_a) < thr)
+
+# (t)rue/(f)alse (p)ositive/(n)egative rates
+tpr <- sum(p_true)/length(p_true)
+fnr <- sum(!p_true)/length(p_true)
+fpr <- sum(!a_true)/length(a_true)
+tnr <- sum(a_true)/length(a_true)
+
+matrix(
+  c(tpr, fnr,
+    fpr, tnr), 
+  nrow=2, dimnames = list(
+    c("present_obs", "absent_obs"),
+    c("present_pred", "absent_pred")))
+
+# add point to ROC plot
+points(fpr, tpr, pch=23, bg="blue")
+
+plot(y_maxv > thr)
+```
+

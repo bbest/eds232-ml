@@ -1,0 +1,6 @@
+Sp	Algorithm	Variables	Overall
+1	Bradypus_variegatus	MXD	ER_topoWet_lonlat	0.140567455420099
+2	Bradypus_variegatus	MXD	ER_tri_lonlat	0.124390393378485
+3	Bradypus_variegatus	MXD	WC_alt_lonlat	0.124014742049453
+4	Bradypus_variegatus	MXD	WC_bio1_lonlat	0.41839966362654
+5	Bradypus_variegatus	MXD	WC_bio2_lonlat	0.192627745525423

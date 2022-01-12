@@ -11,8 +11,10 @@ navbar:
           href: lab1a_sdm-explore.html
         - text: "1b. Species Distribution Modeling - Regression"
           href: lab1b_sdm-regress.html
-        - text: "1b. Species Distribution Modeling - Trees"
+        - text: "1c. Species Distribution Modeling - Trees"
           href: lab1c_sdm-trees.html
+        - text: "1d. Species Distribution Modeling - Evaluate"
+          href: lab1d_sdm-evaluate.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"

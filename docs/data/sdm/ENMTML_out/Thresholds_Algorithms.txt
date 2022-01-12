@@ -1,0 +1,7 @@
+"Sp"	"Algorithm"	"THR"	"THR_VALUE"	"TPR"	"TNR"
+"Bradypus_variegatus"	"MXD"	"MAX_KAPPA"	0.76871491	0.495454545454545	0.9793
+"Bradypus_variegatus"	"MXD"	"MAX_TSS"	0.09751766	0.986363636363636	0.8595
+"Bradypus_variegatus"	"MXD"	"LPT"	0.04356905	1	0.8293
+"Bradypus_variegatus"	"MXD"	"SENSITIVITY"	0.32048076	0.9	0.907
+"Bradypus_variegatus"	"MXD"	"JACCARD"	0.76871491	0.495454545454545	0.9793
+"Bradypus_variegatus"	"MXD"	"SORENSEN"	0.76871491	0.495454545454545	0.9793

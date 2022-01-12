@@ -1,0 +1,65 @@
+###########################################################
+Start date : 2022-01-12 06:26:27
+End date : 2022-01-12 06:26:59
+Algorithm:	MXD
+Ensemble:	N
+Partition Method:	KFOLD
+Train percentage (random partition only):	1
+PA Mask: 
+MSDM: 
+Resuls in: /Users/bbest/github/bbest/eds232-ml/data/sdm/ENMTML_out
+No species: 1
+Threshold: MAX_TSS
+Bradypus_variegatus
+###########################################################
+Start date : 2022-01-12 06:27:01
+End date : 2022-01-12 06:27:21
+Algorithm:	MXD
+Ensemble:	N
+Partition Method:	KFOLD
+Train percentage (random partition only):	1
+PA Mask: 
+MSDM: 
+Resuls in: /Users/bbest/github/bbest/eds232-ml/data/sdm/ENMTML_out
+No species: 1
+Threshold: MAX_TSS
+Bradypus_variegatus
+###########################################################
+Start date : 2022-01-12 06:27:24
+End date : 2022-01-12 06:27:42
+Algorithm:	MXD
+Ensemble:	N
+Partition Method:	KFOLD
+Train percentage (random partition only):	1
+PA Mask: 
+MSDM: 
+Resuls in: /Users/bbest/github/bbest/eds232-ml/data/sdm/ENMTML_out
+No species: 1
+Threshold: MAX_TSS
+Bradypus_variegatus
+###########################################################
+Start date : 2022-01-12 06:27:44
+End date : 2022-01-12 06:28:02
+Algorithm:	MXD
+Ensemble:	N
+Partition Method:	KFOLD
+Train percentage (random partition only):	1
+PA Mask: 
+MSDM: 
+Resuls in: /Users/bbest/github/bbest/eds232-ml/data/sdm/ENMTML_out
+No species: 1
+Threshold: MAX_TSS
+Bradypus_variegatus
+###########################################################
+Start date : 2022-01-12 06:28:05
+End date : 2022-01-12 06:28:22
+Algorithm:	MXD
+Ensemble:	N
+Partition Method:	KFOLD
+Train percentage (random partition only):	1
+PA Mask: 
+MSDM: 
+Resuls in: /Users/bbest/github/bbest/eds232-ml/data/sdm/ENMTML_out
+No species: 1
+Threshold: MAX_TSS
+Bradypus_variegatus
