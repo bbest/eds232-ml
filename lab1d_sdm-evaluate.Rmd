@@ -135,8 +135,8 @@ plot(e, 'ROC')
 
 thr <- threshold(e)[['spec_sens']]
 thr
-p_true <- na.omit(extract(y_maxv, pts_test_p) >= thr)
-a_true <- na.omit(extract(y_maxv, pts_test_a) < thr)
+p_true <- na.omit(raster::extract(y_maxv, pts_test_p) >= thr)
+a_true <- na.omit(raster::extract(y_maxv, pts_test_a) < thr)
 
 # (t)rue/(f)alse (p)ositive/(n)egative rates
 tpr <- sum(p_true)/length(p_true)
