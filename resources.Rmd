@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
   * [Machine Learning with R: Expert techniques for predictive modeling | Amazon](https://www.amazon.com/Machine-Learning-techniques-predictive-modeling/dp/1788295862)
 - ML & Env
   * [Machine Learning for Ecology and Sustainable Natural Resource Management | Springer](https://link.springer.com/book/10.1007/978-3-319-96978-7)
- * [Habitat Suitability and Distribution Models: With Applications in R |  Amazon](https://www.amazon.com/Habitat-Suitability-Distribution-Models-Applications-ebook/dp/B0744JXDPF)
+  * [Habitat Suitability and Distribution Models: With Applications in R |  Amazon](https://www.amazon.com/Habitat-Suitability-Distribution-Models-Applications-ebook/dp/B0744JXDPF)
 
 # Courses
 
