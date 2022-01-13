@@ -60,6 +60,7 @@ BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear",
 NoCite(bib, "zhongMachineLearningNew2021")
 NoCite(bib, "elithSpeciesDistributionModels2009")
 NoCite(bib, "evansModelingSpeciesDistribution2011")
+NoCite(bib, "andradeENMTMLPackageStraightforward2020")
 
 PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
 ```
