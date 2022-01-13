@@ -2645,7 +2645,7 @@ max correlation ( ER_topoWet ~ WC_bio1 ):  0.6474975
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># fit a maximum entropy model</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='va'>mdl_maxv_rds</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='va'>mdl_maxv</span> <span class='op'>&lt;-</span> <span class='fu'>maxent</span><span class='op'>(</span><span class='va'>env_stack_v</span>, <span class='va'>pts_train</span><span class='op'>)</span>
+  <span class='va'>mdl_maxv</span> <span class='op'>&lt;-</span> <span class='fu'>maxent</span><span class='op'>(</span><span class='va'>env_stack_v</span>, <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>pts_train</span><span class='op'>)</span><span class='op'>)</span>
   <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>write_rds</a></span><span class='op'>(</span><span class='va'>mdl_maxv</span>, <span class='va'>mdl_maxv_rds</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='va'>mdl_maxv</span> <span class='op'>&lt;-</span> <span class='fu'>read_rds</span><span class='op'>(</span><span class='va'>mdl_maxv_rds</span><span class='op'>)</span>

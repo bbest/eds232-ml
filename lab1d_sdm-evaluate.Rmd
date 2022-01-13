@@ -90,7 +90,7 @@ pairs(env_stack_v)
 ```{r}
 # fit a maximum entropy model
 if (!file.exists(mdl_maxv_rds)){
-  mdl_maxv <- maxent(env_stack_v, pts_train)
+  mdl_maxv <- maxent(env_stack_v, sf::as_Spatial(pts_train))
   readr::write_rds(mdl_maxv, mdl_maxv_rds)
 }
 mdl_maxv <- read_rds(mdl_maxv_rds)
