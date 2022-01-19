@@ -32,9 +32,11 @@ In this lab, you will play with **unsupervised classification** techniques while
   
   - **Hierarchical clustering** allows for a non-specific number of clusters. 
   
-    - **Agglomerative hierarchical clustering**, such as with `diana()`, starts with a small tree and builds up. It is good at identifying small clusters.
+    - **Agglomerative hierarchical clustering**, such as with `diana()`, agglomerates as it builds the tree. It is good at identifying small clusters.
 
-    - **Agglomerative hierarchical clustering**, such as with `agnes()`, starts with a big tree and pares down. It is good at identifying large clusters.
+    - **Divisive hierarchical clustering**, such as with `agnes()`, divides as it builds the tree. It is good at identifying large clusters.
+    
+    - **Dendrograms** visualize the branching tree.
 
 - **Ordination** (coming Monday)
 
