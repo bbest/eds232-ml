@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
   * [Hands-On Machine Learning with R (HOMLR)](https://bradleyboehmke.github.io/HOML/) (freely available online)
     - [data-science-learning-resources](https://github.com/bradleyboehmke/data-science-learning-resources#natural-language-processing--text-mining) from HOMLR author
   * [Machine Learning with R: Expert techniques for predictive modeling | Amazon](https://www.amazon.com/Machine-Learning-techniques-predictive-modeling/dp/1788295862)
+  * [Section V Machine Learning | Introduction to Data Science](https://rafalab.github.io/dsbook/introduction-to-machine-learning.html)
 - ML & Env
   * [Machine Learning for Ecology and Sustainable Natural Resource Management | Springer](https://link.springer.com/book/10.1007/978-3-319-96978-7)
   * [Habitat Suitability and Distribution Models: With Applications in R |  Amazon](https://www.amazon.com/Habitat-Suitability-Distribution-Models-Applications-ebook/dp/B0744JXDPF)
