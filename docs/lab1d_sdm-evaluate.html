@@ -2485,6 +2485,8 @@ Labs
 <a href="lab1b_sdm-regress.html">1b. Species: regress</a>
 <a href="lab1c_sdm-trees.html">1c. Species: trees</a>
 <a href="lab1d_sdm-evaluate.html">1d. Species: evaluate</a>
+<a href="lab2a_community-cluster.html">2a. Community: cluster</a>
+<a href="lab2b_community-ordination.html">2b. Community: ordination</a>
 </div>
 </div>
 <a href="glossary.html">Glosssary</a>
@@ -2523,6 +2525,7 @@ Labs
 <ul>
 <li><a href="#area-under-the-curve-auc-reciever-operater-characteristic-roc-curve-and-confusion-matrix"><span class="toc-section-number">3.1</span> Area Under the Curve (AUC), Reciever Operater Characteristic (ROC) Curve and Confusion Matrix</a></li>
 </ul></li>
+<li><a href="#lab1-submission"><span class="toc-section-number">4</span> Lab1 Submission</a></li>
 </ul>
 </nav>
 </div>
@@ -2741,6 +2744,277 @@ absent_obs     0.1734694        0.85</code></pre>
 </div>
 <p><img src="lab1d_sdm-evaluate_files/figure-html5/unnamed-chunk-5-2.png" width="624" /></p>
 </div>
+<h1 data-number="4" id="lab1-submission"><span class="header-section-number">4</span> Lab1 Submission</h1>
+<p>To submit Lab 1, please submit the path on <code>taylor.bren.ucsb.edu</code> to your single consolidated Rmarkdown document (i.e. combined from seperate parts) that you successfully knitted here:</p>
+<ul>
+<li><a href="https://forms.gle/u9ZC7rvkcQMojxv3A">Submit Lab 1. Species Distribution Modeling</a></li>
+</ul>
+<p>The path should start <code>/Users/</code> and end in <code>.Rmd</code>. Please be sure to have succesfully knitted to html, as in I should see the <code>.html</code> file there by the same name.</p>
+<p>In your lab, please be sure to include:</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 6%" />
+<col style="width: 86%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Lab</th>
+<th>Item</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1a.Explore</td>
+<td>Name _Genus species_ used to search GBIF for observations. (0.5 pts)</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1a.Explore</td>
+<td>Image of your species. I like to see wildlife.</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1a.Explore</td>
+<td>Map of distribution of points</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1a.Explore</td>
+<td>Question: How many observations total are in GBIF for your species?</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>1a.Explore</td>
+<td>Question: Did you have to perform any data cleaning steps?</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>1a.Explore</td>
+<td>Question: What environmental layers did you choose as predictors? Can you find any support for these in the literature?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>1a.Explore</td>
+<td>Raster plot of environmental rasters clipped to species range</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>1a.Explore</td>
+<td>Map with pseudo-absence points</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>1a.Explore</td>
+<td>Term plots</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>1b.Regress</td>
+<td>Plot of ggpairs</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>1b.Regress</td>
+<td>Linear model output with range of values</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>1b.Regress</td>
+<td>Generalized Linear Model (GLM) output</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>1b.Regress</td>
+<td>GLM term plots</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>1b.Regress</td>
+<td>Generalized Additive Model (GAM) output</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>1b.Regress</td>
+<td>GAM term plots</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>1b.Regress</td>
+<td>Question: Which GAM environmental variables, and even range of values, seem to contribute most towards presence (above 0 response) versus absence (below 0 response)?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>1b.Regress</td>
+<td>Maxent model output</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>1b.Regress</td>
+<td>Maxent variable contribution plot</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>1b.Regress</td>
+<td>Maxent term plots</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>1b.Regress</td>
+<td>Question: Which Maxent environmental variables, and even range of values, seem to contribute most towards presence (closer to 1 response) and how might this differ from the GAM results?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td>1c.Trees</td>
+<td>Tabular counts of 1 vs 0 before and after split</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>1c.Trees</td>
+<td>Rpart model output and plot, depth=1</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>1c.Trees</td>
+<td>Rpart model output and plot, depth=default</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>1c.Trees</td>
+<td>Rpart complexity parameter plot</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td>1c.Trees</td>
+<td>Question: Based on the complexity plot threshold, what size of tree is recommended?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td>1c.Trees</td>
+<td>Rpart variable importance plot</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td>1c.Trees</td>
+<td>Question: what are the top 3 most important variables of your model?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td>1c.Trees</td>
+<td>RandomForest variable importance</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>1c.Trees</td>
+<td>Question: How might variable importance differ between rpart and RandomForest in your model outputs?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td>1d.Evaluate</td>
+<td>Plot of pairs from environmental stack</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>1d.Evaluate</td>
+<td>VIF per variable</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>1d.Evaluate</td>
+<td>Variables after VIF collinearity removal</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td>1d.Evaluate</td>
+<td>Plof of pairs after VIF collinearity removal</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>1d.Evaluate</td>
+<td>Plot of variable contribution</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td>1d.Evaluate</td>
+<td>Question: Which variables were removed due to multicollinearity and what is the rank of most to least important remaining variables in your model?</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>1d.Evaluate</td>
+<td>Maxent term plots</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td>1d.Evaluate</td>
+<td>Map of Maxent prediction</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td>1d.Evaluate</td>
+<td>ROC threshold value maximizing specificity and sensitivity</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td>1d.Evaluate</td>
+<td>Confusion matrix with percentages</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td>1d.Evaluate</td>
+<td>AUC plot</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>41</td>
+<td>1d.Evaluate</td>
+<td>Map of binary habitat</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -2491,6 +2491,7 @@ Labs
 <a href="lab1c_sdm-trees.html">1c. Species: trees</a>
 <a href="lab1d_sdm-evaluate.html">1d. Species: evaluate</a>
 <a href="lab2a_community-cluster.html">2a. Community: cluster</a>
+<a href="lab2b_community-ordination.html">2b. Community: ordination</a>
 </div>
 </div>
 <a href="glossary.html">Glosssary</a>
@@ -2528,7 +2529,12 @@ Labs
 <li><a href="#learning-objectives">Learning Objectives</a></li>
 <li><a href="#ordination"><span class="toc-section-number">1</span> Ordination</a>
 <ul>
-<li><a href="#principal-components-analysis-pca"><span class="toc-section-number">1.1</span> Principal Components Analysis (PCA)</a></li>
+<li><a href="#principal-components-analysis-pca"><span class="toc-section-number">1.1</span> Principal Components Analysis (PCA)</a>
+<ul>
+<li><a href="#prerequisites"><span class="toc-section-number">1.1.1</span> Prerequisites</a></li>
+<li><a href="#performing-pca-in-r"><span class="toc-section-number">1.1.2</span> Performing PCA in R</a></li>
+<li><a href="#eigenvalue-criterion"><span class="toc-section-number">1.1.3</span> Eigenvalue criterion</a></li>
+</ul></li>
 <li><a href="#non-metric-multidimensional-scaling-nmds"><span class="toc-section-number">1.2</span> Non-metric MultiDimensional Scaling (NMDS)</a>
 <ul>
 <li><a href="#unconstrained-ordination-on-species"><span class="toc-section-number">1.2.1</span> Unconstrained Ordination on Species</a></li>
@@ -2544,12 +2550,22 @@ Labs
 <ul>
 <li><p><strong>Ordination</strong> orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction.</p>
 <ul>
-<li><p><strong>Principal Components Analyses (PCA)</strong> is the most common and oldest technique that assumes linear relationships between axes.</p></li>
-<li><p><strong>Non-metric MultiDimensional Scaling (NMDS)</strong> allows for non-linear relationships.</p></li>
+<li><p><strong>Principal Components Analyses (PCA)</strong> is the most common and oldest technique that assumes linear relationships between axes. You will follow a non-ecological example from <a href="https://bradleyboehmke.github.io/HOML/pca.html">Chapter 17 Principal Components Analysis | Hands-On Machine Learning with R</a> to learn about this commonly used technique.</p></li>
+<li><p><strong>Non-metric MultiDimensional Scaling (NMDS)</strong> allows for non-linear relationships. This ordination technique is implemented in the R package <a href="https://cran.r-project.org/web/packages/vegan/index.html"><code>vegan</code></a>. You’ll use an ecological dataset, species and environment from lichen pastures that reindeer forage upon, with excerpts from the <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor vignette</a> (<a href="https://github.com/jarioksa/vegandocs">source</a>) to apply these techniques:</p>
+<ul>
+<li><strong>Unconstrained ordination</strong> on species using NMDS;</li>
+<li>Overlay with environmental gradients; and</li>
+<li><strong>Constrained ordination</strong> on species and environmnent using another ordination technique, <strong>canonical correspondence analysis (CCA)</strong>.</li>
+</ul></li>
 </ul></li>
 </ul>
 <h1 data-number="1" id="ordination"><span class="header-section-number">1</span> Ordination</h1>
+<p>Ordination</p>
 <h2 data-number="1.1" id="principal-components-analysis-pca"><span class="header-section-number">1.1</span> Principal Components Analysis (PCA)</h2>
+<p>Although this example uses a non-ecological dataset, it goes through the materials walk through the idea and procedure of conducting an ordination using the most widespread technique.</p>
+<p>Please read the entirety of <a href="https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components">Chapter 17 Principal Components Analysis | Hands-On Machine Learning with R</a>. Supporting text is mentioned below where code is run.</p>
+<h3 data-number="1.1.1" id="prerequisites"><span class="header-section-number">1.1.1</span> Prerequisites</h3>
+<p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#prerequisites-14">17.1 Prerequisites</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load R packages</span>
@@ -2562,10 +2578,49 @@ Labs
 <span class='co'># get data</span>
 <span class='va'>url</span> <span class='op'>&lt;-</span> <span class='st'>"https://koalaverse.github.io/homlr/data/my_basket.csv"</span>
 <span class='va'>my_basket</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>my_basket</span><span class='op'>)</span>  
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>my_basket</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 2000   42</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_basket</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 2,000 × 42
+   `7up` lasagna pepsi   yop red.wine cheese   bbq bulmers mayonnaise
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+ 1     0       0     0     0        0      0     0       0          0
+ 2     0       0     0     0        0      0     0       0          0
+ 3     0       0     0     0        0      0     0       0          0
+ 4     0       0     0     2        1      0     0       0          0
+ 5     0       0     0     0        0      0     0       2          0
+ 6     0       0     0     0        0      0     0       0          0
+ 7     1       1     0     0        0      0     1       0          0
+ 8     0       0     0     0        0      0     0       0          0
+ 9     0       1     0     0        0      0     0       0          0
+10     0       0     0     0        0      0     0       0          0
+# … with 1,990 more rows, and 33 more variables: horlics &lt;dbl&gt;,
+#   chicken.tikka &lt;dbl&gt;, milk &lt;dbl&gt;, mars &lt;dbl&gt;, coke &lt;dbl&gt;,
+#   lottery &lt;dbl&gt;, bread &lt;dbl&gt;, pizza &lt;dbl&gt;, sunny.delight &lt;dbl&gt;,
+#   ham &lt;dbl&gt;, lettuce &lt;dbl&gt;, kronenbourg &lt;dbl&gt;, leeks &lt;dbl&gt;,
+#   fanta &lt;dbl&gt;, tea &lt;dbl&gt;, whiskey &lt;dbl&gt;, peas &lt;dbl&gt;,
+#   newspaper &lt;dbl&gt;, muesli &lt;dbl&gt;, white.wine &lt;dbl&gt;, carrots &lt;dbl&gt;,
+#   spinach &lt;dbl&gt;, pate &lt;dbl&gt;, instant.coffee &lt;dbl&gt;, twix &lt;dbl&gt;, …</code></pre>
+</div>
+<p>From <a href="https://bradleyboehmke.github.io/HOML/intro.html#data">Section 1.4</a>:</p>
+<ul>
+<li><code>my_basket.csv</code>: Grocery items and quantities purchased. Each observation represents a single basket of goods that were purchased together.
+<ul>
+<li>Problem type: unsupervised basket analysis</li>
+<li>response variable: NA</li>
+<li>features: 42</li>
+<li>observations: 2,000</li>
+<li>objective: use attributes of each basket to identify common groupings of items purchased together.</li>
+</ul></li>
+</ul>
+<h3 data-number="1.1.2" id="performing-pca-in-r"><span class="header-section-number">1.1.2</span> Performing PCA in R</h3>
+<p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r">17.4 Performing PCA in R</a></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>h2o.no_progress</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># turn off progress bars for brevity</span>
 <span class='fu'>h2o.init</span><span class='op'>(</span>max_mem_size <span class='op'>=</span> <span class='st'>"5g"</span><span class='op'>)</span>  <span class='co'># connect to H2O instance</span>
@@ -2574,7 +2629,7 @@ Labs
 <pre><code> Connection successful!
 
 R is connected to the H2O cluster: 
-    H2O cluster uptime:         1 hours 46 minutes 
+    H2O cluster uptime:         4 hours 6 minutes 
     H2O cluster timezone:       America/Los_Angeles 
     H2O data parsing timezone:  UTC 
     H2O cluster version:        3.36.0.1 
@@ -2610,7 +2665,7 @@ R is connected to the H2O cluster:
 ==============
 
 H2ODimReductionModel: pca
-Model ID:  PCA_model_R_1643030340066_2 
+Model ID:  PCA_model_R_1643030340066_6 
 Importance of components: 
                             pc1      pc2      pc3      pc4      pc5
 Standard deviation     1.513919 1.473768 1.459114 1.440635 1.435279
@@ -2661,7 +2716,7 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-1-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_pca</span><span class='op'>@</span><span class='va'>model</span><span class='op'>$</span><span class='va'>eigenvectors</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2670,7 +2725,11 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_text</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-1-2.png" width="624" />
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-2.png" width="624" /></p>
+</div>
+<h3 data-number="1.1.3" id="eigenvalue-criterion"><span class="header-section-number">1.1.3</span> Eigenvalue criterion</h3>
+<p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#eigenvalue-criterion">17.5.1 Eigenvalue criterion</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Compute eigenvalues</span>
 <span class='va'>eigen</span> <span class='op'>&lt;-</span> <span class='va'>my_pca</span><span class='op'>@</span><span class='va'>model</span><span class='op'>$</span><span class='va'>importance</span><span class='op'>[</span><span class='st'>"Standard deviation"</span>, <span class='op'>]</span> <span class='op'>%&gt;%</span>
@@ -2705,7 +2764,7 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>metric</span>, ncol <span class='op'>=</span> <span class='fl'>1</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-1-3.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># How many PCs required to explain at least 75% of total variability</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>ve</span><span class='op'>$</span><span class='va'>CVE</span> <span class='op'>&gt;=</span> <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
@@ -2723,13 +2782,11 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_text</span><span class='op'>(</span>nudge_y <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.002</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-1-4.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
 </div>
 <h2 data-number="1.2" id="non-metric-multidimensional-scaling-nmds"><span class="header-section-number">1.2</span> Non-metric MultiDimensional Scaling (NMDS)</h2>
 <h3 data-number="1.2.1" id="unconstrained-ordination-on-species"><span class="header-section-number">1.2.1</span> Unconstrained Ordination on Species</h3>
-<ul>
-<li>vegantutor.pdf: 2.1 Non-metric Multidimensional scaling</li>
-</ul>
+<p>See supporting text: <strong>2.1 Non-metric Multidimensional scaling</strong> in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load R packages</span>
@@ -2740,18 +2797,41 @@ No model metrics available for PCA</code></pre>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"varespec"</span><span class='op'>)</span> <span class='co'># species</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"varechem"</span><span class='op'>)</span> <span class='co'># chemistry</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>varespec</span><span class='op'>)</span>
-<span class='va'>vare.dis</span> <span class='op'>&lt;-</span> <span class='fu'>vegdist</span><span class='op'>(</span><span class='va'>varespec</span><span class='op'>)</span>
+<span class='va'>varespec</span> <span class='op'>%&gt;%</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 24 × 44
+   Callvulg Empenigr Rhodtome Vaccmyrt Vaccviti Pinusylv Descflex
+      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1     0.55    11.1      0        0       17.8      0.07     0   
+ 2     0.67     0.17     0        0.35    12.1      0.12     0   
+ 3     0.1      1.55     0        0       13.5      0.25     0   
+ 4     0       15.1      2.42     5.92    16.0      0        3.7 
+ 5     0       12.7      0        0       23.7      0.03     0   
+ 6     0        8.92     0        2.42    10.3      0.12     0.02
+ 7     4.73     5.12     1.55     6.05    12.4      0.1      0.78
+ 8     4.47     7.33     0        2.15     4.33     0.1      0   
+ 9     0        1.63     0.35    18.3      7.13     0.05     0.4 
+10    24.1      1.9      0.07     0.22     5.3      0.12     0   
+# … with 14 more rows, and 37 more variables: Betupube &lt;dbl&gt;,
+#   Vacculig &lt;dbl&gt;, Diphcomp &lt;dbl&gt;, Dicrsp &lt;dbl&gt;, Dicrfusc &lt;dbl&gt;,
+#   Dicrpoly &lt;dbl&gt;, Hylosple &lt;dbl&gt;, Pleuschr &lt;dbl&gt;, Polypili &lt;dbl&gt;,
+#   Polyjuni &lt;dbl&gt;, Polycomm &lt;dbl&gt;, Pohlnuta &lt;dbl&gt;, Ptilcili &lt;dbl&gt;,
+#   Barbhatc &lt;dbl&gt;, Cladarbu &lt;dbl&gt;, Cladrang &lt;dbl&gt;, Cladstel &lt;dbl&gt;,
+#   Cladunci &lt;dbl&gt;, Cladcocc &lt;dbl&gt;, Cladcorn &lt;dbl&gt;, Cladgrac &lt;dbl&gt;,
+#   Cladfimb &lt;dbl&gt;, Cladcris &lt;dbl&gt;, Cladchlo &lt;dbl&gt;, Cladbotr &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>vare.dis</span> <span class='op'>&lt;-</span> <span class='fu'>vegdist</span><span class='op'>(</span><span class='va'>varespec</span><span class='op'>)</span>
 <span class='va'>vare.mds0</span> <span class='op'>&lt;-</span> <span class='fu'>monoMDS</span><span class='op'>(</span><span class='va'>vare.dis</span><span class='op'>)</span>
 <span class='fu'>stressplot</span><span class='op'>(</span><span class='va'>vare.mds0</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ordiplot</span><span class='op'>(</span><span class='va'>vare.mds0</span>, type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-2.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-2.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>vare.mds</span> <span class='op'>&lt;-</span> <span class='fu'>metaMDS</span><span class='op'>(</span><span class='va'>varespec</span>, trace <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>vare.mds</span>
@@ -2776,17 +2856,10 @@ Species: expanded scores based on &#39;wisconsin(sqrt(varespec))&#39; </code></p
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.mds</span>, type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-3.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-3.png" width="624" /></p>
 </div>
 <h3 data-number="1.2.2" id="overlay-with-environment"><span class="header-section-number">1.2.2</span> Overlay with Environment</h3>
-<ul>
-<li>vegantutor.pdf:
-<ul>
-<li>3 Environmental interpretation</li>
-<li>3.1 Vector fitting</li>
-<li>3.2 Surface fitting</li>
-</ul></li>
-</ul>
+<p>See supporting text in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>: * 3 Environmental interpretation * 3.1 Vector fitting * 3.2 Surface fitting</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ef</span> <span class='op'>&lt;-</span> <span class='fu'>envfit</span><span class='op'>(</span><span class='va'>vare.mds</span>, <span class='va'>varechem</span>, permu <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span>
@@ -2820,7 +2893,7 @@ Number of permutations: 999</code></pre>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ef</span>, p.max <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ef</span> <span class='op'>&lt;-</span> <span class='fu'>envfit</span><span class='op'>(</span><span class='va'>vare.mds</span> <span class='op'>~</span> <span class='va'>Al</span> <span class='op'>+</span> <span class='va'>Ca</span>, data <span class='op'>=</span> <span class='va'>varechem</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.mds</span>, display <span class='op'>=</span> <span class='st'>"sites"</span><span class='op'>)</span>
@@ -2830,7 +2903,7 @@ Number of permutations: 999</code></pre>
 <span class='fu'>ordisurf</span><span class='op'>(</span><span class='va'>vare.mds</span> <span class='op'>~</span> <span class='va'>Ca</span>, data<span class='op'>=</span><span class='va'>varechem</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, col <span class='op'>=</span> <span class='st'>"green4"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-5-2.png" width="624" /></p>
 <pre><code>
 Family: gaussian 
 Link function: identity 
@@ -2844,13 +2917,8 @@ Estimated degrees of freedom:
 REML score: 156.656     </code></pre>
 </div>
 <h3 data-number="1.2.3" id="constrained-ordination-on-species-and-environment"><span class="header-section-number">1.2.3</span> Constrained Ordination on Species and Environment</h3>
-<ul>
-<li>vegantutor.pdf:
-<ul>
-<li>4 Constrained ordination</li>
-<li>4.1 Model specification</li>
-</ul></li>
-</ul>
+<p>See supporting text in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>: * 4 Constrained ordination * 4.1 Model specification</p>
+<p>Technically, this uses another technique <code>cca</code>, or canonical correspondence analysis.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># ordinate on species constrained by three soil elements</span>
@@ -2879,13 +2947,13 @@ Eigenvalues for unconstrained axes:
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.cca</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-6-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># plot 3 dimensions</span>
 <span class='fu'>ordiplot3d</span><span class='op'>(</span><span class='va'>vare.cca</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-2.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-6-2.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'>ordirgl</span><span class='op'>(</span><span class='va'>vare.cca</span><span class='op'>)</span>
@@ -2893,7 +2961,7 @@ Eigenvalues for unconstrained axes:
 </code></pre>
 </div>
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

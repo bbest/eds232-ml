@@ -17,6 +17,8 @@ navbar:
           href: lab1d_sdm-evaluate.html
         - text: "2a. Community: cluster"
           href: lab2a_community-cluster.html
+        - text: "2b. Community: ordination"
+          href: lab2b_community-ordination.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"
