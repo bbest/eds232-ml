@@ -1,5 +1,5 @@
 ---
-title: "Lab 2b. Community - Ordinate"
+title: "Lab 2b. Community - Ordination"
 author: "Ben Best"
 date: "1/24/2022"
 output: html_document
