@@ -1,0 +1,184 @@
+---
+title: "Lab 2a. Community - Ordinate"
+author: "Ben Best"
+date: "1/24/2022"
+output: html_document
+bibliography: ["ml-env.bib"]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Learning Objectives {.unnumbered}
+
+In this lab, you will play with **unsupervised classification** techniques while working with **ecological community** datasets.
+
+- **Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction.
+
+  - **Principal Components Analyses (PCA)** is the most common and oldest technique that assumes linear relationships between axes.
+  
+  - **Non-metric MultiDimensional Scaling (NMDS)** allows for non-linear relationships.
+  
+# Ordination
+
+## Principal Components Analysis (PCA)
+
+```{r}
+# load R packages
+librarian::shelf(
+  dplyr, ggplot2, h2o)
+
+# set seed for reproducible results
+set.seed(42)
+
+# get data
+url <- "https://koalaverse.github.io/homlr/data/my_basket.csv"
+my_basket <- readr::read_csv(url)
+dim(my_basket)  
+
+h2o.no_progress()  # turn off progress bars for brevity
+h2o.init(max_mem_size = "5g")  # connect to H2O instance
+
+# convert data to h2o object
+my_basket.h2o <- as.h2o(my_basket)
+
+# run PCA
+my_pca <- h2o.prcomp(
+  training_frame = my_basket.h2o,
+  pca_method = "GramSVD",
+  k = ncol(my_basket.h2o), 
+  transform = "STANDARDIZE", 
+  impute_missing = TRUE,
+  max_runtime_secs = 1000)
+my_pca
+
+my_pca@model$eigenvectors %>% 
+  as.data.frame() %>% 
+  mutate(feature = row.names(.)) %>%
+  ggplot(aes(pc1, reorder(feature, pc1))) +
+  geom_point()
+
+my_pca@model$eigenvectors %>% 
+  as.data.frame() %>% 
+  mutate(feature = row.names(.)) %>%
+  ggplot(aes(pc1, pc2, label = feature)) +
+  geom_text()
+
+
+# Compute eigenvalues
+eigen <- my_pca@model$importance["Standard deviation", ] %>%
+  as.vector() %>%
+  .^2
+  
+# Sum of all eigenvalues equals number of variables
+sum(eigen)
+## [1] 42
+
+# Find PCs where the sum of eigenvalues is greater than or equal to 1
+which(eigen >= 1)
+
+# Extract PVE and CVE
+ve <- data.frame(
+  PC  = my_pca@model$importance %>% seq_along(),
+  PVE = my_pca@model$importance %>% .[2,] %>% unlist(),
+  CVE = my_pca@model$importance %>% .[3,] %>% unlist())
+
+# Plot PVE and CVE
+ve %>%
+  tidyr::gather(metric, variance_explained, -PC) %>%
+  ggplot(aes(PC, variance_explained)) +
+  geom_point() +
+  facet_wrap(~ metric, ncol = 1, scales = "free")
+
+# How many PCs required to explain at least 75% of total variability
+min(which(ve$CVE >= 0.75))
+
+# Screee plot criterion
+data.frame(
+  PC  = my_pca@model$importance %>% seq_along,
+  PVE = my_pca@model$importance %>% .[2,] %>% unlist()) %>%
+  ggplot(aes(PC, PVE, group = 1, label = PC)) +
+  geom_point() +
+  geom_line() +
+  geom_text(nudge_y = -.002)
+```
+
+
+## Non-metric MultiDimensional Scaling (NMDS)
+
+### Unconstrained Ordination on Species
+
+- vegantutor.pdf: 2.1 Non-metric Multidimensional scaling
+
+```{r}
+# load R packages
+librarian::shelf(
+  vegan, vegan3d)
+
+# vegetation and environment in lichen pastures from Vare et al (1995)
+data("varespec") # species
+data("varechem") # chemistry
+
+data(varespec)
+vare.dis <- vegdist(varespec)
+vare.mds0 <- monoMDS(vare.dis)
+stressplot(vare.mds0)
+
+ordiplot(vare.mds0, type = "t")
+
+vare.mds <- metaMDS(varespec, trace = FALSE)
+vare.mds
+
+plot(vare.mds, type = "t")
+```
+
+
+### Overlay with Environment
+
+- vegantutor.pdf: 
+  * 3 Environmental interpretation
+  * 3.1 Vector fitting
+  * 3.2 Surface fitting
+
+```{r}
+ef <- envfit(vare.mds, varechem, permu = 999)
+ef
+
+plot(vare.mds, display = "sites")
+plot(ef, p.max = 0.05)
+
+
+ef <- envfit(vare.mds ~ Al + Ca, data = varechem)
+plot(vare.mds, display = "sites")
+plot(ef)
+
+tmp <- with(varechem, ordisurf(vare.mds, Al, add = TRUE))
+ordisurf(vare.mds ~ Ca, data=varechem, add = TRUE, col = "green4")
+```
+
+
+### Constrained Ordination on Species and Environment
+
+- vegantutor.pdf: 
+  * 4 Constrained ordination
+  * 4.1 Model specification
+
+```{r}
+# ordinate on species constrained by three soil elements
+vare.cca <- cca(varespec ~ Al + P + K, varechem)
+vare.cca
+
+# plot ordination
+plot(vare.cca)
+
+# plot 3 dimensions
+ordiplot3d(vare.cca, type = "h")
+  
+if (interactive()){
+  ordirgl(vare.cca)
+}
+```
+
