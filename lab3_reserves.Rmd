@@ -1,0 +1,670 @@
+---
+title: "Lab 3. Reserve Planning"
+author: "Jeffrey O. Hanson"
+date: "2021-09-26"
+output: html_document
+bibliography: "files/prioritizr.bib"
+css: "files/prioritizr-style.css"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Learning Objectives {.unnumbered}
+
+# Introduction
+
+This lab was created by the developer of the R package [`prioritizr`](https://prioritizr.net/) Jeffrey O. Hanson. I made slight tweaks to streamline code and reduce text.
+
+```{r, include = FALSE}
+latest_r_version <- "4.0.4"
+```
+
+## Overview {#overview}
+
+The aim of this workshop is to help you get started with using the prioritizr R package for systematic conservation planning. It is not designed to give you a comprehensive overview and you will not become an expert after completing this workshop. Instead, we want to help you understand the core principles of conservation planning and guide you through some of the common tasks involved with developing prioritizations. In other words, we want to give you the knowledge base and confidence needed to start applying systematic conservation planning to your own work.
+
+You are not alone in this workshop. If you are having trouble, please put your hand up and one of the instructors will help you as soon as they can. You can also ask the people sitting next to you for help too. **Most importantly, the code needed to answer the questions in this workshop are almost always located in the same section as the question. So if you are stuck, try rereading the example code and see if you can modify it to answer the question.** Please note that the first thing an instructor will ask you will be "what have you tried so far?". We can't help you if you haven't tried anything.
+
+## Setting up your computer {#setup}
+
+You will need to have both R and RStudio installed on your computer to complete this workshop. Although it is not imperative that you have the latest version of RStudio installed, **you will need the latest version of R installed (i.e. version `r latest_r_version`)**. Please note that you might need administrative permissions to install these programs. After installing them, you will also need to install some R packages too. Finally, you will also need to download the data for this workshop.
+
+### R {#r}
+
+The [R statistical computing environment](https://www.r-project.org) can be downloaded from the Comprehensive R Archive Network (CRAN). Specifically, you can download the latest version of R (version `r latest_r_version`) from here: https://cloud.r-project.org. Please note that you will need to download the correct file for your operating system (i.e. Linux, Mac OSX, Windows).
+
+### RStudio {#rstudio}
+
+[RStudio](https://www.rstudio.com) is an integrated development environment (IDE). In other words, it is a program that is designed to make your R programming experience more enjoyable. During this workshop, you will interact with R through RStudio---meaning that you will open RStudio to code in R. You can download the latest version of RStudio here: http://www.rstudio.com/download. When you start RStudio, you will see two main parts of the interface:
+
+```{r, out.width = "100%", echo = FALSE}
+knitr::include_graphics("img/lab3_prioritizr/rstudio-console.png")
+```
+
+You can type R code into the _Console_ and press the enter key to run code.
+
+### R packages {#r-packages}
+
+An R package is a collection of R code and documentation that can be installed to enhance the standard R environment with additional functionality. Currently, there are over fifteen thousand R packages available on CRAN. Each of these R packages are developed to perform a specific task, such as [reading Excel spreadsheets](https://cran.r-project.org/web/packages/readxl/index.html), [downloading satellite imagery data](https://cran.r-project.org/web/packages/MODIStsp/index.html), [downloading and cleaning protected area data](https://cran.r-project.org/web/packages/wdpar/index.html), or [fitting environmental niche models](https://cran.r-project.org/web/packages/ENMeval/index.html). In fact, R has such a diverse ecosystem of R packages, that the question is almost always not "can I use R to ...?" but "what R package can I use to ...?". During this workshop, we will use several R packages. To install these R packages, please enter the code below in the _Console_ part of the RStudio interface and press enter. Note that you will require an Internet connection and the installation process may take some time to complete.
+
+```{r}
+if (!require("librarian")){
+  install.packages("librarian")
+  library(librarian)
+}
+librarian::shelf(
+  assertthat, BiocManager, dplyr, gridExtra, here, mapview, 
+  prioritizr, prioritizrdata, 
+  raster, remotes, rgeos, rgdal, scales, sf, sp, stringr,
+  units)
+if (!require("lpsymphony")){
+  BiocManager::install("lpsymphony")
+  library(lpsymphony)
+}
+```
+
+### Data {#data-setup}
+
+The data for this workshop are available online. To download the data, please  [click on this link](https://github.com/prioritizr/massey-workshop/raw/main/data.zip) and save the `data.zip` file to your computer. Next, unzip the `data.zip` file. You should now have a new folder on your computer called `"data"` which contains the data files (e.g. `pu.shp`).
+
+```{r}
+dir_data <- here("data/prioritizr")
+pu_shp   <- file.path(dir_data, "pu.shp")
+pu_url   <- "https://github.com/prioritizr/massey-workshop/raw/main/data.zip"
+pu_zip   <- file.path(dir_data, basename(pu_url))
+vegetation_tif <- file.path(dir_data, "vegetation.tif")
+
+dir.create(dir_data, showWarnings = F, recursive = T)
+if (!file.exists(pu_shp)){
+  download.file(pu_url, pu_zip)
+  unzip(pu_zip, exdir = dir_data)
+  dir_unzip   <- file.path(dir_data, "data")
+  files_unzip <- list.files(dir_unzip, full.names = T)
+  file.rename(
+    files_unzip, 
+    files_unzip %>% str_replace("prioritizr/data", "prioritizr"))
+  unlink(c(pu_zip, dir_unzip), recursive = T)
+}
+```
+
+
+## Further reading {#further-reading}
+
+There is a wealth of resources available for learning how to use R. Although not required for this workshop, I would highly recommend that you read [_R for Data Science_ by Garrett Grolemund and Hadley Wickham](https://r4ds.had.co.nz/). **This veritable trove of R goodness is freely available online.** If you spend a week going through this book then you will save months debugging and rerunning incorrect code. I would urge any and all ecologists, especially those working on Masters or PhD degrees, to read this book. I even bought this book as a Christmas present for my sister---and, yes, she was happy to receive it! For intermediate users looking to skill-up, I would recommend the [_The Art of R Programming: A Tour of Statistical Software Design_ by Norman Matloff](http://shop.oreilly.com/product/9781593273842.do) and [_Advanced R_ by Hadley Wickham](https://adv-r.hadley.nz/). Finally, if you wish to learn more about using R as a geospatial information system (GIS), I would recommend [_Geocomputation with R_ by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow](https://geocompr.robinlovelace.net/) which is also freely available online. I also recommend [_Applied Spatial Data Analysis_ by Roger S. Bivand, Edzer Pebesma, and Virgilio Gómez-Rubio](https://www.springer.com/gp/book/9781461476177) too.
+
+# Data {#data}
+
+## Starting out
+
+We will start by opening RStudio. Ideally, you will have already installed both R and Rstudio before the workshop. If you have not done this already, then please see the [Setting up your computer](#setup) section. **During this workshop, please do not copy and paste code from the workshop manual into RStudio. Instead, please write it out yourself in an R script.** When programming, you will spend a lot of time fixing coding mistakes---that is, debugging your code---so it is best to get used to making mistakes now when you have people here to help you. You can create a new R script by clicking on _File_ in the RStudio menu bar, then _New File_, and then _R Script_.
+
+```{r, out.width = "70%", echo = FALSE}
+knitr::include_graphics("img/lab3_prioritizr/rstudio-new-script.png")
+```
+
+After creating a new script, you will notice that a new _Source_ panel has appeared. In the _Source_ panel, you can type and edit code before you run it. You can run code in the _Source_ panel by placing the cursor (i.e. the blinking line) on the desired line of code and pressing `Control + Enter` on your keyboard (or `CMD + Enter` if you are using an Apple computer). You can save the code in the _Source_ panel by pressing `Control + s` on your keyboard (or `CMD + s` if you are using an Apple computer).
+
+```{r, out.width = "70%", echo = FALSE}
+knitr::include_graphics("img/lab3_prioritizr/rstudio-source.png")
+```
+
+You can also make notes and write your answers to the workshop questions inside the R script. When writing notes and answers, add a `#` symbol so that the text following the `#` symbol is treated as a comment and not code. This means that you don't have to worry about highlighting specific parts of the script to avoid errors.
+
+```{r}
+# this is a comment and R will ignore this text if you run it
+# R will run the code below because it does not start with a # symbol
+print("this is not a comment")
+
+# you can also add comments to the same line of R code too
+print("this is also not a comment") # but this is a comment
+```
+
+**Remember to save your script regularly to ensure that you don't lose anything in the event that RStudio crashes (e.g. using `Control + s` or `CMD + s`)!**
+
+You should have already downloaded the data. If you have not already done so, you can [download it from here](https://github.com/prioritizr/massey-workshop/raw/master/data.zip). After downloading the data, you can unzip the data into a new folder. Next, you will need to set the working directory to this new folder. To achieve this, click on the _Session_ button on the RStudio menu bar, then click _Set Working Directory_, and then _Choose Directory_.
+
+```{r, out.width = "70%", echo = FALSE}
+knitr::include_graphics("img/lab3_prioritizr/rstudio-wd.png")
+```
+
+\clearpage
+
+Now navigate to the folder where you unzipped the data and select _Open_. You can verify that you have correctly set the working directory using the following R code. You should see the output `TRUE` in the _Console_ panel.
+
+## Data import
+
+```{r, include = FALSE}
+n_features <- raster::nlayers(raster::stack(vegetation_tif))
+```
+
+Now that we have downloaded the dataset, we will need to import it into our R session. Specifically, this data was obtained from the "Introduction to Marxan" course and was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources. It contains vector-based planning unit data (`pu.shp`) and the raster-based data describing the spatial distributions of `r n_features` vegetation classes (`vegetation.tif`) in southern Tasmania, Australia. Please note this dataset is only provided for teaching purposes and should not be used for any real-world conservation planning. We can import the data into our R session using the following code.
+
+```{r}
+# import planning unit data
+pu_data <- as(read_sf(pu_shp), "Spatial")
+
+# format columns in planning unit data
+pu_data$locked_in <- as.logical(pu_data$locked_in)
+pu_data$locked_out <- as.logical(pu_data$locked_out)
+
+# import vegetation data
+veg_data <- stack(vegetation_tif)
+```
+
+```{r, include = FALSE}
+assert_that(
+  sum(pu_data$locked_in) > 0,
+  sum(pu_data$locked_out) > 0,
+  sum(pu_data$locked_in & pu_data$locked_out) == 0)
+```
+
+\clearpage
+
+## Planning unit data
+
+The planning unit data contains spatial data describing the geometry for each planning unit and attribute data with information about each planning unit (e.g. cost values). Let's investigate the `pu_data` object. The attribute data contains `r ncol(pu_data)` columns with contain the following information:
+
+* `id`: unique identifiers for each planning unit
+* `cost`: acquisition cost values for each planning unit (millions of Australian dollars).
+* `status`: status information for each planning unit (only relevant with Marxan)
+* `locked_in`: logical values (i.e. `TRUE`/`FALSE`) indicating if planning units are covered by protected areas or not.
+* `locked_out`: logical values (i.e. `TRUE`/`FALSE`) indicating if planning units cannot be managed as a protected area because they contain are too degraded.
+
+```{r}
+# print a short summary of the data
+print(pu_data)
+
+# plot the planning unit data
+plot(pu_data)
+```
+
+```{r, eval = FALSE}
+# plot an interactive map of the planning unit data
+mapview(pu_data)
+```
+
+```{r, out.width = "60%"}
+# print the structure of object
+str(pu_data, max.level = 2)
+
+# print the class of the object
+class(pu_data)
+
+# print the slots of the object
+slotNames(pu_data)
+
+# print the coordinate reference system
+print(pu_data@proj4string)
+
+# print number of planning units (geometries) in the data
+nrow(pu_data)
+
+# print the first six rows in the data
+head(pu_data@data)
+
+# print the first six values in the cost column of the attribute data
+head(pu_data$cost)
+
+# print the highest cost value
+max(pu_data$cost)
+
+# print the smallest cost value
+min(pu_data$cost)
+
+# print average cost value
+mean(pu_data$cost)
+
+# plot a map of the planning unit cost data
+spplot(pu_data, "cost")
+```
+
+```{r, eval = FALSE}
+# plot an interactive map of the planning unit cost data
+mapview(pu_data, zcol = "cost")
+```
+
+Now, you can try and answer some questions about the planning unit data.
+
+```{block2, type="rmdquestion"}
+1. How many planning units are in the planning unit data?
+2. What is the highest cost value?
+3. Is there a spatial pattern in the planning unit cost values (hint: use `plot` to make a map)?
+```
+
+\clearpage
+
+## Vegetation data
+
+The vegetation data describe the spatial distribution of `r n_features` vegetation classes in the study area. This data is in a raster format and so the data are organized using a grid comprising square grid cells that are each the same size. In our case, the raster data contains multiple layers (also called "bands") and each layer has corresponds to a spatial grid with exactly the same area and has exactly the same dimensionality (i.e. number of rows, columns, and cells). In this dataset, there are `r n_features` different regular spatial grids layered on top of each other -- with each layer corresponding to a different vegetation class -- and each of these layers contains a grid with `r raster::nrow(veg_data)` rows, `r raster::ncol(veg_data)` columns, and `r nrow(veg_data) * ncol(veg_data)` cells. Within each layer, each cell corresponds to a `r raster::xres(veg_data)/1000` by `r raster::yres(veg_data)/1000` km square. The values associated with each grid cell indicate the (one) presence or (zero) absence of a given vegetation class in the cell.
+
+![](img/lab3_prioritizr/rasterbands.png)
+
+Let's explore the vegetation data.
+
+```{r "explore feature data"}
+# print a short summary of the data
+print(veg_data)
+
+# plot a map of the 20th vegetation class
+plot(veg_data[[20]])
+```
+
+```{r, eval = FALSE}
+# plot an interactive map of the 20th vegetation class
+mapview(veg_data[[20]])
+```
+
+```{r "preview feature data"}
+# print number of rows in the data
+nrow(veg_data)
+
+# print number of columns  in the data
+ncol(veg_data)
+
+# print number of cells in the data
+ncell(veg_data)
+
+# print number of layers in the data
+nlayers(veg_data)
+
+# print  resolution on the x-axis
+xres(veg_data)
+
+# print resolution on the y-axis
+yres(veg_data)
+
+# print spatial extent of the grid, i.e. coordinates for corners
+extent(veg_data)
+
+# print the coordinate reference system
+print(veg_data@crs)
+
+# print a summary of the first layer in the stack
+print(veg_data[[1]])
+
+# print the value in the 800th cell in the first layer of the stack
+print(veg_data[[1]][800])
+
+# print the value of the cell located in the 30th row and the 60th column of
+# the first layer
+print(veg_data[[1]][30, 60])
+
+# calculate the sum of all the cell values in the first layer
+cellStats(veg_data[[1]], "sum")
+
+# calculate the maximum value of all the cell values in the first layer
+cellStats(veg_data[[1]], "max")
+
+# calculate the minimum value of all the cell values in the first layer
+cellStats(veg_data[[1]], "min")
+
+# calculate the mean value of all the cell values in the first layer
+cellStats(veg_data[[1]], "mean")
+```
+
+Now, you can try and answer some questions about the vegetation data.
+
+```{block2, type="rmdquestion"}
+1. What part of the study area is the 13th vegetation class found in (hint: make a map)? For instance, is it in the south-eastern part of the study area?
+2. What proportion of cells contain the 12th vegetation class?
+3. Which vegetation class is the most abundant (i.e. present in the greatest number of cells)?
+
+```
+
+```{r, include = FALSE}
+sum_veg_data <- sum(veg_data)
+```
+
+# Gap analysis
+
+## Introduction
+
+Before we begin to prioritize areas for protected area establishment, we should first understand how well existing protected areas are conserving our biodiversity features (i.e. native vegetation classes in Tasmania, Australia). This step is critical: we cannot develop plans to improve conservation of biodiversity if we don't understand how well existing policies are currently conserving biodiversity! To achieve this, we can perform a "gap analysis". A gap analysis involves calculating how well each of our biodiversity features (i.e. vegetation classes in this exercise) are represented (covered) by protected areas. Next, we compare current representation by protected areas of each feature (e.g. 5% of their spatial distribution covered by protected areas) to a target threshold (e.g. 20% of their spatial distribution covered by protected areas). This target threshold denotes the minimum amount (e.g. minimum proportion of spatial distribution) that we need of each feature to be represented in the protected area system. Ideally, targets should be based on an estimate of how much area or habitat is needed for ecosystem function or species persistence. In practice, targets are generally set using simple rules of thumb (e.g. 10% or 20%), policy (17%; https://www.cbd.int/sp/targets/rationale/target-11) or standard practices (e.g. setting targets for species based on geographic range size) [@r1; @r2].
+
+## Feature abundance
+
+Now we will perform some preliminary calculations to explore the data. First, we will calculate how much of each vegetation feature occurs inside each planning unit (i.e. the abundance of the features). To achieve this, we will use the `problem` function to create an empty conservation planning problem that only contains the planning unit and biodiversity data. We will then use the `feature_abundances` function to calculate the total amount of each feature in each planning unit.
+
+```{r}
+# create prioritizr problem with only the data
+p0 <- problem(pu_data, veg_data, cost_column = "cost")
+
+# print empty problem,
+# we can see that only the cost and feature data are defined
+print(p0)
+
+# calculate amount of each feature in each planning unit
+abundance_data <- feature_abundances(p0)
+
+# print abundance data
+print(abundance_data)
+```
+
+\clearpage
+
+```{r}
+# note that only the first ten rows are printed,
+# this is because the abundance_data object is a tibble (i.e. tbl_df) object
+# and not a standard data.frame object
+print(class(abundance_data))
+
+# we can print all of the rows in abundance_data like this
+print(abundance_data, n = Inf)
+```
+
+The `abundance_data` object contains three columns. The `feature` column contains the name of each feature (derived from `names(veg_data)`), the `absolute_abundance` column contains the total amount of each feature in all the planning units, and the `relative_abundance` column contains the total amount of each feature in the planning units expressed as a proportion of the total amount in the underlying raster data. Since all the raster cells containing vegetation overlap with the planning units, all of the values in the `relative_abundance` column are equal to one (meaning 100%). Now let's add a new column with the feature abundances expressed in area units (i.e. km^2^).
+
+```{r}
+# add new column with feature abundances in km^2
+abundance_data$absolute_abundance_km2 <-
+  (abundance_data$absolute_abundance * prod(res(veg_data))) %>%
+  set_units(m^2) %>%
+  set_units(km^2)
+
+# print abundance data
+print(abundance_data)
+```
+
+Now let's explore the abundance data.
+
+```{r}
+# calculate the average abundance of the features
+mean(abundance_data$absolute_abundance_km2)
+
+# plot histogram of the features' abundances
+hist(abundance_data$absolute_abundance_km2, main = "Feature abundances")
+
+# find the abundance of the feature with the largest abundance
+max(abundance_data$absolute_abundance_km2)
+
+# find the name of the feature with the largest abundance
+abundance_data$feature[which.max(abundance_data$absolute_abundance_km2)]
+```
+
+Now, try to answer the following questions.
+
+```{block2, type="rmdquestion"}
+1. What is the median abundance of the features (hint: `median`)?
+2. What is the name of the feature with smallest abundance?
+3. How many features have a total abundance greater than 100 km^2 (hint: use `sum(abundance_data$absolute_abundance_km2 > set_units(threshold, km^2)` with the correct `threshold` value)?
+
+```
+
+## Feature representation
+
+After calculating the total amount of each feature in the planning units (i.e. the features' abundances), we will now calculate the amount of each feature in the planning units that are covered by protected areas (i.e. feature representation by protected areas). We can complete this task using the `eval_feature_representation_summary()` function. This function requires (i) a conservation problem object with the planning unit and biodiversity data and also (ii) an object representing a solution to the problem (i.e an object in the same format as the planning unit data with values indicating if the planning units are selected or not).
+
+```{r}
+# create column in planning unit data with binary values (zeros and ones)
+# indicating if a planning unit is covered by protected areas or not
+pu_data$pa_status <- as.numeric(pu_data$locked_in)
+
+# calculate feature representation by protected areas
+repr_data <- eval_feature_representation_summary(p0, pu_data[, "pa_status"])
+
+# print feature representation data
+print(repr_data)
+```
+
+Similar to the abundance data before, the `repr_data` object contains three columns. The `feature` column contains the name of each feature, the `absolute_held` column shows the total amount of each feature held in the solution (i.e. the planning units covered by protected areas), and the `relative_held` column shows the proportion of each feature held in the solution (i.e. the proportion of each feature's spatial distribution held in protected areas). Since the `absolute_held` values correspond to the number of grid cells in the `veg_data` object with overlap with protected areas, let's convert them to area units (i.e. km^2^) so we can report them.
+
+```{r}
+# add new column with the areas represented in km^2
+repr_data$absolute_held_km2 <-
+  (repr_data$absolute_held * prod(res(veg_data))) %>%
+  set_units(m^2) %>%
+  set_units(km^2)
+
+# print representation data
+print(repr_data)
+```
+
+\clearpage
+
+Now let's investigate how well the species are represented.
+
+```{block2, type="rmdquestion"}
+1. What is the average proportion of the features held in protected areas (hint: use `mean(table$relative_held)` with the correct `table` name)?
+2. If we set a target of 10% coverage by protected areas, how many features fail to meet this target (hint: use `sum(table$relative_held >= target_value)`  with the correct `table` name)?
+3. If we set a target of 20% coverage by protected areas, how many features fail to meet this target?
+4. Is there a relationship between the total abundance of a feature and how well it is represented by protected areas (hint: `plot(abundance_data$absolute_abundance ~ repr_data$relative_held)`)?
+
+```
+
+# Spatial prioritizations
+
+## Introduction
+
+Here we will develop prioritizations to identify priority areas for protected area establishment. Its worth noting that prioritizr is a decision support tool (similar to [Marxan](http://marxan.org/) and [Zonation](https://www.helsinki.fi/en/researchgroups/digital-geography-lab/software-developed-in-cbig#section-52992)). This means that it is designed to help you make decisions---it can't make decisions for you.
+
+## Starting out simple
+
+To start things off, let's keep things simple. Let's create a prioritization using the [minimum set formulation of the reserve selection problem](https://prioritizr.net/reference/add_min_set_objective.html). This formulation means that we want a solution that will meet the targets for our biodiversity features for minimum cost. Here, we will set 5% targets for each vegetation class and use the data in the `cost` column to specify acquisition costs. Although we strongly recommend using [Gurobi](https://www.gurobi.com/) to solve problems (with [`add_gurobi_solver`](https://prioritizr.net/reference/add_gurobi_solver.html)), we will use the [lpsymphony solver](https://prioritizr.net/reference/add_lpsymphony_solver.html) in this workshop since it is easier to install. The Gurobi solver is much faster than the lpsymphony solver ([see here for installation instructions](https://prioritizr.net/articles/gurobi_installation.html)).
+
+```{r, out.width = "65%"}
+# print planning unit data
+print(pu_data)
+
+# make prioritization problem
+p1_rds <- file.path(dir_data, "p1.rds")
+if (!file.exists(p1_rds)){
+  p1 <- problem(pu_data, veg_data, cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.05) %>% # 5% representation targets
+        add_binary_decisions() %>%
+        add_lpsymphony_solver()
+  saveRDS(p1, p1_rds)
+}
+p1 <- readRDS(p1_rds)
+
+# print problem
+print(p1)
+
+# solve problem
+s1 <- solve(p1)
+
+# print solution, the solution_1 column contains the solution values
+# indicating if a planning unit is (1) selected or (0) not
+print(s1)
+
+# calculate number of planning units selected in the prioritization
+eval_n_summary(p1, s1[, "solution_1"])
+
+# calculate total cost of the prioritization
+eval_cost_summary(p1, s1[, "solution_1"])
+
+# plot solution
+# selected = green, not selected = grey
+spplot(s1, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s1",
+       colorkey = FALSE)
+```
+
+Now let's examine the solution.
+
+```{block2, type="rmdquestion"}
+1. How many planing units were selected in the prioritization? What proportion of planning units were selected in the prioritization?
+2. Is there a pattern in the spatial distribution of the priority areas?
+3. Can you verify that all of the targets were met in the prioritization (hint: `eval_feature_representation_summary(p1, s1[, "solution_1"])`)?
+
+```
+
+## Adding complexity
+
+Our first prioritization suffers many limitations, so let's add additional constraints to the problem to make it more useful. First, let's lock in planing units that are already by covered protected areas. If some vegetation communities are already secured inside existing protected areas, then we might not need to add as many new protected areas to the existing protected area system to meet their targets. Since our planning unit data (`pu_da`) already contains this information in the `locked_in` column, we can use this column name to specify which planning units should be locked in.
+
+```{r, out.width = "65%"}
+# plot locked_in data
+# TRUE = blue, FALSE = grey
+spplot(pu_data, "locked_in", col.regions = c("grey80", "darkblue"),
+       main = "locked_in", colorkey = FALSE)
+```
+
+```{r, out.width = "65%"}
+# make prioritization problem
+p2_rds <- file.path(dir_data, "p2.rds")
+if (!file.exists(p2_rds)){
+  p2 <- problem(pu_data, veg_data, cost_column = "cost") %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.05) %>%
+      add_locked_in_constraints("locked_in") %>%
+      add_binary_decisions() %>%
+      add_lpsymphony_solver()
+  saveRDS(p2, p2_rds)
+}
+p2 <- readRDS(p2_rds)
+
+# print problem
+print(p2)
+
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+# selected = green, not selected = grey
+spplot(s2, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s2",
+       colorkey = FALSE)
+```
+
+Let's pretend that we talked to an expert on the vegetation communities in our study system and they recommended that a 10% target was needed for each vegetation class. So, equipped with this information, let's set the targets to 10%.
+
+```{r, out.width = "65%"}
+# make prioritization problem
+p3_rds <- file.path(dir_data, "p3.rds")
+if (!file.exists(p3_rds)){
+  p3 <- problem(pu_data, veg_data, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_locked_in_constraints("locked_in") %>%
+    add_binary_decisions() %>%
+    add_lpsymphony_solver()
+  saveRDS(p3, p3_rds)
+}
+p3 <- readRDS(p3_rds)
+
+# print problem
+print(p3)
+
+# solve problem
+s3 <- solve(p3)
+
+# plot solution
+# selected = green, not selected = grey
+spplot(s3, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s3",
+       colorkey = FALSE)
+```
+
+Next, let's lock out highly degraded areas. Similar to before, this information is present in our planning unit data so we can use the `locked_out` column name to achieve this.
+
+```{r, out.width = "65%"}
+# plot locked_out data
+# TRUE = red, FALSE = grey
+spplot(pu_data, "locked_out", col.regions = c("grey80", "darkred"),
+       main = "locked_out", colorkey = FALSE)
+
+# make prioritization problem
+p4_rds <- file.path(dir_data, "p4.rds")
+if (!file.exists(p4_rds)){
+  p4 <- problem(pu_data, veg_data, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_locked_in_constraints("locked_in") %>%
+    add_locked_out_constraints("locked_out") %>%
+    add_binary_decisions() %>%
+    add_lpsymphony_solver()
+  saveRDS(p4, p4_rds)
+}
+p4 <- readRDS(p4_rds)
+```
+
+```{r, out.width = "65%"}
+# print problem
+print(p4)
+
+# solve problem
+s4 <- solve(p4)
+
+# plot solution
+# selected = green, not selected = grey
+spplot(s4, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s4",
+       colorkey = FALSE)
+```
+
+```{r, include=FALSE}
+assert_that(
+  !identical(s3$solution_1, s4$solution_1),
+  eval_cost_summary(p3, s3[, "solution_1"])$cost <
+    eval_cost_summary(p4, s4[, "solution_1"])$cost)
+```
+
+\clearpage
+
+Now, let's compare the solutions.
+
+```{block2, type="rmdquestion"}
+1. What is the cost of the planning units selected in `s2`, `s3`, and `s4`?
+2. How many planning units are in `s2`, `s3`, and `s4`?
+3. Do the solutions with more planning units have a greater cost? Why (or why not)?
+4. Why does the first solution (`s1`) cost less than the second solution with protected areas locked into the solution (`s2`)?
+5. Why does the third solution (`s3`) cost less than the fourth solution solution with highly degraded areas locked out (`s4`)?
+
+```
+
+## Penalizing fragmentation
+
+Plans for protected area systems should promote connectivity. However, the prioritizations we have made so far have been highly fragmented. To address this issue, we can add penalties to our conservation planning problem to penalize fragmentation. These penalties work by specifying a trade-off between the primary objective (here, solution cost) and fragmentation  (i.e. total exposed boundary length) using a penalty value. If we set the penalty value too low, then we will end up with a solution that is nearly identical to the previous solution. If we set the penalty value too high, then prioritizr will (1) take a long time to solve the problem and (2) we will end up with a solution that contains lots of extra planning units that are not needed. This is because the minimizing fragmentation is considered so much more important than solution cost that the optimal solution is simply to select as many planning units as possible.
+
+As a rule of thumb, we generally want penalty values between 0.00001 and 0.01. However, finding a useful penalty value requires calibration. The "correct" penalty value depends on the size of the planning units, the main objective values (e.g. cost values), and the effect of fragmentation on biodiversity persistence. Let's create a new problem that is similar to our previous problem (`p4`)---except that it contains boundary length penalties---and solve it. Since our planning unit data is in a spatial format (i.e. vector or raster data), prioritizr can automatically calculate the boundary data for us.
+
+\clearpage
+
+```{r, out.width = "65%"}
+# make prioritization problem
+p5_rds <- file.path(dir_data, "p5.rds")
+if (!file.exists(p5_rds)){
+  p5 <- problem(pu_data, veg_data, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_boundary_penalties(penalty = 0.001) %>%
+    add_relative_targets(0.1) %>%
+    add_locked_in_constraints("locked_in") %>%
+    add_locked_out_constraints("locked_out") %>%
+    add_binary_decisions() %>%
+    add_lpsymphony_solver()
+  saveRDS(p5, p5_rds)
+}
+p5 <- readRDS(p5_rds)
+
+# print problem
+print(p5)
+
+# solve problem,
+# note this will take a bit longer than the previous runs
+s5 <- solve(p5)
+
+# print solution
+print(s5)
+
+# plot solution
+# selected = green, not selected = grey
+spplot(s5, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s5",
+       colorkey = FALSE)
+```
+
+```{r, include=FALSE}
+assert_that(
+  !identical(s5$solution_1, s4$solution_1),
+  eval_cost_summary(p4, s4[, "solution_1"])$cost <
+    eval_cost_summary(p5, s5[, "solution_1"])$cost)
+```
+
+Now let's compare the solutions to the problems with (`s5`) and without (`s4`) the boundary length penalties.
+
+```{block2, type="rmdquestion"}
+1. What is the cost the fourth (`s4`) and fifth (`s5`) solutions? Why does the fifth solution (`s5`) cost more than the fourth (`s4`) solution?
+2. Try setting the penalty value to 0.000000001 (i.e. `1e-9`) instead of 0.001. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this is a useful penalty value? Why (or why not)?
+3. Try setting the penalty value to 0.5. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this a useful penalty value? Why (or why not)?
+
+```
