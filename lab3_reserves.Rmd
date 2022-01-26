@@ -19,37 +19,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This lab was created by the developer of the R package [`prioritizr`](https://prioritizr.net/) Jeffrey O. Hanson. I made slight tweaks to streamline code and reduce text.
 
+You open this Rmarkdown document from taylor.bren.ucsb.edu at `/Courses/EDS232/eds232-ml/lab3_reserves.Rmd`, save to your home folder and respond to questions within the Rmarkdown document before knitting to complete the lab.
+
 ```{r, include = FALSE}
 latest_r_version <- "4.0.4"
 ```
 
 ## Overview {#overview}
 
-The aim of this workshop is to help you get started with using the prioritizr R package for systematic conservation planning. It is not designed to give you a comprehensive overview and you will not become an expert after completing this workshop. Instead, we want to help you understand the core principles of conservation planning and guide you through some of the common tasks involved with developing prioritizations. In other words, we want to give you the knowledge base and confidence needed to start applying systematic conservation planning to your own work.
+The aim of this lab is to get you started with using the prioritizr R package for systematic conservation planning. It is not designed to give you a comprehensive overview and you will not become an expert after completing this workshop. Instead, we want to help you understand the core principles of conservation planning and guide you through some of the common tasks involved with developing prioritizations. In other words, we want to give you the knowledge base and confidence needed to start applying systematic conservation planning to your own work.
 
-You are not alone in this workshop. If you are having trouble, please put your hand up and one of the instructors will help you as soon as they can. You can also ask the people sitting next to you for help too. **Most importantly, the code needed to answer the questions in this workshop are almost always located in the same section as the question. So if you are stuck, try rereading the example code and see if you can modify it to answer the question.** Please note that the first thing an instructor will ask you will be "what have you tried so far?". We can't help you if you haven't tried anything.
+## R packages {#r-packages}
 
-## Setting up your computer {#setup}
-
-You will need to have both R and RStudio installed on your computer to complete this workshop. Although it is not imperative that you have the latest version of RStudio installed, **you will need the latest version of R installed (i.e. version `r latest_r_version`)**. Please note that you might need administrative permissions to install these programs. After installing them, you will also need to install some R packages too. Finally, you will also need to download the data for this workshop.
-
-### R {#r}
-
-The [R statistical computing environment](https://www.r-project.org) can be downloaded from the Comprehensive R Archive Network (CRAN). Specifically, you can download the latest version of R (version `r latest_r_version`) from here: https://cloud.r-project.org. Please note that you will need to download the correct file for your operating system (i.e. Linux, Mac OSX, Windows).
-
-### RStudio {#rstudio}
-
-[RStudio](https://www.rstudio.com) is an integrated development environment (IDE). In other words, it is a program that is designed to make your R programming experience more enjoyable. During this workshop, you will interact with R through RStudio---meaning that you will open RStudio to code in R. You can download the latest version of RStudio here: http://www.rstudio.com/download. When you start RStudio, you will see two main parts of the interface:
-
-```{r, out.width = "100%", echo = FALSE}
-knitr::include_graphics("img/lab3_prioritizr/rstudio-console.png")
-```
-
-You can type R code into the _Console_ and press the enter key to run code.
-
-### R packages {#r-packages}
-
-An R package is a collection of R code and documentation that can be installed to enhance the standard R environment with additional functionality. Currently, there are over fifteen thousand R packages available on CRAN. Each of these R packages are developed to perform a specific task, such as [reading Excel spreadsheets](https://cran.r-project.org/web/packages/readxl/index.html), [downloading satellite imagery data](https://cran.r-project.org/web/packages/MODIStsp/index.html), [downloading and cleaning protected area data](https://cran.r-project.org/web/packages/wdpar/index.html), or [fitting environmental niche models](https://cran.r-project.org/web/packages/ENMeval/index.html). In fact, R has such a diverse ecosystem of R packages, that the question is almost always not "can I use R to ...?" but "what R package can I use to ...?". During this workshop, we will use several R packages. To install these R packages, please enter the code below in the _Console_ part of the RStudio interface and press enter. Note that you will require an Internet connection and the installation process may take some time to complete.
+An R package is a collection of R code and documentation that can be installed to enhance the standard R environment with additional functionality. Currently, there are over fifteen thousand R packages available on CRAN. Each of these R packages are developed to perform a specific task, such as [reading Excel spreadsheets](https://cran.r-project.org/web/packages/readxl/index.html), [downloading satellite imagery data](https://cran.r-project.org/web/packages/MODIStsp/index.html), [downloading and cleaning protected area data](https://cran.r-project.org/web/packages/wdpar/index.html), or [fitting environmental niche models](https://cran.r-project.org/web/packages/ENMeval/index.html). In fact, R has such a diverse ecosystem of R packages, that the question is almost always not "can I use R to ...?" but "what R package can I use to ...?". During this workshop, we will use several R packages. To install and load these R packages, please enter the code below in the _Console_ part of the RStudio interface and press enter. Note that you will require an Internet connection and the installation process may take some time to complete.
 
 ```{r}
 if (!require("librarian")){
@@ -67,9 +49,9 @@ if (!require("lpsymphony")){
 }
 ```
 
-### Data {#data-setup}
+## Data Setup
 
-The data for this workshop are available online. To download the data, please  [click on this link](https://github.com/prioritizr/massey-workshop/raw/main/data.zip) and save the `data.zip` file to your computer. Next, unzip the `data.zip` file. You should now have a new folder on your computer called `"data"` which contains the data files (e.g. `pu.shp`).
+The data for this workshop are available online. The code chunk below handles downloading the data from [here](https://github.com/prioritizr/massey-workshop/raw/main/data.zip), saving it as `data.zip`, unzippig the `data.zip` file and moving files into `dir_data`. You should now have a new folder on your computer called `"data/prioritizr"` which contains the data files (e.g. `pu.shp` and `vegetation.tif`).
 
 ```{r}
 dir_data <- here("data/prioritizr")
@@ -91,49 +73,7 @@ if (!file.exists(pu_shp)){
 }
 ```
 
-
-## Further reading {#further-reading}
-
-There is a wealth of resources available for learning how to use R. Although not required for this workshop, I would highly recommend that you read [_R for Data Science_ by Garrett Grolemund and Hadley Wickham](https://r4ds.had.co.nz/). **This veritable trove of R goodness is freely available online.** If you spend a week going through this book then you will save months debugging and rerunning incorrect code. I would urge any and all ecologists, especially those working on Masters or PhD degrees, to read this book. I even bought this book as a Christmas present for my sister---and, yes, she was happy to receive it! For intermediate users looking to skill-up, I would recommend the [_The Art of R Programming: A Tour of Statistical Software Design_ by Norman Matloff](http://shop.oreilly.com/product/9781593273842.do) and [_Advanced R_ by Hadley Wickham](https://adv-r.hadley.nz/). Finally, if you wish to learn more about using R as a geospatial information system (GIS), I would recommend [_Geocomputation with R_ by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow](https://geocompr.robinlovelace.net/) which is also freely available online. I also recommend [_Applied Spatial Data Analysis_ by Roger S. Bivand, Edzer Pebesma, and Virgilio Gómez-Rubio](https://www.springer.com/gp/book/9781461476177) too.
-
 # Data {#data}
-
-## Starting out
-
-We will start by opening RStudio. Ideally, you will have already installed both R and Rstudio before the workshop. If you have not done this already, then please see the [Setting up your computer](#setup) section. **During this workshop, please do not copy and paste code from the workshop manual into RStudio. Instead, please write it out yourself in an R script.** When programming, you will spend a lot of time fixing coding mistakes---that is, debugging your code---so it is best to get used to making mistakes now when you have people here to help you. You can create a new R script by clicking on _File_ in the RStudio menu bar, then _New File_, and then _R Script_.
-
-```{r, out.width = "70%", echo = FALSE}
-knitr::include_graphics("img/lab3_prioritizr/rstudio-new-script.png")
-```
-
-After creating a new script, you will notice that a new _Source_ panel has appeared. In the _Source_ panel, you can type and edit code before you run it. You can run code in the _Source_ panel by placing the cursor (i.e. the blinking line) on the desired line of code and pressing `Control + Enter` on your keyboard (or `CMD + Enter` if you are using an Apple computer). You can save the code in the _Source_ panel by pressing `Control + s` on your keyboard (or `CMD + s` if you are using an Apple computer).
-
-```{r, out.width = "70%", echo = FALSE}
-knitr::include_graphics("img/lab3_prioritizr/rstudio-source.png")
-```
-
-You can also make notes and write your answers to the workshop questions inside the R script. When writing notes and answers, add a `#` symbol so that the text following the `#` symbol is treated as a comment and not code. This means that you don't have to worry about highlighting specific parts of the script to avoid errors.
-
-```{r}
-# this is a comment and R will ignore this text if you run it
-# R will run the code below because it does not start with a # symbol
-print("this is not a comment")
-
-# you can also add comments to the same line of R code too
-print("this is also not a comment") # but this is a comment
-```
-
-**Remember to save your script regularly to ensure that you don't lose anything in the event that RStudio crashes (e.g. using `Control + s` or `CMD + s`)!**
-
-You should have already downloaded the data. If you have not already done so, you can [download it from here](https://github.com/prioritizr/massey-workshop/raw/master/data.zip). After downloading the data, you can unzip the data into a new folder. Next, you will need to set the working directory to this new folder. To achieve this, click on the _Session_ button on the RStudio menu bar, then click _Set Working Directory_, and then _Choose Directory_.
-
-```{r, out.width = "70%", echo = FALSE}
-knitr::include_graphics("img/lab3_prioritizr/rstudio-wd.png")
-```
-
-\clearpage
-
-Now navigate to the folder where you unzipped the data and select _Open_. You can verify that you have correctly set the working directory using the following R code. You should see the output `TRUE` in the _Console_ panel.
 
 ## Data import
 
@@ -141,7 +81,7 @@ Now navigate to the folder where you unzipped the data and select _Open_. You ca
 n_features <- raster::nlayers(raster::stack(vegetation_tif))
 ```
 
-Now that we have downloaded the dataset, we will need to import it into our R session. Specifically, this data was obtained from the "Introduction to Marxan" course and was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources. It contains vector-based planning unit data (`pu.shp`) and the raster-based data describing the spatial distributions of `r n_features` vegetation classes (`vegetation.tif`) in southern Tasmania, Australia. Please note this dataset is only provided for teaching purposes and should not be used for any real-world conservation planning. We can import the data into our R session using the following code.
+Now that we have the downloaded dataset, we will need to import it into our R session. Specifically, this data was obtained from the "Introduction to Marxan" course and was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources. It contains vector-based planning unit data (`pu.shp`) and the raster-based data describing the spatial distributions of `r n_features` vegetation classes (`vegetation.tif`) in southern Tasmania, Australia. Please note this dataset is only provided for teaching purposes and should not be used for any real-world conservation planning. We can import the data into our R session using the following code.
 
 ```{r}
 # import planning unit data
@@ -312,7 +252,6 @@ Now, you can try and answer some questions about the vegetation data.
 1. What part of the study area is the 13th vegetation class found in (hint: make a map)? For instance, is it in the south-eastern part of the study area?
 2. What proportion of cells contain the 12th vegetation class?
 3. Which vegetation class is the most abundant (i.e. present in the greatest number of cells)?
-
 ```
 
 ```{r, include = FALSE}
