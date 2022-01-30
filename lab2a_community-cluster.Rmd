@@ -57,7 +57,7 @@ These two steps are repeated until the within cluster variation cannot be reduce
 
 ### Load and plot the `penguins` dataset
 
-The `penguins` dataset comes from Allison Horst's [palmerpenguins](https://allisonhorst.github.io/palmerpenguins) R package and records biometric measurements of different penguin species found at Palmer Station, Antarctica. It is an alternative to the `iris` dataset example for exploratory data analysis (to avoid association of this 1935 dataset's collector [Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher) who "held strong views on race and eugenics"). Use of either dataset will be acceptable for submission of this lab (and mention of `iris` or Fisher will be dropped for next year).
+The `penguins` dataset comes from Allison Horst's [palmerpenguins](https://allisonhorst.github.io/palmerpenguins) R package and records biometric measurements of different penguin species found at Palmer Station, Antarctica [@gormanEcologicalSexualDimorphism2014]. It is an alternative to the `iris` dataset example for exploratory data analysis (to avoid association of this 1935 dataset's collector [Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher) who "held strong views on race and eugenics"). Use of either dataset will be acceptable for submission of this lab (and mention of `iris` or Fisher will be dropped for next year).
 
 <style>
 .row {
