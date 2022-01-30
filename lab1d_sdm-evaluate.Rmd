@@ -159,11 +159,15 @@ plot(y_maxv > thr)
 
 # Lab1 Submission
 
-To submit Lab 1, please submit the path on `taylor.bren.ucsb.edu` to your single consolidated Rmarkdown document (i.e. combined from seperate parts) that you successfully knitted here:
+To submit Lab 1, please submit the path on `taylor.bren.ucsb.edu` to your single consolidated Rmarkdown document (i.e. combined from separate parts) that you successfully knitted here:
 
 -   [Submit Lab 1. Species Distribution Modeling](https://forms.gle/u9ZC7rvkcQMojxv3A)
 
 The path should start `/Users/` and end in `.Rmd`. Please be sure to have succesfully knitted to html, as in I should see the `.html` file there by the same name.
+
+<!--
+Copy/pasted into RStudio's Visual Editor from [lab1_pts - schedule | eds232-ml - Google Sheets](https://docs.google.com/spreadsheets/d/1lolwZ2CNAtUkTWPauyPEe_oVMknqS2yVvfnB1fiErzQ/edit#gid=1660146542)
+-->
 
 In your lab, please be sure to include:
 

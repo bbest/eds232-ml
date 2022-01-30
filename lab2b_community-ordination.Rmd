@@ -16,24 +16,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this lab, you will play with **unsupervised classification** techniques while working with **ecological community** datasets.
 
-- **Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction.
+-   **Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction.
 
-  - **Principal Components Analyses (PCA)** is the most common and oldest technique that assumes linear relationships between axes. You will follow a non-ecological example from [Chapter 17 Principal Components Analysis | Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/pca.html) to learn about this commonly used technique.
-  
-  - **Non-metric MultiDimensional Scaling (NMDS)** allows for non-linear relationships. This ordination technique is implemented in the R package [`vegan`](https://cran.r-project.org/web/packages/vegan/index.html). You'll use an ecological dataset, species and environment from lichen pastures that reindeer forage upon, with excerpts from the [vegantutor vignette](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf) ([source](https://github.com/jarioksa/vegandocs)) to apply these techniques:
-    - **Unconstrained ordination** on species using NMDS;
-    - Overlay with environmental gradients; and
-    - **Constrained ordination** on species and environmnent using another ordination technique, **canonical correspondence analysis (CCA)**.
-  
+    -   **Principal Components Analyses (PCA)** is the most common and oldest technique that assumes linear relationships between axes. You will follow a non-ecological example from [Chapter 17 Principal Components Analysis \| Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/pca.html) to learn about this commonly used technique.
+
+    -   **Non-metric MultiDimensional Scaling (NMDS)** allows for non-linear relationships. This ordination technique is implemented in the R package [`vegan`](https://cran.r-project.org/web/packages/vegan/index.html). You'll use an ecological dataset, species and environment from lichen pastures that reindeer forage upon, with excerpts from the [vegantutor vignette](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf) ([source](https://github.com/jarioksa/vegandocs)) to apply these techniques:
+
+        -   **Unconstrained ordination** on species using NMDS;
+        -   Overlay with environmental gradients; and
+        -   **Constrained ordination** on species and environmnent using another ordination technique, **canonical correspondence analysis (CCA)**.
+
 # Ordination
 
-Ordination 
+**Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction. It also falls into the class of **unsupervised learning** because a "response term" is not used to fit the model.
 
 ## Principal Components Analysis (PCA)
 
 Although this example uses a non-ecological dataset, it goes through the materials walk through the idea and procedure of conducting an ordination using the most widespread technique.
 
-Please read the entirety of [Chapter 17 Principal Components Analysis | Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components). Supporting text is mentioned below where code is run.
+Please read the entirety of [Chapter 17 Principal Components Analysis \| Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components). Supporting text is mentioned below where code is run.
 
 ### Prerequisites
 
@@ -57,12 +58,13 @@ my_basket
 
 From [Section 1.4](https://bradleyboehmke.github.io/HOML/intro.html#data):
 
-- `my_basket.csv`: Grocery items and quantities purchased. Each observation represents a single basket of goods that were purchased together.
-  * Problem type: unsupervised basket analysis
-  * response variable: NA
-  * features: 42
-  * observations: 2,000
-  * objective: use attributes of each basket to identify common groupings of items purchased together.
+-   `my_basket.csv`: Grocery items and quantities purchased. Each observation represents a single basket of goods that were purchased together.
+
+    -   Problem type: unsupervised basket analysis
+    -   response variable: NA
+    -   features: 42
+    -   observations: 2,000
+    -   objective: use attributes of each basket to identify common groupings of items purchased together.
 
 ### Performing PCA in R
 
@@ -101,7 +103,6 @@ my_pca@model$eigenvectors %>%
 ### Eigenvalue criterion
 
 See supporting text: [17.5.1 Eigenvalue criterion](https://bradleyboehmke.github.io/HOML/pca.html#eigenvalue-criterion).
-
 
 ```{r}
 # Compute eigenvalues
@@ -142,12 +143,11 @@ data.frame(
   geom_text(nudge_y = -.002)
 ```
 
-
 ## Non-metric MultiDimensional Scaling (NMDS)
 
 ### Unconstrained Ordination on Species
 
-See supporting text: **2.1 Non-metric Multidimensional scaling** in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf): 
+See supporting text: **2.1 Non-metric Multidimensional scaling** in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf):
 
 ```{r}
 # load R packages
@@ -171,13 +171,13 @@ vare.mds
 plot(vare.mds, type = "t")
 ```
 
-
 ### Overlay with Environment
 
-See supporting text in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf): 
-  * 3 Environmental interpretation
-  * 3.1 Vector fitting
-  * 3.2 Surface fitting
+See supporting text in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf):
+
+-   3 Environmental interpretation
+-   3.1 Vector fitting
+-   3.2 Surface fitting
 
 ```{r}
 ef <- envfit(vare.mds, varechem, permu = 999)
@@ -195,13 +195,13 @@ tmp <- with(varechem, ordisurf(vare.mds, Al, add = TRUE))
 ordisurf(vare.mds ~ Ca, data=varechem, add = TRUE, col = "green4")
 ```
 
-
 ### Constrained Ordination on Species and Environment
 
-See supporting text in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf): 
-  * 4 Constrained ordination
-  * 4.1 Model specification
-  
+See supporting text in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf):
+
+-   4 Constrained ordination
+-   4.1 Model specification
+
 Technically, this uses another technique `cca`, or canonical correspondence analysis.
 
 ```{r}
@@ -218,5 +218,39 @@ ordiplot3d(vare.cca, type = "h")
 if (interactive()){
   ordirgl(vare.cca)
 }
+```
+
+# Lab2 Submission
+
+To submit Lab 2, please submit the path on `taylor.bren.ucsb.edu` to your single consolidated Rmarkdown document (i.e. combined from separate parts) that you successfully knitted here:
+
+-   [Submit Lab 2. Community](https://forms.gle/gQjnf9kehb1L6nR2A)
+
+The path should start `/Users/` and end in `.Rmd`. Please be sure to have succesfully knitted to html, as in I should see the `.html` file there by the same name with all the outputs.
+
+```{=html}
+<!--
+Copy/pasted into RStudio's Visual Editor from [lab2_pts - schedule | eds232-ml - Google Sheets](https://docs.google.com/spreadsheets/d/1lolwZ2CNAtUkTWPauyPEe_oVMknqS2yVvfnB1fiErzQ/edit#gid=1660146542)
+-->
+```
+In your lab, please be sure to include the following outputs and responses to questions:
+
+```{r, echo=F}
+source(here::here("_functions.R"))
+
+d <- googlesheets4::read_sheet(sched_gsheet, "lab2_pts")
+
+md2html <- function(x){
+  markdown::markdownToHTML(text = x, fragment.only=T) %>%
+    str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")}
+
+# d_0 <- d # d <- d_0
+d <- d %>%
+  mutate(
+    Lab  = map_chr(Lab, md2html),
+    Item = map_chr(Item, md2html)) %>% 
+  select(`#`, Lab, Item, Pts=Points)
+
+datatable(d, rownames = F, escape = F)
 ```
 

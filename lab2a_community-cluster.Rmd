@@ -59,6 +59,7 @@ These two steps are repeated until the within cluster variation cannot be reduce
 
 The `penguins` dataset comes from Allison Horst's [palmerpenguins](https://allisonhorst.github.io/palmerpenguins) R package and records biometric measurements of different penguin species found at Palmer Station, Antarctica [@gormanEcologicalSexualDimorphism2014]. It is an alternative to the `iris` dataset example for exploratory data analysis (to avoid association of this 1935 dataset's collector [Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher) who "held strong views on race and eugenics"). Use of either dataset will be acceptable for submission of this lab (and mention of `iris` or Fisher will be dropped for next year).
 
+```{=html}
 <style>
 .row {
   display: flex;
@@ -71,12 +72,14 @@ The `penguins` dataset comes from Allison Horst's [palmerpenguins](https://allis
 </style>
 <div class="row">
   <div class="column">
-  <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" style="width:100%"/>
+    <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" style="width:100%"/>
   </div>
   <div class="column">
-  <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/culmen_depth.png" style="width:100%"/>
+    <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/culmen_depth.png" style="width:100%"/>
   </div>
 </div>
+```
+
 ```{r}
 # load R packages
 librarian::shelf(
@@ -134,7 +137,7 @@ penguins_k
 table(penguins_k$cluster, penguins$species)
 ```
 
-**Question**: How many observations could be considered "misclassified" if expecting petal length and width to differentiate between species?
+**Question**: Comparing the observed species plot with 3 species with the kmeans() cluster plot with 3 clusters, where does this "unsupervised" `kmeans()` technique (that does not use species to "fit" the model) produce similar versus different results? One or two sentences would suffice. Feel free to mention ranges of values along the axes.
 
 ```{r}
 # extract cluster assignment per observation
@@ -206,7 +209,11 @@ ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color = Cluster)) +
 
 ## Hierarchical Clustering
 
-Next, you'll cluster sites according to species composition. You'll use the `dune` dataset from the `vegan` R package.
+Next, you'll cluster sites according to species composition. You'll use the `dune` dataset from the `vegan` R package and follow along with these source texts:
+
+- [Ch. 8-9 (p.123-152)](https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs) [@kindtTreeDiversityAnalysis2005]
+- [21.3.1 Agglomerative hierarchical clustering](https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering) [@greenwellHandsOnMachineLearning]
+
 
 ### Load `dune` dataset
 

@@ -5,4 +5,21 @@ editor_options:
   chunk_output_type: console
 ---
 
-@kindtTreeDiversityAnalysis2005
+```{r}
+source(here::here("_functions.R"))
+
+d <- googlesheets4::read_sheet(sched_gsheet, "lab2_pts")
+
+md2html <- function(x){
+  markdown::markdownToHTML(text = x, fragment.only=T) %>%
+    str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")}
+
+# d_0 <- d # d <- d_0
+d <- d %>%
+  mutate(
+    Lab  = map_chr(Lab, md2html),
+    Item = map_chr(Item, md2html)) %>% 
+  select(`#`, Lab, Item, Pts=Points)
+
+datatable(d, rownames = F, escape = F)
+```
