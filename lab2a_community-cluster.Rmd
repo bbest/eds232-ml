@@ -55,29 +55,55 @@ In _k_-means clustering, the number of clusters needs to be specified. The algor
 
 These two steps are repeated until the within cluster variation cannot be reduced any further. The within cluster variation is calculated as the sum of the euclidean distance between the data points and their respective cluster centroids.
 
-### Load and plot the `iris` dataset
+### Load and plot the `penguins` dataset
 
+The `penguins` dataset comes from Allison Horst's [palmerpenguins](https://allisonhorst.github.io/palmerpenguins) R package and records biometric measurements of different penguin species found at Palmer Station, Antarctica. It is an alternative to the `iris` dataset example for exploratory data analysis.
+
+<style>
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+</style>
+<div class="row">
+  <div class="column">
+  <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" style="width:100%"/>
+  </div>
+  <div class="column">
+  <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/culmen_depth.png" style="width:100%"/>
+  </div>
+</div>
 ```{r}
 # load R packages
 librarian::shelf(
-  dplyr, DT, ggplot2, tibble)
+  dplyr, DT, ggplot2, palmerpenguins, skimr, tibble)
 
 # set seed for reproducible results
 set.seed(42)
 
 # load the dataset
-data("iris")
+data("penguins")
 
 # look at documentation in RStudio
 if (interactive())
-  help(iris)
+  help(penguins)
 
 # show data table
-datatable(iris)
+datatable(penguins)
+
+# skim the table for a summary
+skim(penguins)
+
+# remove the rows with NAs
+penguins <- na.omit(penguins)
 
 # plot petal length vs width, species naive
 ggplot(
-  iris, aes(Petal.Length, Petal.Width)) +
+  penguins, aes(bill_length_mm, bill_depth_mm)) +
   geom_point()
 
 # plot petal length vs width, color by species
@@ -86,50 +112,50 @@ legend_pos <- theme(
     legend.justification = c("right", "bottom"),
     legend.box.just = "right")
 ggplot(
-  iris, aes(Petal.Length, Petal.Width, color = Species)) +
+  penguins, aes(bill_length_mm, bill_depth_mm, color = species)) +
   geom_point() +
   legend_pos
 ```
 
-### Cluster `iris` using `kmeans()`
+### Cluster `penguins` using `kmeans()`
 
 ```{r}
 # cluster using kmeans
 k <- 3  # number of clusters
-iris_k <- kmeans(
-  iris %>% 
-    select(Petal.Length, Petal.Width), 
+penguins_k <- kmeans(
+  penguins %>% 
+    select(bill_length_mm, bill_depth_mm), 
   centers = k)
 
 # show cluster result
-iris_k
+penguins_k
 
 # compare clusters with species (which were not used to cluster)
-table(iris_k$cluster, iris$Species)
+table(penguins_k$cluster, penguins$species)
 ```
 
 **Question**: How many observations could be considered "misclassified" if expecting petal length and width to differentiate between species?
 
 ```{r}
 # extract cluster assignment per observation
-Cluster = factor(iris_k$cluster)
+Cluster = factor(penguins_k$cluster)
 
-ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster)) +
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color = Cluster)) +
   geom_point() + 
   legend_pos
 ```
 
 ```{r, eval=F, echo=F}
-# **Task**: Highlight the "misclassified" points in the plot. _Hints: To get just the points misclassified, you can use `iris_k$cluster != as.integer(iris$Species)`, which can feed as the second argument into `filter(iris)`. To add another set of points to the ggplot, use `+ geom_point()` with arguments for: `data` with the additional points, `pch` [point shape](https://www.r-bloggers.com/2021/06/r-plot-pch-symbols-different-point-shapes-in-r/) with `fill=NA` for transparency and outline `color="red"`._
-obs_mis <- iris %>% 
-  filter(iris_k$cluster != as.integer(iris$Species))
-ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster)) +
+# **Task**: Highlight the "misclassified" points in the plot. _Hints: To get just the points misclassified, you can use `penguins_k$cluster != as.integer(penguins$species)`, which can feed as the second argument into `filter(penguins)`. To add another set of points to the ggplot, use `+ geom_point()` with arguments for: `data` with the additional points, `pch` [point shape](https://www.r-bloggers.com/2021/06/r-plot-pch-symbols-different-point-shapes-in-r/) with `fill=NA` for transparency and outline `color="red"`._
+obs_mis <- penguins %>% 
+  filter(penguins_k$cluster != as.integer(penguins$species))
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color = Cluster)) +
   geom_point() + 
   legend_pos +
   geom_point(data = obs_mis, color="red", fill=NA, pch=21)
 ```
 
-### Plot Voronoi diagram of clustered `iris`
+### Plot Voronoi diagram of clustered `penguins`
 
 This form of clustering assigns points to the cluster based on nearest centroid. You can see the breaks more clearly with a [Voronoi diagram](https://en.wikipedia.org/wiki/Voronoi_diagram).
 
@@ -137,36 +163,41 @@ This form of clustering assigns points to the cluster based on nearest centroid.
 librarian::shelf(ggvoronoi, scales)
 
 # define bounding box for geom_voronoi()
+xr <- extendrange(range(penguins$bill_length_mm), f=0.1)
+yr <- extendrange(range(penguins$bill_depth_mm), f=0.1)
 box <- tribble(
-  ~Petal.Length, ~Petal.Width, ~group,
-  1, 0.1, 1,
-  1, 2.5, 1,
-  7, 2.5, 1,
-  7, 0.1, 1,
-  1, 0.1, 1) %>% 
+  ~bill_length_mm, ~bill_depth_mm, ~group,
+  xr[1], yr[1], 1,
+  xr[1], yr[2], 1,
+  xr[2], yr[2], 1,
+  xr[2], yr[1], 1,
+  xr[1], yr[1], 1) %>% 
   data.frame()
 
 # cluster using kmeans
 k <- 3  # number of clusters
-iris_k <- kmeans(
-  iris %>% 
-    select(Petal.Length, Petal.Width), 
+penguins_k <- kmeans(
+  penguins %>% 
+    select(bill_length_mm, bill_depth_mm), 
   centers = k)
 
 # extract cluster assignment per observation
-Cluster = factor(iris_k$cluster)
+Cluster = factor(penguins_k$cluster)
 
 # extract cluster centers
-ctrs <- as.data.frame(iris_k$centers) %>% 
+ctrs <- as.data.frame(penguins_k$centers) %>% 
   mutate(
     Cluster = factor(1:k))
 
 # plot points with voronoi diagram showing nearest centroid
-ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster)) +
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color = Cluster)) +
   geom_point() + 
   legend_pos +
   geom_voronoi(
-    data = ctrs, aes(fill=Cluster), color = NA, alpha=0.5, outline = box) + 
+    data = ctrs, aes(fill=Cluster), color = NA, alpha=0.5, 
+    outline = box) + 
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
   geom_point(
     data = ctrs, pch=23, cex=2, fill="black")
 ```
