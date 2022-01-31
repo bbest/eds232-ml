@@ -21,6 +21,8 @@ navbar:
           href: lab2b_community-ordination.html
         - text: "3. Conservation Planning"
           href: lab3_reserves.html
+        - text: "Mid-Term Review"
+          href: review_midterm.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"

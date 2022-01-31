@@ -130,6 +130,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=Ecological Sexual Dimorphism and Environmental Variability within a Community of Antarctic Penguins (Genus Pygoscelis);citation_publication_date=2014;citation_publisher=Public Library of Science;citation_volume=9;citation_doi=10.1371/journal.pone.0090081;citation_issn=1932-6203;citation_author=Kristen B. Gorman;citation_author=Tony D. Williams;citation_author=William R. Fraser"/>
+  <meta name="citation_reference" content="citation_title=Hands-On Machine Learning with R;citation_author=Bradley Boehmke &amp; Brandon Greenwell"/>
   <meta name="citation_reference" content="citation_title=Tree diversity analysis: A manual and software for common statistical methods for ecological and biodiversity studies;citation_publication_date=2005;citation_publisher=World Agrofirestry Centre;citation_author=R. Kindt;citation_author=Richard Coe"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
@@ -2139,7 +2140,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- Additional custom styles --*/
   /* Add any additional CSS rules below                      */
   </style>
-  <style type="text/css">
+  <style type="text/css">strong {
+    font-weight: 700; /* thicker than default bold */
+  }
+
+
   /* base variables */
 
   /* Edit the CSS properties in this file to create a custom
@@ -2524,6 +2529,8 @@ Labs
 <a href="lab1d_sdm-evaluate.html">1d. Species: evaluate</a>
 <a href="lab2a_community-cluster.html">2a. Community: cluster</a>
 <a href="lab2b_community-ordination.html">2b. Community: ordination</a>
+<a href="lab3_reserves.html">3. Conservation Planning</a>
+<a href="review_midterm.html">Mid-Term Review</a>
 </div>
 </div>
 <a href="glossary.html">Glosssary</a>
@@ -2907,7 +2914,7 @@ Available components:
   2      0        40     45
   3     11        27     74</code></pre>
 </div>
-<p><strong>Question</strong>: How many observations could be considered “misclassified” if expecting petal length and width to differentiate between species?</p>
+<p><strong>Question</strong>: Comparing the observed species plot with 3 species with the kmeans() cluster plot with 3 clusters, where does this “unsupervised” <code>kmeans()</code> technique (that does not use species to “fit” the model) produce similar versus different results? One or two sentences would suffice. Feel free to mention ranges of values along the axes.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># extract cluster assignment per observation</span>
@@ -2973,7 +2980,11 @@ Available components:
 </div>
 <p><strong>Task</strong>: Show the Voronoi diagram for fewer (<code>k=2</code>) and more (<code>k=8</code>) clusters to see how assignment to cluster centroids work.</p>
 <h2 data-number="1.2" id="hierarchical-clustering"><span class="header-section-number">1.2</span> Hierarchical Clustering</h2>
-<p>Next, you’ll cluster sites according to species composition. You’ll use the <code>dune</code> dataset from the <code>vegan</code> R package.</p>
+<p>Next, you’ll cluster sites according to species composition. You’ll use the <code>dune</code> dataset from the <code>vegan</code> R package and follow along with these source texts:</p>
+<ul>
+<li><a href="https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs">Ch. 8-9 (p.123-152)</a> <span class="citation" data-cites="kindtTreeDiversityAnalysis2005">(<a href="#ref-kindtTreeDiversityAnalysis2005" role="doc-biblioref">Kindt and Coe 2005</a>)</span></li>
+<li><a href="https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering">21.3.1 Agglomerative hierarchical clustering</a> <span class="citation" data-cites="greenwellHandsOnMachineLearning">(<a href="#ref-greenwellHandsOnMachineLearning" role="doc-biblioref">Greenwell, n.d.</a>)</span></li>
+</ul>
 <h3 data-number="1.2.1" id="load-dune-dataset"><span class="header-section-number">1.2.1</span> Load <code>dune</code> dataset</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3206,6 +3217,9 @@ B_{ij} = 1 - \frac{2C_{ij}}{S_i + S_j}
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-gormanEcologicalSexualDimorphism2014" class="csl-entry" role="doc-biblioentry">
 Gorman, Kristen B., Tony D. Williams, and William R. Fraser. 2014. <span>“Ecological <span>Sexual Dimorphism</span> and <span>Environmental Variability</span> Within a <span>Community</span> of <span>Antarctic Penguins</span> (<span>Genus Pygoscelis</span>).”</span> <em>PLOS ONE</em> 9 (3): e90081. <a href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a>.
+</div>
+<div id="ref-greenwellHandsOnMachineLearning" class="csl-entry" role="doc-biblioentry">
+Greenwell, Bradley Boehmke &amp; Brandon. n.d. <em>Hands-<span>On Machine Learning</span> with <span>R</span></em>.
 </div>
 <div id="ref-kindtTreeDiversityAnalysis2005" class="csl-entry" role="doc-biblioentry">
 Kindt, R., and Richard Coe. 2005. <em>Tree Diversity Analysis: A Manual and Software for Common Statistical Methods for Ecological and Biodiversity Studies</em>. <span>Nairobi, Kenya</span>: <span>World Agrofirestry Centre</span>.

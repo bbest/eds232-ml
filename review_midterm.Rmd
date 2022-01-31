@@ -1,0 +1,111 @@
+---
+title: "Mid-Term Review"
+author: "Ben Best"
+date: "1/31/2022"
+output: html_document
+bibliography: ["ml-env.bib"]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Species: Supervised Learning
+
+## Introduction
+
+-   Lecture: [Introduction](https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing) <a href='https://youtu.be/KmQzGVx6lO8' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+    -   What is **Machine Learning**?
+
+        > "**Machine learning** (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data..." - [Wikipedia](https://en.wikipedia.org/wiki/Machine_learning)
+
+    -   **Supervised Learning** vs **Unsupervised Learning** vs **Semi-Supervised Learning** vs **Reinforcement Learning**
+
+    -   ML **workflow**: **split** into ***training*** and ***test*** data, **fit** ***model*** on ***training*** data, **predict** on ***new*** data, **evaluate** model with ***test*** data
+
+    -   **Accuracy** vs **precision**
+
+    -   **Artificial Intelligence** (AI) \> **Machine Learning** (ML) \> **Deep Learning** (DL)
+
+    -   [History of machine learning \| Google Cloud](https://cloud.withgoogle.com/build/data-analytics/explore-history-machine-learning/)
+
+        -   1950: Alan Turing comes up with [**Turing test**](https://en.wikipedia.org/wiki/Turing_test#:~:text=The%20Turing%20test%2C%20originally%20called,from%2C%20that%20of%20a%20human.&text=If%20the%20evaluator%20cannot%20reliably,to%20have%20passed%20the%20test.): originally called the "imitation game" (see also [Imitation Game](https://www.google.com/search?q=imitatio+game+movie&rlz=1C5CHFA_enUS833US833&oq=imitatio+game+movie&aqs=chrome..69i57j46i13j0i13l7.5092j0j9&sourceid=chrome&ie=UTF-8) movie with Benedict Cumberbatch on cracking German codes to save WWII), which is the test of a machine's ability to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human. He asked "Can machines think?", in his 1950 seminal paper "[Computing Machinery and Intelligence](https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence "Computing Machinery and Intelligence")".
+
+        -   2015: Google's **AlphaGo** was the first program to best a professional player at Go, considered the most difficult board game in the world. With this defeat, computers officially beat human opponents in every classical board game.
+
+    -   Ecology and Environment applications:
+
+        -   individual \> population \> landscape \> ecosystem \> global
+
+        -   Deep Learning architecture of convolutional neural nets (CNNs in next module): sounds, images
+
+    -   Species Distribution Modeling
+
+        -   Elith & Leathwick (2009): geographic -\> environmental (fit) -\> geographic (predict)
+
+        -   modeling techniques: GLM, GAM, TREE
+
+        -   Ecological Niche
+
+            -   Grinell: environmental conditions
+
+            -   Elton: env + biotic
+
+            -   Hutchinson: "n-dimensional hypervolume"
+
+                -   fundamental vs realized niche
+
+-   Lab: [Species: explore](https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html)
+
+-   Reading: [Zhong et al. (2021)](https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs)
+
+## Logistic Regression
+
+-   Lecture: [Logistic Regression](https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing) <a href='https://youtu.be/5z5dcmHg1tY' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Species: regress](https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html)
+
+-   Reading: [Elith & Leathwick (2009)](https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs)
+
+## Decision Trees
+
+-   Lecture: [Decision Trees](https://docs.google.com/presentation/d/1R4y-QXcIAcRDpmU9_-blpU4_Jkd7olwzVe3BU2w0lF0/edit?usp=sharing) <a href='https://youtu.be/8BsNybYh0Ls' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Species: trees](https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html)
+
+-   Reading: [Evans et al. (2011)](https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing)
+
+## Model Evaluation
+
+-   Lecture: [Model Evaluation](https://docs.google.com/presentation/d/1wPfEEhhSdtA6q7wXpucrxop3dTgJrzYdyFskDQAbq3E/edit?usp=sharing) <a href='https://youtu.be/taAM6Bo8bDU' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Species: evaluate](https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html)
+
+-   Reading: [Andrade et al. (2020)](https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&authuser=ben%40ecoquants.com&usp=drive_fs)
+
+# Communities: Unsupervised Learning
+
+## Clustering
+
+-   Lecture: [Biodiversity; Clustering](https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit?usp=sharing) <a href='https://youtu.be/4zXXjgEqPA0' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Communities: cluster](https://bbest.github.io/eds232-ml/lab2a_community-cluster.html)
+
+-   Reading: [Ch. 8-9 (p.123-152) of Kindt & Coe (2005)](https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs)
+
+## Ordination
+
+-   Lecture: [Ordination](https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing) <a href='https://youtu.be/p_nZbI9taIc' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Communities: ordinate](https://bbest.github.io/eds232-ml/lab2b_community-ordination.html)
+
+# Reserves: Optimization
+
+## Conservation Planning
+
+-   Lecture: [Conservation Planning](https://docs.google.com/presentation/d/13BmRTMSv_XFeiwJYymbfrQ0ZF5xhI6Yr_OWqD4MXn08/edit?usp=sharing) <a href='https://youtu.be/ZAc7TaCDlMY' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a>
+
+-   Lab: [Reserves](https://bbest.github.io/eds232-ml/lab3_reserves.html)

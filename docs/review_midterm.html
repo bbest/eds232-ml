@@ -87,26 +87,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: EDS 232: Machine Learning in Environmental Science</title>
+  <title>EDS 232: Mid-Term Review</title>
 
 
 
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-01-31"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-01-31"/>
+  <meta name="article:author" content="Ben Best"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="og:title" content="EDS 232: Mid-Term Review"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="twitter:title" content="EDS 232: Mid-Term Review"/>
 
   <!--/radix_placeholder_meta_tags-->
+  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mid-Term Review"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Ben Best"]}]}]},{"type":"character","attributes":{},"value":["1/31/2022"]},{"type":"character","attributes":{},"value":["html_document"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2448,17 +2453,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/datatables-binding-0.19/datatables.js"></script>
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-  <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-  <link href="site_libs/dt-ext-rowgroup-1.10.20/css/rowGroup.dataTables.min.css" rel="stylesheet" />
-  <script src="site_libs/dt-ext-rowgroup-1.10.20/js/dataTables.rowGroup.min.js"></script>
-  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2478,7 +2472,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"EDS 232: Machine Learning in Environmental Science","authors":[]}
+{"title":"Mid-Term Review","authors":[{"author":"Ben Best","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-01-31T00:00:00.000-08:00","citationText":"Best, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2520,117 +2514,120 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>EDS 232: Machine Learning in Environmental Science</h1>
+<h1>Mid-Term Review</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
 </div>
 
+<div class="d-byline">
+  
+  Ben Best
+  
+<br/>1/31/2022
+</div>
 
 <div class="d-article">
 <div class="d-contents d-contents-float">
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#course-schedule">Course Schedule</a></li>
-<li><a href="#course-description">Course Description</a></li>
-<li><a href="#instructor">Instructor</a></li>
-<li><a href="#grading">Grading</a></li>
-<li><a href="#readings">Readings</a></li>
+<li><a href="#species-supervised-learning"><span class="toc-section-number">1</span> Species: Supervised Learning</a>
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1.1</span> Introduction</a></li>
+<li><a href="#logistic-regression"><span class="toc-section-number">1.2</span> Logistic Regression</a></li>
+<li><a href="#decision-trees"><span class="toc-section-number">1.3</span> Decision Trees</a></li>
+<li><a href="#model-evaluation"><span class="toc-section-number">1.4</span> Model Evaluation</a></li>
+</ul></li>
+<li><a href="#communities-unsupervised-learning"><span class="toc-section-number">2</span> Communities: Unsupervised Learning</a>
+<ul>
+<li><a href="#clustering"><span class="toc-section-number">2.1</span> Clustering</a></li>
+<li><a href="#ordination"><span class="toc-section-number">2.2</span> Ordination</a></li>
+</ul></li>
+<li><a href="#reserves-optimization"><span class="toc-section-number">3</span> Reserves: Optimization</a>
+<ul>
+<li><a href="#conservation-planning"><span class="toc-section-number">3.1</span> Conservation Planning</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
+<h1 data-number="1" id="species-supervised-learning"><span class="header-section-number">1</span> Species: Supervised Learning</h1>
+<h2 data-number="1.1" id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing">Introduction</a> <a href='https://youtu.be/KmQzGVx6lO8' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p>
+<ul>
+<li><p>What is <strong>Machine Learning</strong>?</p>
 <blockquote>
-<p>“Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.” – Stephen Hawking.</p>
-</blockquote>
-<h1 id="course-schedule">Course Schedule</h1>
+<p>“<strong>Machine learning</strong> (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data…” - <a href="https://en.wikipedia.org/wiki/Machine_learning">Wikipedia</a></p>
+</blockquote></li>
+<li><p><strong>Supervised Learning</strong> vs <strong>Unsupervised Learning</strong> vs <strong>Semi-Supervised Learning</strong> vs <strong>Reinforcement Learning</strong></p></li>
+<li><p>ML <strong>workflow</strong>: <strong>split</strong> into <strong><em>training</em></strong> and <strong><em>test</em></strong> data, <strong>fit</strong> <strong><em>model</em></strong> on <strong><em>training</em></strong> data, <strong>predict</strong> on <strong><em>new</em></strong> data, <strong>evaluate</strong> model with <strong><em>test</em></strong> data</p></li>
+<li><p><strong>Accuracy</strong> vs <strong>precision</strong></p></li>
+<li><p><strong>Artificial Intelligence</strong> (AI) &gt; <strong>Machine Learning</strong> (ML) &gt; <strong>Deep Learning</strong> (DL)</p></li>
+<li><p><a href="https://cloud.withgoogle.com/build/data-analytics/explore-history-machine-learning/">History of machine learning | Google Cloud</a></p>
 <ul>
-<li><strong>Lectures/Labs</strong>: MW 9:30am - 10:45am on Zoom</li>
-<li>The Zoom link is shared in your Google Calendar invite and on the #eds-232 Slack Channel for MEDS. It’s not share publicly to avoid <a href="https://en.wikipedia.org/wiki/Zoombombing">Zoombombing</a></li>
-<li><a href="https://forms.gle/GuH2bmCZPo4EByZz7"><strong>Feedback Form</strong></a>. Please share any/all feedback anonymously and as frequently, eg weekly, as you like. Your input is always welcome and appreciated.</li>
-</ul>
-<div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-48475a9fdfcd14f813c8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-48475a9fdfcd14f813c8">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9","TBD"],["Species","Species","Species","Species","Species","Communities","Communities","Reserves","Reserves","Mid-Term","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Deep Learning","Google Earth Engine","Google Earth Engine","Google Earth Engine","Reflection","Reflection","Final"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>  <a href=\"https://youtu.be/KmQzGVx6lO8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing' target='_blank'>Logistic Regression<\/a>  <a href=\"https://youtu.be/5z5dcmHg1tY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1R4y-QXcIAcRDpmU9_-blpU4_Jkd7olwzVe3BU2w0lF0/edit?usp=sharing' target='_blank'>Decision Trees<\/a>  <a href=\"https://youtu.be/8BsNybYh0Ls\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1wPfEEhhSdtA6q7wXpucrxop3dTgJrzYdyFskDQAbq3E/edit?usp=sharing' target='_blank'>Model Evaluation<\/a>  <a href=\"https://youtu.be/taAM6Bo8bDU\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","HOLIDAY","<a href='https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit?usp=sharing' target='_blank'>Clustering<\/a>  <a href=\"https://youtu.be/4zXXjgEqPA0\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing' target='_blank'>Ordination<\/a>  <a href=\"https://youtu.be/p_nZbI9taIc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/13BmRTMSv_XFeiwJYymbfrQ0ZF5xhI6Yr_OWqD4MXn08/edit?usp=sharing' target='_blank'>Conservation Planning<\/a>  <a href=\"https://youtu.be/ZAc7TaCDlMY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/15IS6w8AdaomRGd8kyzIKNVR6NG0qGe0r4KlOtCoiVtc/edit?usp=sharing' target='_blank'>Review<\/a>","Mid-Term Exam","Neural Networks","Computer Vision and Feature Generation","TensorFlow","Convolutional Neural Networks","HOLIDAY","GEE Supervised Classification","GEE Unsupervised Classification","GEE TensorFlow","Ethics, Justice and Bias","Expert Panel Discussion","Final Exam"],["<a href='https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html' target='_blank'>Species: explore<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html' target='_blank'>Species: regress<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html' target='_blank'>Species: trees<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html' target='_blank'>Species: evaluate<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab2a_community-cluster.html' target='_blank'>Communities: cluster<\/a>","<a href='https://bbest.github.io/eds232-ml/lab2b_community-ordination.html' target='_blank'>Communities: ordinate<\/a>","<a href='https://bbest.github.io/eds232-ml/lab3_reserves.html' target='_blank'>Reserves<\/a>","<a href='https://bbest.github.io/eds232-ml/review_midterm.html' target='_blank'>Mid-Term Review<\/a>","","iNat: subset","iNat: features","iNat: model","iNat: CNN","","GEE: RandomForest wetlands","GEE: cluster landcover","GEE: tensorflow objects","","",""],["<a href='https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Zhong et al. (2021)<\/a>","<a href='https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs' target='_blank'>Elith & Leathwick (2009)<\/a>","<a href='https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing' target='_blank'>Evans et al. (2011)<\/a>","<a href='https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&authuser=ben%40ecoquants.com&usp=drive_fs' target='_blank'>Andrade et al. (2020)<\/a>","","<a href='https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs' target='_blank'>Ch. 8-9 (p.123-152)  of Kindt & Coe (2005)<\/a>","","","","","","","","","","","","","","",""],["","","","","","","","1. Species (20 pts)","","2. Communities (10 pts)","3. Reserves (10 pts)","","","","","4. iNaturalist (20 pts)","","","","5. Google Earth Engine (15 pts)",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading *<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-<p>* NOTE: Reading PDFs are in a Google Drive folder requiring a UCSB Google login for access to prevent copyright infringement. The full reference with source DOI link are listed below under <a href="#readings">Readings</a>.</p>
-<h1 id="course-description">Course Description</h1>
-<p>Machine learning enables predictions from big, complex data into actionable insights. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition with environmental data. Supervised learning (logistic regression, decision trees and neural networks) and unsupervised learning (clustering and ordination) techniques will be applied to the environmental tasks of mapping species distributions and ecological community analyses, respectively. Integer linear programming will be used to optimize biodiversity in planning a reserve. Deep learning techniques (convolutional neural networks) will enable species classification from photos and landcover classification from satellite imagery using Google Earth Engine. The first half of the course will use R and Rmarkdown on the desktop and second half will use Python and Jupyter notebooks in the cloud. This class teaches a broad sweep of advanced scientific programming skills for environmental problem solving.</p>
-<h1 id="instructor">Instructor</h1>
-<p>Ben Best (ben@ecoquants.com)</p>
+<li><p>1950: Alan Turing comes up with <a href="https://en.wikipedia.org/wiki/Turing_test#:~:text=The%20Turing%20test%2C%20originally%20called,from%2C%20that%20of%20a%20human.&amp;text=If%20the%20evaluator%20cannot%20reliably,to%20have%20passed%20the%20test."><strong>Turing test</strong></a>: originally called the “imitation game” (see also <a href="https://www.google.com/search?q=imitatio+game+movie&amp;rlz=1C5CHFA_enUS833US833&amp;oq=imitatio+game+movie&amp;aqs=chrome..69i57j46i13j0i13l7.5092j0j9&amp;sourceid=chrome&amp;ie=UTF-8">Imitation Game</a> movie with Benedict Cumberbatch on cracking German codes to save WWII), which is the test of a machine’s ability to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human. He asked “Can machines think?” in his 1950 seminal paper “<a href="https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence" title="Computing Machinery and Intelligence">Computing Machinery and Intelligence</a>.”</p></li>
+<li><p>2015: Google’s <strong>AlphaGo</strong> was the first program to best a professional player at Go, considered the most difficult board game in the world. With this defeat, computers officially beat human opponents in every classical board game.</p></li>
+</ul></li>
+<li><p>Ecology and Environment applications:</p>
 <ul>
-<li><strong>Office hours</strong>: Tuesdays TBD on Zoom</li>
+<li><p>individual &gt; population &gt; landscape &gt; ecosystem &gt; global</p></li>
+<li><p>Deep Learning architecture of convolutional neural nets (CNNs in next module): sounds, images</p></li>
+</ul></li>
+<li><p>Species Distribution Modeling</p>
+<ul>
+<li><p>Elith &amp; Leathwick (2009): geographic -&gt; environmental (fit) -&gt; geographic (predict)</p></li>
+<li><p>modeling techniques: GLM, GAM, TREE</p></li>
+<li><p>Ecological Niche</p>
+<ul>
+<li><p>Grinell: environmental conditions</p></li>
+<li><p>Elton: env + biotic</p></li>
+<li><p>Hutchinson: “n-dimensional hypervolume”</p>
+<ul>
+<li>fundamental vs realized niche</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html">Species: explore</a></p></li>
+<li><p>Reading: <a href="https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs">Zhong et al. (2021)</a></p></li>
 </ul>
-<h1 id="grading">Grading</h1>
-<p>The majority of points (100 total) will come from the labs. The exams will draw questions from lecture, lab and reading materials. Participation will be based on class attendance.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Item</th>
-<th>Due</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lab</td>
-<td>1. Species</td>
-<td>Wed, Jan 19</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>2. Communities</td>
-<td>Wed, Jan 26</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>3. Reserves</td>
-<td>Wed, Feb 2</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td>Exam</td>
-<td>Mid-Term</td>
-<td>Wed, Feb 2</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>4. iNaturalist</td>
-<td>Wed, Feb 23</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>5. Google Earth Engine</td>
-<td>Wed, Mar 9</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<td>Exam</td>
-<td>Final</td>
-<td>TBD</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td>Other</td>
-<td>Participation</td>
-<td></td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h1 id="readings">Readings</h1>
-<div class="layout-chunk" data-layout="l-body">
-<p><a name=bib-elithSpeciesDistributionModels2009></a><a href="#cite-elithSpeciesDistributionModels2009">Elith, J. and J. R. Leathwick</a> (2009). “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time”. In: <em>Annu. Rev. Ecol. Evol. Syst.</em> 40.1, pp. 677-697. ISSN: 1543-592X. DOI: <a href="https://doi.org/10.1146%2Fannurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
-<p><a name=bib-evansModelingSpeciesDistribution2011></a><a href="#cite-evansModelingSpeciesDistribution2011">Evans, J. S., M. A. Murphy, Z. A. Holden, et al.</a> (2011). “Modeling Species Distribution and Change Using Random Forest”. In: <em>Predictive Species and Habitat Modeling in Landscape Ecology: Concepts and Applications</em>. Ed. by C. A. Drew, Y. F. Wiersma and F. Huettmann. New York, NY: Springer, pp. 139-159. ISBN: 978-1-4419-7390-0. DOI: <a href="https://doi.org/10.1007%2F978-1-4419-7390-0_8">10.1007/978-1-4419-7390-0_8</a>.</p>
-<p><a
-name=bib-andradeENMTMLPackageStraightforward2020></a><a href="#cite-andradeENMTMLPackageStraightforward2020">Andrade, A. F. A. de, S. J. E. Velazco, and P. De Marco Júnior</a> (2020). “ENMTML: An R Package for a Straightforward Construction of Complex Ecological Niche Models”. In: <em>Environmental Modelling &amp; Software</em> 125, p. 104615. ISSN: 1364-8152. DOI: <a href="https://doi.org/10.1016%2Fj.envsoft.2019.104615">10.1016/j.envsoft.2019.104615</a>.</p>
-<p><a name=bib-zhongMachineLearningNew2021></a><a href="#cite-zhongMachineLearningNew2021">Zhong, S., K. Zhang, M. Bagheri, et al.</a> (2021). “Machine Learning: New Ideas and Tools in Environmental Science and Engineering”. In: <em>Environ. Sci. Technol.</em> 55.19, pp. 12741-12754. ISSN: 0013-936X. DOI: <a href="https://doi.org/10.1021%2Facs.est.1c01339">10.1021/acs.est.1c01339</a>.</p>
-</div>
+<h2 data-number="1.2" id="logistic-regression"><span class="header-section-number">1.2</span> Logistic Regression</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing">Logistic Regression</a> <a href='https://youtu.be/5z5dcmHg1tY' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html">Species: regress</a></p></li>
+<li><p>Reading: <a href="https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs">Elith &amp; Leathwick (2009)</a></p></li>
+</ul>
+<h2 data-number="1.3" id="decision-trees"><span class="header-section-number">1.3</span> Decision Trees</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1R4y-QXcIAcRDpmU9_-blpU4_Jkd7olwzVe3BU2w0lF0/edit?usp=sharing">Decision Trees</a> <a href='https://youtu.be/8BsNybYh0Ls' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html">Species: trees</a></p></li>
+<li><p>Reading: <a href="https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing">Evans et al. (2011)</a></p></li>
+</ul>
+<h2 data-number="1.4" id="model-evaluation"><span class="header-section-number">1.4</span> Model Evaluation</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1wPfEEhhSdtA6q7wXpucrxop3dTgJrzYdyFskDQAbq3E/edit?usp=sharing">Model Evaluation</a> <a href='https://youtu.be/taAM6Bo8bDU' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html">Species: evaluate</a></p></li>
+<li><p>Reading: <a href="https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs">Andrade et al. (2020)</a></p></li>
+</ul>
+<h1 data-number="2" id="communities-unsupervised-learning"><span class="header-section-number">2</span> Communities: Unsupervised Learning</h1>
+<h2 data-number="2.1" id="clustering"><span class="header-section-number">2.1</span> Clustering</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit?usp=sharing">Biodiversity; Clustering</a> <a href='https://youtu.be/4zXXjgEqPA0' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab2a_community-cluster.html">Communities: cluster</a></p></li>
+<li><p>Reading: <a href="https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs">Ch. 8-9 (p.123-152) of Kindt &amp; Coe (2005)</a></p></li>
+</ul>
+<h2 data-number="2.2" id="ordination"><span class="header-section-number">2.2</span> Ordination</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing">Ordination</a> <a href='https://youtu.be/p_nZbI9taIc' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab2b_community-ordination.html">Communities: ordinate</a></p></li>
+</ul>
+<h1 data-number="3" id="reserves-optimization"><span class="header-section-number">3</span> Reserves: Optimization</h1>
+<h2 data-number="3.1" id="conservation-planning"><span class="header-section-number">3.1</span> Conservation Planning</h2>
+<ul>
+<li><p>Lecture: <a href="https://docs.google.com/presentation/d/13BmRTMSv_XFeiwJYymbfrQ0ZF5xhI6Yr_OWqD4MXn08/edit?usp=sharing">Conservation Planning</a> <a href='https://youtu.be/ZAc7TaCDlMY' target='_blank'><i class='fab fa-youtube' role='presentation' aria-label='youtube icon'></i></a></p></li>
+<li><p>Lab: <a href="https://bbest.github.io/eds232-ml/lab3_reserves.html">Reserves</a></p></li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2643,7 +2640,10 @@ name=bib-andradeENMTMLPackageStraightforward2020></a><a href="#cite-andradeENMTM
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
