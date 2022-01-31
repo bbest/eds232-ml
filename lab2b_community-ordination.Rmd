@@ -224,7 +224,7 @@ if (interactive()){
 
 To submit Lab 2, please submit the path on `taylor.bren.ucsb.edu` to your single consolidated Rmarkdown document (i.e. combined from separate parts) that you successfully knitted here:
 
--   [Submit Lab 2. Community](https://forms.gle/gQjnf9kehb1L6nR2A)
+- [Submit Lab 2. Community](https://forms.gle/FC8QSaBsRrm4KFX28){target="_blank"}
 
 The path should start `/Users/` and end in `.Rmd`. Please be sure to have succesfully knitted to html, as in I should see the `.html` file there by the same name with all the outputs.
 
