@@ -40,15 +40,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
         -   individual \> population \> landscape \> ecosystem \> global
 
-        -   Deep Learning architecture of convolutional neural nets (CNNs in next module): sounds, images
+        -   Deep Learning architecture of **convolutional neural nets** (CNNs in next module): sounds, images
 
-    -   Species Distribution Modeling
+    -   **Species Distribution Modeling**
 
         -   Elith & Leathwick (2009): geographic -\> environmental (fit) -\> geographic (predict)
 
-        -   modeling techniques: GLM, GAM, TREE
+        -   modeling techniques: GLM, GAM, TREE (rpart, RandomForest)
 
-        -   Ecological Niche
+        -   **Ecological Niche**
 
             -   Grinell: environmental conditions
 
@@ -56,11 +56,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
             -   Hutchinson: "n-dimensional hypervolume"
 
-                -   fundamental vs realized niche
+                -   **fundamental** vs **realized** niche
 
 -   Lab: [Species: explore](https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html)
 
--   Reading: [Zhong et al. (2021)](https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs)
+    -   Query the Global Biodiversity Information Facility ([GBIF.org](https://www.gbif.org/)) for observations
+
+    -   Fetch environmental data to be used as predictors
+
+-   Reading: [Zhong et al. (2021)](https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&authuser=benbest%40ucsb.edu&usp=drive_fs) Machine Learning: New Ideas and Tools in Environmental Science and Engineering
+
+    -   inputs: tabular, image, graph, text
+
+    -   applications: making predictions; extracting feature importance; detecting anomalies; and discovering new materials/chemicals
+
+    -   workflow: preparation, model development, interpretation and deployment
 
 ## Logistic Regression
 
@@ -68,7 +78,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Lab: [Species: regress](https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html)
 
--   Reading: [Elith & Leathwick (2009)](https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs)
+-   Reading: [Elith & Leathwick (2009)](https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs) Species Distribution Models:
+    Ecological Explanation and Prediction Across Space and Time
+
+    -   <div>
+
+        > Key steps: gathering relevant data; assessing its adequacy (the accuracy and comprehensiveness of the species data; the relevance and completeness of the predictors); deciding how to deal with correlated predictor variables; selecting an appropriate modeling algorithm; fitting the model to the training data; evaluating the model including the realism of fitted response functions, the model's fit to data, characteristics of residuals, and predictive performance on test data; mapping predictions to geographic space;
+        > selecting a threshold if continuous predictions need reduction to a binary map; and iterating the process to improve the model in light of knowledge gained throughout the process.
+
+        </div>
 
 ## Decision Trees
 
@@ -76,7 +94,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Lab: [Species: trees](https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html)
 
--   Reading: [Evans et al. (2011)](https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing)
+-   Reading: [Evans et al. (2011)](https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing) Modeling Species Distribution and Change Using Random Forest
+
+    -   issues: complex non-linear interactions, spatial autocorrelation, high-dimensionality, non-stationary,
+        historic signal, anisotropy, and scale
+
+    -   Classification and Regression Trees versus Random Forest Algorithm (ensemble)
+
+    -   Model Selection (parsimony), Imbalanced Data, Model Validation
+
+    -   Current and Future Prediction
 
 ## Model Evaluation
 
@@ -84,7 +111,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Lab: [Species: evaluate](https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html)
 
--   Reading: [Andrade et al. (2020)](https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&authuser=ben%40ecoquants.com&usp=drive_fs)
+-   Reading: [Andrade et al. (2020)](https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&authuser=ben%40ecoquants.com&usp=drive_fs) ENMTML: An R package for a straightforward construction of complex ecological niche models
+
+    -   Overview of issues and methodologies
 
 # Communities: Unsupervised Learning
 
@@ -94,7 +123,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Lab: [Communities: cluster](https://bbest.github.io/eds232-ml/lab2a_community-cluster.html)
 
--   Reading: [Ch. 8-9 (p.123-152) of Kindt & Coe (2005)](https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs)
+-   Reading: [Ch. 8-9 (p.123-152) of Kindt & Coe (2005)](https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs)\
+    Ch. 8 Analysis of differences in species composition;
+    Ch. 9 Analysis of ecological distance by clustering
+
+    -   **Ecological Distance** metrics to build matrices of between site dissimilarity based on species composition: **Euclidean**, **Manhattan**, **Bray-Curtis**
+
+    -   **Hierarchical clustering** in ecological context
+
+    -   **Dendrograms**
+
+    -   Complements **ordination**
 
 ## Ordination
 
