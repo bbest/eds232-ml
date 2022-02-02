@@ -2576,12 +2576,13 @@ Labs
 </ul></li>
 </ul>
 <h1 data-number="1" id="ordination"><span class="header-section-number">1</span> Ordination</h1>
-<p><strong>Ordination</strong> orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction. It also falls into the class of <strong>unsupervised learning</strong> because a “response term” is not used to fit the model.</p>
+<p><strong>Ordination</strong> orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. “dimensionality reduction.” It also falls into the class of <strong>unsupervised learning</strong> because a “response term” is not used to fit the model.</p>
 <h2 data-number="1.1" id="principal-components-analysis-pca"><span class="header-section-number">1.1</span> Principal Components Analysis (PCA)</h2>
-<p>Although this example uses a non-ecological dataset, it goes through the materials walk through the idea and procedure of conducting an ordination using the most widespread technique.</p>
+<p>Although this example uses a non-ecological dataset, it walks through the idea and procedure of conducting an ordination using the most widespread technique of PCA.</p>
 <p>Please read the entirety of <a href="https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components">Chapter 17 Principal Components Analysis | Hands-On Machine Learning with R</a>. Supporting text is mentioned below where code is run.</p>
 <h3 data-number="1.1.1" id="prerequisites"><span class="header-section-number">1.1.1</span> Prerequisites</h3>
 <p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#prerequisites-14">17.1 Prerequisites</a></p>
+<p><em>Load the libraries and data. Set the seed of the random number generator for reproducible results. Inspect the data structure of the example <code>my_basket</code> dataset.</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load R packages</span>
@@ -2623,7 +2624,7 @@ Labs
 #   newspaper &lt;dbl&gt;, muesli &lt;dbl&gt;, white.wine &lt;dbl&gt;, carrots &lt;dbl&gt;,
 #   spinach &lt;dbl&gt;, pate &lt;dbl&gt;, instant.coffee &lt;dbl&gt;, twix &lt;dbl&gt;, …</code></pre>
 </div>
-<p>From <a href="https://bradleyboehmke.github.io/HOML/intro.html#data">Section 1.4</a>:</p>
+<p><em>So each row is a grocery trip and each column a different grocery item. The cell represents the count of that grocery item for that trip. This is analogous to each row being a site and each column being a count of species. Here are more details on the dataset from</em> <a href="https://bradleyboehmke.github.io/HOML/intro.html#data">Section 1.4</a>:</p>
 <ul>
 <li><p><code>my_basket.csv</code>: Grocery items and quantities purchased. Each observation represents a single basket of goods that were purchased together.</p>
 <ul>
@@ -2635,6 +2636,16 @@ Labs
 </ul></li>
 </ul>
 <h3 data-number="1.1.2" id="performing-pca-in-r"><span class="header-section-number">1.1.2</span> Performing PCA in R</h3>
+<p><em>What does “reducing the dimensionality” really mean? Let’s look at the “dimensions” of this <code>my_basket</code> dataset with the <code>dim()</code> function.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>my_basket</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 2000   42</code></pre>
+</div>
+<p><em>So the dimensions are 2000 rows (i.e. grocery trips) by 42 columns (i.e. grocery items).</em></p>
+<p><em>A single ordination component “reduces the dimensionality” of the dataset by collapsing all the columns (e.g., grocery items or species) into a single column of values ordering all rows (e.g., grocery trips or sites) based on similarity. This component can be plotted as row labels along a straight line (like the <code>x</code> axis alone). This component is derived from applying “weightings” to each item as an <strong>eigenvector</strong> and can only explain a proportion of the variance contained across all columns. So each ordination axes is composed of different weightings, or influence, across the input columns. Adding ordination components, i.e. additional summarizing columns, explains more variance but expands the “dimensionality” (i.e. columns). So a second component could also be plotted as row labels along a straight line and combined in a plot with the first component to produce a row label for the intersection of <code>x</code> as the first component <code>PC1</code> and <code>y</code> as the second component. A 3D plot with a <code>z</code> axis could render a third component <code>PC3</code>. Additional components can be added up to the number of input columns for explaining all the variation, but we’re limited to 3 axes for visualization so we can mix and match which ordination to plot on which axes.</em></p>
 <p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r">17.4 Performing PCA in R</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2645,14 +2656,14 @@ Labs
 <pre><code> Connection successful!
 
 R is connected to the H2O cluster: 
-    H2O cluster uptime:         23 hours 50 minutes 
+    H2O cluster uptime:         2 days 21 hours 
     H2O cluster timezone:       America/Los_Angeles 
     H2O data parsing timezone:  UTC 
     H2O cluster version:        3.36.0.1 
-    H2O cluster version age:    1 month and 1 day  
+    H2O cluster version age:    1 month and 3 days  
     H2O cluster name:           H2O_started_from_R_bbest_qea893 
     H2O cluster total nodes:    1 
-    H2O cluster total memory:   5.00 GB 
+    H2O cluster total memory:   4.99 GB 
     H2O cluster total cores:    12 
     H2O cluster allowed cores:  12 
     H2O cluster healthy:        TRUE 
@@ -2681,7 +2692,7 @@ R is connected to the H2O cluster:
 ==============
 
 H2ODimReductionModel: pca
-Model ID:  PCA_model_R_1643572539291_12 
+Model ID:  PCA_model_R_1643572539291_25 
 Importance of components: 
                             pc1      pc2      pc3      pc4      pc5
 Standard deviation     1.513919 1.473768 1.459114 1.440635 1.435279
@@ -2724,6 +2735,27 @@ Cumulative Proportion  0.986618 1.000000
 H2ODimReductionMetrics: pca
 
 No model metrics available for PCA</code></pre>
+</div>
+<p><em>So the number of ordinations is set to the number of columns initially. That means that all 42 ordinations can explain all the variability, i.e. 100% or 1. Let’s add a plot to show this explicitly based on information above cumulatively adding the <code>Proportion of Variance</code> from each subsequent principal component <code>pc</code>.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_pca</span><span class='op'>@</span><span class='va'>model</span><span class='op'>$</span><span class='va'>model_summary</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>add_rownames</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rowname</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span>
+    <span class='va'>rowname</span> <span class='op'>==</span> <span class='st'>"Proportion of Variance"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    pc <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>"pc"</span>, <span class='st'>""</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pc</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>  <span class='op'>+</span>
+  <span class='fu'>ylab</span><span class='op'>(</span><span class='st'>"Cumulative Proportion of Variance Explained"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p><em>Next, let’s take a closer look at a single principal component <code>pc1</code>. It has these “weightings” associated with each of the input columns.</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_pca</span><span class='op'>@</span><span class='va'>model</span><span class='op'>$</span><span class='va'>eigenvectors</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2732,7 +2764,11 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-1.png" width="624" />
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p><em>So positive values are associated with more ‘hedonistic/impulse’ items like beer, wine, chocolate, lottery and cigarettes. Whereas ‘healthy’ items align along the negative like carrots, peas, spinach and broccoli. That makes sense that these items are more likely to be clustered on a given shopping trip.</em></p>
+<p><em>Now let’s look at two ordination components at once by plotting <code>pc1</code> on the <code>x</code> axis and <code>pc2</code> on the <code>y</code> axis.</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_pca</span><span class='op'>@</span><span class='va'>model</span><span class='op'>$</span><span class='va'>eigenvectors</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2741,8 +2777,9 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_text</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-2-2.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
 </div>
+<p><em>So clusters of proximate items are more likely to co-occur on a given grocery trip. Again, this is analagous to species more likely to co-occur at a given site. And the spread of the species is based on the weightings along each axes.</em></p>
 <h3 data-number="1.1.3" id="eigenvalue-criterion"><span class="header-section-number">1.1.3</span> Eigenvalue criterion</h3>
 <p>See supporting text: <a href="https://bradleyboehmke.github.io/HOML/pca.html#eigenvalue-criterion">17.5.1 Eigenvalue criterion</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2780,7 +2817,7 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>metric</span>, ncol <span class='op'>=</span> <span class='fl'>1</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-7-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># How many PCs required to explain at least 75% of total variability</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>ve</span><span class='op'>$</span><span class='va'>CVE</span> <span class='op'>&gt;=</span> <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
@@ -2798,11 +2835,14 @@ No model metrics available for PCA</code></pre>
   <span class='fu'>geom_text</span><span class='op'>(</span>nudge_y <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.002</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-7-2.png" width="624" /></p>
 </div>
 <h2 data-number="1.2" id="non-metric-multidimensional-scaling-nmds"><span class="header-section-number">1.2</span> Non-metric MultiDimensional Scaling (NMDS)</h2>
+<p>Non-metric MultiDimensional Scaling (NMDS) is probably the most common ordination technique in ecology. It can account for non-linear relationships unlike PCA, but requires some ensemble averaging to account for differing results from different initial conditions, which accounts for the preference for <code>metaMDS()</code> to get at the average of many model fits versus a single NMDS solution from <code>monoMDS()</code>.</p>
 <h3 data-number="1.2.1" id="unconstrained-ordination-on-species"><span class="header-section-number">1.2.1</span> Unconstrained Ordination on Species</h3>
-<p>See supporting text: <strong>2.1 Non-metric Multidimensional scaling</strong> in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>:</p>
+<p>See supporting text: <strong>2.1 Non-metric Multidimensional scaling</strong> in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>.</p>
+<p><em>“Unconstrained ordination” refers to ordination of sites by species, “unconstrained” by the environment. Biodiversity within a site is also called alpha <span class="math inline">\(\alpha\)</span> diversity and biodiversity across sites is called beta <span class="math inline">\(\beta\)</span> diversity.</em></p>
+<p><em>The <code>varespecies</code> dataset describes the cover of species (44 columns) across sites (24 rows) and <code>varechem</code> the soil chemistry (14 columns) across the same sites (24 rows).</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load R packages</span>
@@ -2812,6 +2852,11 @@ No model metrics available for PCA</code></pre>
 <span class='co'># vegetation and environment in lichen pastures from Vare et al (1995)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"varespec"</span><span class='op'>)</span> <span class='co'># species</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"varechem"</span><span class='op'>)</span> <span class='co'># chemistry</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/help.html'>help</a></span><span class='op'>(</span><span class='va'>varechem</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/help.html'>help</a></span><span class='op'>(</span><span class='va'>varespec</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='va'>varespec</span> <span class='op'>%&gt;%</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2836,18 +2881,27 @@ No model metrics available for PCA</code></pre>
 #   Barbhatc &lt;dbl&gt;, Cladarbu &lt;dbl&gt;, Cladrang &lt;dbl&gt;, Cladstel &lt;dbl&gt;,
 #   Cladunci &lt;dbl&gt;, Cladcocc &lt;dbl&gt;, Cladcorn &lt;dbl&gt;, Cladgrac &lt;dbl&gt;,
 #   Cladfimb &lt;dbl&gt;, Cladcris &lt;dbl&gt;, Cladchlo &lt;dbl&gt;, Cladbotr &lt;dbl&gt;, …</code></pre>
+</div>
+<p><em>The ordination is based on the ecological distance between sites (as rows) given the compositional similarity of the species (as columns). The PCA technique previously used created this distance matrix under the hood. Here we explicitly create it with <code>vegdist()</code> using the default Bray-Curtis method (see <code>method="bray"</code> in <code>?vegdist</code>) discussed in the previous 2a Clustering lab. With <code>monoMDS</code> a single NMDS result using the default number of dimensions (see <code>k=2</code> in <code>?monoMDS</code>), and given the randomized nature of the algorithm your results may vary. The subsequent <code>stressplot</code> describes how well the ordination fits the observed dissimilarity. Each blue circle represents the ecological distance between two sites from the original data (“observed” <code>x</code> axis) compared to the fitted data (“ordination” <code>y</code> axis) as explained by the 2 dimensions (from using default <code>k=2</code>).</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>vare.dis</span> <span class='op'>&lt;-</span> <span class='fu'>vegdist</span><span class='op'>(</span><span class='va'>varespec</span><span class='op'>)</span>
 <span class='va'>vare.mds0</span> <span class='op'>&lt;-</span> <span class='fu'>monoMDS</span><span class='op'>(</span><span class='va'>vare.dis</span><span class='op'>)</span>
 <span class='fu'>stressplot</span><span class='op'>(</span><span class='va'>vare.mds0</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
+<p><em>The <code>ordiplot()</code> shows the sites as ordered along the two dimensions. The option <code>type = "t"</code> is to show the text labels of those sites.</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ordiplot</span><span class='op'>(</span><span class='va'>vare.mds0</span>, type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-2.png" width="624" />
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<p><em>Next, let’s use the full blown NMDS with extra model averaging (see <code>?metaMDS</code>).</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>vare.mds</span> <span class='op'>&lt;-</span> <span class='fu'>metaMDS</span><span class='op'>(</span><span class='va'>varespec</span>, trace <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>vare.mds</span>
@@ -2868,13 +2922,18 @@ Stress type 1, weak ties
 No convergent solutions - best solution after 20 tries
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on &#39;wisconsin(sqrt(varespec))&#39; </code></pre>
+</div>
+<p><em>The “stress” is a measure of how well the ordination explains variation across the columns. A stress value around or above 0.2 is deemed suspect and a stress value approaching 0.3 indicates that the ordination is arbitrary. Stress values equal to or below 0.1 are considered fair, while values equal to or below 0.05 indicate good fit.</em></p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.mds</span>, type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-4-3.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
 </div>
+<p><em>Now we’ve added the species in red to the plot indicating which sites are more likely to contain the labeled species.</em></p>
 <h3 data-number="1.2.2" id="overlay-with-environment"><span class="header-section-number">1.2.2</span> Overlay with Environment</h3>
+<p><em>The following techniques do NOT change the ordination of the sites (that’s “constrained ordination”). Rather they visually describe the gradient of the environment given their position on the ordination axes.</em></p>
 <p>See supporting text in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>:</p>
 <ul>
 <li>3 Environmental interpretation</li>
@@ -2914,7 +2973,7 @@ Number of permutations: 999</code></pre>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ef</span>, p.max <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-13-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ef</span> <span class='op'>&lt;-</span> <span class='fu'>envfit</span><span class='op'>(</span><span class='va'>vare.mds</span> <span class='op'>~</span> <span class='va'>Al</span> <span class='op'>+</span> <span class='va'>Ca</span>, data <span class='op'>=</span> <span class='va'>varechem</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.mds</span>, display <span class='op'>=</span> <span class='st'>"sites"</span><span class='op'>)</span>
@@ -2924,7 +2983,7 @@ Number of permutations: 999</code></pre>
 <span class='fu'>ordisurf</span><span class='op'>(</span><span class='va'>vare.mds</span> <span class='op'>~</span> <span class='va'>Ca</span>, data<span class='op'>=</span><span class='va'>varechem</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, col <span class='op'>=</span> <span class='st'>"green4"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-5-2.png" width="624" /></p>
+<p><img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-13-2.png" width="624" /></p>
 <pre><code>
 Family: gaussian 
 Link function: identity 
@@ -2937,6 +2996,7 @@ Estimated degrees of freedom:
 
 REML score: 156.656     </code></pre>
 </div>
+<p><em>The ordination surface plot from <code>ordisurf()</code> displays contours of an environmental gradient across sites. It is a more detailed look at an environmental gradient compared to the single blue line vector. This environmental overlay is generated by fitting a GAM where the response is the environmental variable of interest and the predictors are a bivariate smooth of the ordination axes, all given by the formula: <code>Ca ~ s(NMDS1, NMDS2)</code> (Remember each site is associated with a position on the NMDS axes and has an environmental value). We can see from the code that the <code>green4</code> color contours are for Calcium <code>Ca</code>.</em></p>
 <h3 data-number="1.2.3" id="constrained-ordination-on-species-and-environment"><span class="header-section-number">1.2.3</span> Constrained Ordination on Species and Environment</h3>
 <p>See supporting text in <a href="https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf">vegantutor.pdf</a>:</p>
 <ul>
@@ -2972,13 +3032,13 @@ Eigenvalues for unconstrained axes:
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>vare.cca</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-6-1.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-14-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># plot 3 dimensions</span>
 <span class='fu'>ordiplot3d</span><span class='op'>(</span><span class='va'>vare.cca</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-6-2.png" width="624" />
+<img src="lab2b_community-ordination_files/figure-html5/unnamed-chunk-14-2.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'>ordirgl</span><span class='op'>(</span><span class='va'>vare.cca</span><span class='op'>)</span>
@@ -2998,9 +3058,9 @@ Copy/pasted into RStudio's Visual Editor from [lab2_pts - schedule | eds232-ml -
 <p>In your lab, please be sure to include the following outputs and responses to questions:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div id="htmlwidget-d2eb0b561ffa46918fd4" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2eb0b561ffa46918fd4">{"x":{"filter":"none","vertical":false,"data":[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45],["2a.Cluster.<code>geom_point()<\/code>","2a.Cluster.<code>geom_point()<\/code>","2a.Cluster.<code>kmeans()<\/code>","2a.Cluster.<code>kmeans()<\/code>","2a.Cluster.<code>geom_voronoi()<\/code>","2a.Cluster.<code>vegdist()<\/code>","2a.Cluster.<code>as.matrix()<\/code>","2a.Cluster.<code>hclust()<\/code>","2a.Cluster.<code>hclust()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>ac()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>diana()<\/code>","2a.Cluster.<code>diana()<\/code>","2a.Cluster.<code>fviz_nbclust()<\/code>","2a.Cluster.<code>fviz_dend()<\/code>","2a.Cluster.<code>fviz_dend()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>geom_point()<\/code>","2b.Community.<code>geom_point()<\/code>","2b.Community.<code>geom_text()<\/code>","2b.Community.<code>geom_text()<\/code>","2b.Community.<code>facet_wrap()<\/code>","2b.Community.<code>@model$importance<\/code>","2b.Community.<code>geom_line()<\/code>","2b.Community.<code>geom_line()<\/code>","2b.Community.PCA","2b.Community.<code>varespec<\/code>","2b.Community.<code>stressplot()<\/code>","2b.Community.<code>stressplot()<\/code>","2b.Community.<code>ordiplot()<\/code>","2b.Community.<code>ordiplot()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>envfit()<\/code>","2b.Community.<code>envfit()<\/code>","2b.Community.<code>ordisurf()<\/code>","2b.Community.<code>ordisurf()<\/code>","2b.Community.<code>cca()<\/code>","2b.Community.<code>cca()<\/code>","2b.Community.<code>cca()<\/code>"],["Scatterplot of <code>penguins<\/code> (or <code>iris<\/code>) <em><strong>without color<\/strong><\/em> coding by species, i.e. input data to <code>kmeans()<\/code>, an unsupervised learning technique without any &ldquo;response&rdquo; (in this case <code>species<\/code>); rather <code>kmenas()<\/code> only finds <strong>centroids<\/strong> of point clusters that reduce variation along axes between all observation points","Scatterplot of <code>penguins<\/code> (or <code>iris<\/code>) <em><strong>with color<\/strong><\/em> coding by species, which is not used in any way this unsupervised technique, but interesting to compare the seperation of values between kmeans() method and observed species","Cluster text summary from <code>kmeans()<\/code> fitted model","<strong>Question<\/strong>: Comparing the observed species plot with 3 species with the kmeans() cluster plot with 3 clusters, where does this &ldquo;unsupervised&rdquo; <code>kmeans()<\/code> technique (that does not use species to &ldquo;fit&rdquo; the model) produce similar versus different results? One or two sentences would suffice. Feel free to mention ranges of values along the axes.","Voronoi diagram of clustered penguins showing membership of observation points to cluster based on nearest distance","<strong>Question<\/strong>: In your own words, how does Bray Curtis differ from Euclidean distance? See <code>sites_euclidean<\/code> versus <code>sites_bray<\/code> from lab code, slides from <a href=\"https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit#slide=id.g10ee1a7437d_0_199\">Lecture 05. Clustering<\/a> and reading <a href=\"https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\">Chapter 8 of Kindt and Coe (2005)<\/a>.","Bray-Curtis distance matrix","Cluster dendrogram from <code>hclust()<\/code> with complete linkage","<strong>Question<\/strong>: Which function comes first, <code>vegdist()<\/code> or <code>hclust()<\/code>, and why? See HOMLR <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a>.","Cluster dendrogram from <code>agnes()<\/code> with complete linkage","<strong>Question<\/strong>: In your own words how does <code>hclust()<\/code> differ from <code>agnes()<\/code>? See HOMLR <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a> and help documentation (<code>?hclust()<\/code>,  <code>?agnes()<\/code>).","Agglomerative coefficients for each linkage method","<strong>Question<\/strong>: Of the 4 methods, which is the &ldquo;best&rdquo; model in terms of Agglomerative Coefficient?","Divisive coefficient for <code>diana()<\/code>","<strong>Question<\/strong>: In your own words how does <code>agnes()<\/code> differ from <code>diana()<\/code>? See <em>HOMLR<\/em>  <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a>, slides from <a href=\"https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit#slide=id.g10ee1a7437d_0_173\">Lecture 05. Clustering<\/a> and help documentation (<code>?agnes()<\/code>,  <code>?diana()<\/code>).","Plot of methods for determining optimal clusters","<strong>Question<\/strong>: How do the optimal number of clusters compare between methods for those with a dashed line?","<strong>Question<\/strong>: In dendrogram plots, which is the biggest determinant of relatedness between observations: the distance between observations along the labeled axes or the height of their shared connection? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#working-with-dendrograms\">21.5 Working with dendrograms<\/a>.","Text summary output from initial principal components analysis <code>h2o.prcomp()<\/code>","<strong>Question<\/strong>: Why is the <code>pca_method<\/code> of &ldquo;GramSVD&rdquo; chosen over &ldquo;GLRM&rdquo;? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r\">17.4 Performing PCA in R<\/a>.","<strong>Question<\/strong>: How many inital principal components are chosen with respect to dimensions of the input data? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r\">17.4 Performing PCA in R<\/a>.","Plot of eigenvector influence of each feature on the first principal component PC1","<strong>Question<\/strong>: What category of grocery items contribute most to PC1? (These are related because they&#39;re bought most often together on a given grocery trip)","Plot of eigenvector influence of each feature on the first principal component PC1","<strong>Question<\/strong>: What category of grocery items contribute the least to PC1 but positively towards PC2?","Plot of proportional and cumulative variance explained (PVE and CVE)","<strong>Question<\/strong>: How many principal components would you include to explain 90% of the total variance?","Scree plot of PVE vs PC","<strong>Question<\/strong>: How many principal components to include up to the elbow of the PVE, i.e. the &ldquo;elbow&rdquo; before plateau of dimensions explaining the least variance?","<strong>Question<\/strong>: What are a couple of disadvantages to using PCA? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#final-thoughts-11\">17.6 Final thoughts<\/a>.","<strong>Question<\/strong>: What are the dimensions of the <code>varespec<\/code> data frame and what do rows versus columns represent?","Stress plot of NMDS","<strong>Question<\/strong>: The &ldquo;stress&rdquo; in a <code>stressplot<\/code> represents the difference between the observed inpnut distance versus the fitted ordination distance. How much better is the non-metric (i.e., NMDS) fit versus a linear fit (as with PCA) in terms of \\(R^2\\)?","Ordination plot of NMDS","<strong>Question<\/strong>: What two sites are most dissimilar based on species composition for the first component MDS1? And two more most dissimilar sites for the second component MDS2?","Text summary output from <code>metaMDS()<\/code>","Plot of sites with species text for NMDS1 and NMDS2","<strong>Question<\/strong>: What is the basic difference between <code>metaMDS<\/code> and <code>monoMDS()<\/code>? See <strong>2.1 Non-metric Multidimensional scaling<\/strong> of <a href=\"https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf\">vegantutor.pdf<\/a>.","Plot of environment fit overlay","<strong>Question<\/strong>: What two soil chemistry elements have the strongest negative relationship with NMDS1 that is based on species composition?","Plot of ordination surface environmental overlay from <code>ordisurf()<\/code>","<strong>Question<\/strong>: Which of the two NMDS axes differentiates <code>Ca<\/code> the most, i.e. has the highest value given by the contours at the end (and not middle) of the axis?","<strong>Question<\/strong>: What is the difference between &ldquo;constrained&rdquo; versus &ldquo;unconstrained&rdquo; ordination within ecological context?","Plot of constrained ordination with black labels for sites, red text for species and blue vectors for environment","<strong>Question<\/strong>: What sites are most differentiated by CCA1, i.e. furthest apart along its axis, based on species composition <strong>AND<\/strong> the environmnent? What is the strongest environmental vector for CCA1, i.e. longest environmental vector in the direction of the CCA1 axes?"],[0.1,0.1,0.1,0.5,0.1,0.5,0.1,0.1,0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.5,0.1,0.2,0.2,0.1,0.2,0.1,0.2,0.1,0.2,0.1,0.2,0.2,0.3,0.1,0.3,0.1,0.3,0.1,0.1,0.3,0.1,0.3,0.1,0.3,0.3,0.1,0.3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>#<\/th>\n      <th>Lab<\/th>\n      <th>Item<\/th>\n      <th>Pts<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,3]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-d2eb0b561ffa46918fd4">{"x":{"filter":"none","vertical":false,"data":[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45],["2a.Cluster.<code>geom_point()<\/code>","2a.Cluster.<code>geom_point()<\/code>","2a.Cluster.<code>kmeans()<\/code>","2a.Cluster.<code>kmeans()<\/code>","2a.Cluster.<code>geom_voronoi()<\/code>","2a.Cluster.<code>vegdist()<\/code>","2a.Cluster.<code>as.matrix()<\/code>","2a.Cluster.<code>hclust()<\/code>","2a.Cluster.<code>hclust()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>ac()<\/code>","2a.Cluster.<code>agnes()<\/code>","2a.Cluster.<code>diana()<\/code>","2a.Cluster.<code>diana()<\/code>","2a.Cluster.<code>fviz_nbclust()<\/code>","2a.Cluster.<code>fviz_dend()<\/code>","2a.Cluster.<code>fviz_dend()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>h2o.prcomp()<\/code>","2b.Community.<code>geom_point()<\/code>","2b.Community.<code>geom_point()<\/code>","2b.Community.<code>geom_text()<\/code>","2b.Community.<code>geom_text()<\/code>","2b.Community.<code>facet_wrap()<\/code>","2b.Community.<code>@model$importance<\/code>","2b.Community.<code>geom_line()<\/code>","2b.Community.<code>geom_line()<\/code>","2b.Community.PCA","2b.Community.<code>varespec<\/code>","2b.Community.<code>stressplot()<\/code>","2b.Community.<code>stressplot()<\/code>","2b.Community.<code>ordiplot()<\/code>","2b.Community.<code>ordiplot()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>metaMDS()<\/code>","2b.Community.<code>envfit()<\/code>","2b.Community.<code>envfit()<\/code>","2b.Community.<code>ordisurf()<\/code>","2b.Community.<code>ordisurf()<\/code>","2b.Community.<code>cca()<\/code>","2b.Community.<code>cca()<\/code>","2b.Community.<code>cca()<\/code>"],["Scatterplot of <code>penguins<\/code> (or <code>iris<\/code>) <em><strong>without color<\/strong><\/em> coding by species, i.e. input data to <code>kmeans()<\/code>, an unsupervised learning technique without any &ldquo;response&rdquo; (in this case <code>species<\/code>); rather <code>kmenas()<\/code> only finds <strong>centroids<\/strong> of point clusters that reduce variation along axes between all observation points","Scatterplot of <code>penguins<\/code> (or <code>iris<\/code>) <em><strong>with color<\/strong><\/em> coding by species, which is not used in any way this unsupervised technique, but interesting to compare the seperation of values between kmeans() method and observed species","Cluster text summary from <code>kmeans()<\/code> fitted model","<strong>Question<\/strong>: Comparing the observed species plot with 3 species with the kmeans() cluster plot with 3 clusters, where does this &ldquo;unsupervised&rdquo; <code>kmeans()<\/code> technique (that does not use species to &ldquo;fit&rdquo; the model) produce similar versus different results? One or two sentences would suffice. Feel free to mention ranges of values along the axes.","Voronoi diagram of clustered penguins showing membership of observation points to cluster based on nearest distance","<strong>Question<\/strong>: In your own words, how does Bray Curtis differ from Euclidean distance? See <code>sites_euclidean<\/code> versus <code>sites_bray<\/code> from lab code, slides from <a href=\"https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit#slide=id.g10ee1a7437d_0_199\">Lecture 05. Clustering<\/a> and reading <a href=\"https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\">Chapter 8 of Kindt and Coe (2005)<\/a>.","Bray-Curtis distance matrix","Cluster dendrogram from <code>hclust()<\/code> with complete linkage","<strong>Question<\/strong>: Which function comes first, <code>vegdist()<\/code> or <code>hclust()<\/code>, and why? See HOMLR <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a>.","Cluster dendrogram from <code>agnes()<\/code> with complete linkage","<strong>Question<\/strong>: In your own words how does <code>hclust()<\/code> differ from <code>agnes()<\/code>? See HOMLR <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a> and help documentation (<code>?hclust()<\/code>,  <code>?agnes()<\/code>).","Agglomerative coefficients for each linkage method","<strong>Question<\/strong>: Of the 4 methods, which is the &ldquo;best&rdquo; model in terms of Agglomerative Coefficient?","Divisive coefficient for <code>diana()<\/code>","<strong>Question<\/strong>: In your own words how does <code>agnes()<\/code> differ from <code>diana()<\/code>? See <em>HOMLR<\/em>  <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\">21.3.1 Agglomerative hierarchical clustering<\/a>, slides from <a href=\"https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit#slide=id.g10ee1a7437d_0_173\">Lecture 05. Clustering<\/a> and help documentation (<code>?agnes()<\/code>,  <code>?diana()<\/code>).","Plot of methods for determining optimal clusters","<strong>Question<\/strong>: How do the optimal number of clusters compare between methods for those with a dashed line?","<strong>Question<\/strong>: In dendrogram plots, which is the biggest determinant of relatedness between observations: the distance between observations along the labeled axes or the height of their shared connection? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#working-with-dendrograms\">21.5 Working with dendrograms<\/a>.","Text summary output from initial principal components analysis <code>h2o.prcomp()<\/code>","<strong>Question<\/strong>: Why is the <code>pca_method<\/code> of &ldquo;GramSVD&rdquo; chosen over &ldquo;GLRM&rdquo;? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r\">17.4 Performing PCA in R<\/a>.","<strong>Question<\/strong>: How many inital principal components are chosen with respect to dimensions of the input data? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r\">17.4 Performing PCA in R<\/a>.","Plot of grocery items in ordination space for the first two principal components, PC1 (x axis) and PC2 (y axis). [OLD: Plot of eigenvector influence of each feature on the first principal component PC1]","<strong>Question<\/strong>: What category of grocery items contribute most to PC1? (These are related because they&#39;re bought most often together on a given grocery trip)","Plot of eigenvector influence of each feature on the first principal component PC1","<strong>Question<\/strong>: What category of grocery items contribute the least to PC1 but positively towards PC2?","Plot of proportional and cumulative variance explained (PVE and CVE)","<strong>Question<\/strong>: How many principal components would you include to explain 90% of the total variance?","Scree plot of PVE vs PC","<strong>Question<\/strong>: How many principal components to include up to the elbow of the PVE, i.e. the &ldquo;elbow&rdquo; before plateau of dimensions explaining the least variance?","<strong>Question<\/strong>: What are a couple of disadvantages to using PCA? See <em>HOMLR<\/em> <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#final-thoughts-11\">17.6 Final thoughts<\/a>.","<strong>Question<\/strong>: What are the dimensions of the <code>varespec<\/code> data frame and what do rows versus columns represent?","Stress plot of NMDS","<strong>Question<\/strong>: The &ldquo;stress&rdquo; in a <code>stressplot<\/code> represents the difference between the observed inpnut distance versus the fitted ordination distance. How much better is the non-metric (i.e., NMDS) fit versus a linear fit (as with PCA) in terms of \\(R^2\\)?","Ordination plot of NMDS","<strong>Question<\/strong>: What two sites are most dissimilar based on species composition for the first component MDS1? And two more most dissimilar sites for the second component MDS2?","Text summary output from <code>metaMDS()<\/code>","Plot of sites with species text for NMDS1 and NMDS2","<strong>Question<\/strong>: What is the basic difference between <code>metaMDS<\/code> and <code>monoMDS()<\/code>? See <strong>2.1 Non-metric Multidimensional scaling<\/strong> of <a href=\"https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf\">vegantutor.pdf<\/a>.","Plot of environment fit overlay","<strong>Question<\/strong>: What two soil chemistry elements have the strongest negative relationship with NMDS1 that is based on species composition?","Plot of ordination surface environmental overlay from <code>ordisurf()<\/code>","<strong>Question<\/strong>: The ordination surface plot from <code>ordisurf()<\/code> displays contours of an environmental gradient across sites. It is a more detailed look at an environmental gradient compared to the single blue line vector. This environmental overlay is generated by fitting a GAM where the response is the environmental variable of interest and the predictors are a bivariate smooth of the ordination axes, all given by the formula: <code>Ca ~ s(NMDS1, NMDS2)<\/code> (Remember each site is associated with a position on the NMDS axes and has an environmental value).  We can see from the code that the <code>green4<\/code> color contours are for Calcium <code>Ca<\/code>. Describe in general terms (upper/lower/left/right/middle) where the highest and lowest values are found for <code>Ca<\/code> with respect to the ordination axes <code>NMDS1<\/code> and <code>NMDS2<\/code> (ie the ordination axes that describe the most variation of species composition between sites). [OLD: Which of the two NMDS axes differentiates <code>Ca<\/code> the most, i.e. has the highest value given by the contours at the end (and not middle) of the axis?]","<strong>Question<\/strong>: What is the difference between &ldquo;constrained&rdquo; versus &ldquo;unconstrained&rdquo; ordination within ecological context?","Plot of constrained ordination with black labels for sites, red text for species and blue vectors for environment","<strong>Question<\/strong>: What sites are most differentiated by CCA1, i.e. furthest apart along its axis, based on species composition <strong>AND<\/strong> the environmnent? What is the strongest environmental vector for CCA1, i.e. longest environmental vector in the direction of the CCA1 axes?"],[0.1,0.1,0.1,0.5,0.1,0.5,0.1,0.1,0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.5,0.1,0.2,0.2,0.1,0.2,0.1,0.2,0.1,0.2,0.1,0.2,0.2,0.3,0.1,0.3,0.1,0.3,0.1,0.1,0.3,0.1,0.3,0.1,0.3,0.3,0.1,0.3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>#<\/th>\n      <th>Lab<\/th>\n      <th>Item<\/th>\n      <th>Pts<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,3]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -3008,6 +3068,15 @@ Copy/pasted into RStudio's Visual Editor from [lab2_pts - schedule | eds232-ml -
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

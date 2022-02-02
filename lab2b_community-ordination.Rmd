@@ -28,17 +28,19 @@ In this lab, you will play with **unsupervised classification** techniques while
 
 # Ordination
 
-**Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. dimensionality reduction. It also falls into the class of **unsupervised learning** because a "response term" is not used to fit the model.
+**Ordination** orders sites near each other based on similarity. It is a multivariate analysis technique used to effectively collapse dependent axes into fewer dimensions, i.e. "dimensionality reduction". It also falls into the class of **unsupervised learning** because a "response term" is not used to fit the model.
 
 ## Principal Components Analysis (PCA)
 
-Although this example uses a non-ecological dataset, it goes through the materials walk through the idea and procedure of conducting an ordination using the most widespread technique.
+Although this example uses a non-ecological dataset, it walks through the idea and procedure of conducting an ordination using the most widespread technique of PCA.
 
 Please read the entirety of [Chapter 17 Principal Components Analysis \| Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components). Supporting text is mentioned below where code is run.
 
 ### Prerequisites
 
 See supporting text: [17.1 Prerequisites](https://bradleyboehmke.github.io/HOML/pca.html#prerequisites-14)
+
+_Load the libraries and data. Set the seed of the random number generator for reproducible results. Inspect the data structure of the example `my_basket` dataset._
 
 ```{r}
 # load R packages
@@ -56,7 +58,7 @@ dim(my_basket)
 my_basket
 ```
 
-From [Section 1.4](https://bradleyboehmke.github.io/HOML/intro.html#data):
+_So each row is a grocery trip and each column a different grocery item. The cell represents the count of that grocery item for that trip. This is analogous to each row being a site and each column being a count of species. Here are more details on the dataset from_ [Section 1.4](https://bradleyboehmke.github.io/HOML/intro.html#data):
 
 -   `my_basket.csv`: Grocery items and quantities purchased. Each observation represents a single basket of goods that were purchased together.
 
@@ -67,6 +69,16 @@ From [Section 1.4](https://bradleyboehmke.github.io/HOML/intro.html#data):
     -   objective: use attributes of each basket to identify common groupings of items purchased together.
 
 ### Performing PCA in R
+
+_What does "reducing the dimensionality" really mean? Let's look at the "dimensions" of this `my_basket` dataset with the `dim()` function._
+
+```{r}
+dim(my_basket)
+```
+
+_So the dimensions are `r dim(my_basket)[1]` rows (i.e. grocery trips) by `r dim(my_basket)[2]` columns (i.e. grocery items)._
+
+_A single ordination component "reduces the dimensionality" of the dataset by collapsing all the columns (e.g., grocery items or species) into a single column of values ordering all rows (e.g., grocery trips or sites) based on similarity. This component can be plotted as row labels along a straight line (like the `x` axis alone). This component is derived from applying "weightings" to each item as an **eigenvector** and can only explain a proportion of the variance contained across all columns. So each ordination axes is composed of different weightings, or influence, across the input columns. Adding ordination components, i.e. additional summarizing columns, explains more variance but expands the "dimensionality" (i.e. columns). So a second component could also be plotted as row labels along a straight line and combined in a plot with the first component to produce a row label for the intersection of `x` as the first component `PC1` and `y` as the second component. A 3D plot with a `z` axis could render a third component `PC3`. Additional components can be added up to the number of input columns for explaining all the variation, but we're limited to 3 axes for visualization so we can mix and match which ordination to plot on which axes._
 
 See supporting text: [17.4 Performing PCA in R](https://bradleyboehmke.github.io/HOML/pca.html#performing-pca-in-r)
 
@@ -86,19 +98,47 @@ my_pca <- h2o.prcomp(
   impute_missing = TRUE,
   max_runtime_secs = 1000)
 my_pca
+```
 
+_So the number of ordinations is set to the number of columns initially. That means that all 42 ordinations can explain all the variability, i.e. 100% or 1. Let's add a plot to show this explicitly based on information above cumulatively adding the `Proportion of Variance` from each subsequent principal component `pc`._
+
+```{r}
+my_pca@model$model_summary %>% 
+  add_rownames() %>% 
+  tidyr::pivot_longer(-rowname) %>% 
+  filter(
+    rowname == "Proportion of Variance") %>% 
+  mutate(
+    pc = stringr::str_replace(name, "pc", "") %>% as.integer()) %>% 
+  ggplot(aes(x = pc, y=cumsum(value))) +
+  geom_point() + geom_line() +
+  theme(axis.text.x = element_text(angle=90, hjust = 1))  +
+  ylab("Cumulative Proportion of Variance Explained")
+```
+
+_Next, let's take a closer look at a single principal component `pc1`. It has these "weightings" associated with each of the input columns._
+
+```{r}
 my_pca@model$eigenvectors %>% 
   as.data.frame() %>% 
   mutate(feature = row.names(.)) %>%
   ggplot(aes(pc1, reorder(feature, pc1))) +
   geom_point()
+```
 
+_So positive values are associated with more 'hedonistic/impulse' items like beer, wine, chocolate, lottery and cigarettes. Whereas 'healthy' items align along the negative like carrots, peas, spinach and broccoli. That makes sense that these items are more likely to be clustered on a given shopping trip._
+
+_Now let's look at two ordination components at once by plotting `pc1` on the `x` axis and `pc2` on the `y` axis._
+
+```{r}
 my_pca@model$eigenvectors %>% 
   as.data.frame() %>% 
   mutate(feature = row.names(.)) %>%
   ggplot(aes(pc1, pc2, label = feature)) +
   geom_text()
 ```
+
+_So clusters of proximate items are more likely to co-occur on a given grocery trip. Again, this is analagous to species more likely to co-occur at a given site. And the spread of the species is based on the weightings along each axes._
 
 ### Eigenvalue criterion
 
@@ -145,9 +185,15 @@ data.frame(
 
 ## Non-metric MultiDimensional Scaling (NMDS)
 
+Non-metric MultiDimensional Scaling (NMDS) is probably the most common ordination technique in ecology. It can account for non-linear relationships unlike PCA, but requires some ensemble averaging to account for differing results from different initial conditions, which accounts for the preference for `metaMDS()` to get at the average of many model fits versus a single NMDS solution from `monoMDS()`.
+
 ### Unconstrained Ordination on Species
 
-See supporting text: **2.1 Non-metric Multidimensional scaling** in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf):
+See supporting text: **2.1 Non-metric Multidimensional scaling** in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf).
+
+_"Unconstrained ordination" refers to ordination of sites by species, "unconstrained" by the environment. Biodiversity within a site is also called alpha $\alpha$ diversity and biodiversity across sites is called beta $\beta$ diversity._
+
+_The `varespecies` dataset describes the cover of species (44 columns) across sites (24 rows) and `varechem` the soil chemistry (14 columns) across the same sites (24 rows)._
 
 ```{r}
 # load R packages
@@ -158,20 +204,46 @@ librarian::shelf(
 data("varespec") # species
 data("varechem") # chemistry
 
+if (interactive()){
+  help(varechem)
+  help(varespec)
+}
+
 varespec %>% tibble()
+```
+
+_The ordination is based on the ecological distance between sites (as rows) given the compositional similarity of the species (as columns). The PCA technique previously used created this distance matrix under the hood. Here we explicitly create it with `vegdist()` using the default Bray-Curtis method (see `method="bray"` in `?vegdist`) discussed in the previous 2a Clustering lab. With `monoMDS` a single NMDS result using the default number of dimensions (see `k=2` in `?monoMDS`), and given the randomized nature of the algorithm your results may vary. The subsequent `stressplot` describes how well the ordination fits the observed dissimilarity. Each blue circle represents the ecological distance between two sites from the original data ("observed" `x` axis) compared to the fitted data ("ordination" `y` axis) as explained by the 2 dimensions (from using default `k=2`)._
+
+```{r}
 vare.dis <- vegdist(varespec)
 vare.mds0 <- monoMDS(vare.dis)
 stressplot(vare.mds0)
+```
 
+_The `ordiplot()` shows the sites as ordered along the two dimensions. The option `type = "t"` is to show the text labels of those sites._
+
+```{r}
 ordiplot(vare.mds0, type = "t")
+```
 
+_Next, let's use the full blown NMDS with extra model averaging (see `?metaMDS`)._
+
+```{r}
 vare.mds <- metaMDS(varespec, trace = FALSE)
 vare.mds
+```
 
+_The "stress" is a measure of how well the ordination explains variation across the columns. A stress value around or above 0.2 is deemed suspect and a stress value approaching 0.3 indicates that the ordination is arbitrary. Stress values equal to or below 0.1 are considered fair, while values equal to or below 0.05 indicate good fit._
+
+```{r}
 plot(vare.mds, type = "t")
 ```
 
+_Now we've added the species in red to the plot indicating which sites are more likely to contain the labeled species._
+
 ### Overlay with Environment
+
+_The following techniques do NOT change the ordination of the sites (that's "constrained ordination"). Rather they visually describe the gradient of the environment given their position on the ordination axes._
 
 See supporting text in [vegantutor.pdf](https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf):
 
@@ -186,7 +258,6 @@ ef
 plot(vare.mds, display = "sites")
 plot(ef, p.max = 0.05)
 
-
 ef <- envfit(vare.mds ~ Al + Ca, data = varechem)
 plot(vare.mds, display = "sites")
 plot(ef)
@@ -194,6 +265,8 @@ plot(ef)
 tmp <- with(varechem, ordisurf(vare.mds, Al, add = TRUE))
 ordisurf(vare.mds ~ Ca, data=varechem, add = TRUE, col = "green4")
 ```
+
+_The ordination surface plot from `ordisurf()` displays contours of an environmental gradient across sites. It is a more detailed look at an environmental gradient compared to the single blue line vector. This environmental overlay is generated by fitting a GAM where the response is the environmental variable of interest and the predictors are a bivariate smooth of the ordination axes, all given by the formula: `Ca ~ s(NMDS1, NMDS2)` (Remember each site is associated with a position on the NMDS axes and has an environmental value).  We can see from the code that the `green4` color contours are for Calcium `Ca`._
 
 ### Constrained Ordination on Species and Environment
 
@@ -241,8 +314,10 @@ source(here::here("_functions.R"))
 d <- googlesheets4::read_sheet(sched_gsheet, "lab2_pts")
 
 md2html <- function(x){
-  markdown::markdownToHTML(text = x, fragment.only=T) %>%
-    str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")}
+  x %>% 
+    stringr::str_replace_all('\"', '\\"') %>% 
+    markdown::markdownToHTML(text = x, fragment.only=T) %>%
+    stringr::str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")}
 
 # d_0 <- d # d <- d_0
 d <- d %>%
