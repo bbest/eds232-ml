@@ -40,16 +40,16 @@ Ben Best (ben\@ecoquants.com)
 
 The majority of points (100 total) will come from the labs. The exams will draw questions from lecture, lab and reading materials. Participation will be based on class attendance.
 
-| Type  | Item                    | Due         | Points |
-|-------|-------------------------|-------------|--------|
-| Lab   | 1\. Species             | Wed, Jan 19 | 20     |
-| Lab   | 2\. Communities         | Wed, Jan 26 | 10     |
-| Lab   | 3\. Reserves            | Wed, Feb 2  | 10     |
-| Exam  | Mid-Term                | Wed, Feb 2  | 10     |
-| Lab   | 4\. iNaturalist         | Wed, Feb 23 | 20     |
-| Lab   | 5\. Google Earth Engine | Wed, Mar 9  | 15     |
-| Exam  | Final                   | TBD         | 10     |
-| Other | Participation           |             | 5      |
+| Type  | Item                      | Points |
+|-------|---------------------------|--------|
+| Lab   | 1\. Species Distributions | 20     |
+| Lab   | 2\. Communities           | 10     |
+| Lab   | 3\. Reserves              | 10     |
+| Exam  | Mid-Term                  | 10     |
+| Lab   | 4\. Species Images        | 20     |
+| Lab   | 5\. Satellite             | 15     |
+| Exam  | Final                     | 10     |
+| Other | Participation             | 5      |
 
 # Readings {#readings}
 
