@@ -15,7 +15,7 @@ In this portion of the lab you'll use **Decision Trees** as a **Classification**
 -   **Recursive Partitioning** (`rpart()`)\
     Originally called classification & regression trees (CART), but that's copyrighted (Breiman, 1984).
 
--   **Random Forest** (`RandomForest()`)\
+-   **Random Forest** (`ranger()`)\
     Actually an ensemble model, ie trees of trees.
 
 # Setup

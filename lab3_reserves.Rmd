@@ -1,5 +1,5 @@
 ---
-title: "Lab 3. Reserve Planning"
+title: "Lab 3. Reserve Design"
 author: "Jeffrey O. Hanson"
 date: "2021-09-26"
 output: html_document
@@ -549,7 +549,6 @@ Now, let's compare the solutions.
 3. Do the solutions with more planning units have a greater cost? Why (or why not)?
 4. Why does the first solution (`s1`) cost less than the second solution with protected areas locked into the solution (`s2`)?
 5. Why does the third solution (`s3`) cost less than the fourth solution solution with highly degraded areas locked out (`s4`)?
-
 ```
 
 ## Penalizing fragmentation
@@ -605,5 +604,32 @@ Now let's compare the solutions to the problems with (`s5`) and without (`s4`) t
 1. What is the cost the fourth (`s4`) and fifth (`s5`) solutions? Why does the fifth solution (`s5`) cost more than the fourth (`s4`) solution?
 2. Try setting the penalty value to 0.000000001 (i.e. `1e-9`) instead of 0.001. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this is a useful penalty value? Why (or why not)?
 3. Try setting the penalty value to 0.5. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this a useful penalty value? Why (or why not)?
-
 ```
+
+# Lab 3 Submission
+
+To submit Lab 3, please submit the path on `taylor.bren.ucsb.edu` to your single consolidated Rmarkdown document (i.e. combined from separate parts) that you successfully knitted here:
+
+
+- [Submit Lab 3. Reserves](https://forms.gle/AhsXwMpUBLwXkFHRA){target="_blank"}
+
+The path should start `/Users/` and end in `.Rmd`. Please be sure to have succesfully knitted to html, as in I should see the `.html` file there by the same name with all the outputs.
+
+In your lab, please be sure to include all outputs from running the lab and any tweaks needed to respond to the following questions:
+
+```{r, echo=F}
+source(here::here("_functions.R"))
+
+d <- googlesheets4::read_sheet(sched_gsheet, "lab3_pts")
+
+# d_0 <- d # d <- d_0
+d <- d %>%
+  filter(!is.na(Lab)) %>% # View()
+  mutate(
+    Lab  = map_chr(Lab, md2html),
+    Item = map_chr(Item, md2html)) %>% 
+  select(`#`, Lab, Item, Pts=Points)
+
+datatable(d, rownames = F, escape = F)
+```
+

@@ -1,16 +1,10 @@
 librarian::shelf(
-  dplyr, DT, glue, googlesheets4, htmltools, purrr, readr, shiny, stringr, tidyr)
+  dplyr, DT, glue, googlesheets4, htmltools, purrr, raster, readr, shiny, stringr, tidyr)
 options(readr.show_col_types = F)
+select = dplyr::select
 
 # edit: * [schedule | eds232-ml - Google Sheets](https://docs.google.com/spreadsheets/d/1lolwZ2CNAtUkTWPauyPEe_oVMknqS2yVvfnB1fiErzQ/edit#gid=0)
 sched_gsheet <- "https://docs.google.com/spreadsheets/d/1lolwZ2CNAtUkTWPauyPEe_oVMknqS2yVvfnB1fiErzQ/edit"
-
-get_sched <- function(){
-  d_sched <- googlesheets4::read_sheet(sched_gsheet) %>%
-    tidyr::fill(Week, Module)
-  names(d_sched) <- names(d_sched) %>% stringr::str_replace("\n", " ")
-  d_sched
-}
 
 dt_sched <- function(d_sched){
   d <- d_sched %>%
@@ -71,4 +65,24 @@ dt_sched <- function(d_sched){
         dataSrc=c(i_mod)),
       columnDefs = list(list(visible=F, targets=c(i_mod)))),
     escape = F)
+}
+
+get_sched <- function(){
+  d_sched <- googlesheets4::read_sheet(sched_gsheet) %>%
+    tidyr::fill(Week, Module)
+  names(d_sched) <- names(d_sched) %>% stringr::str_replace("\n", " ")
+  d_sched
+}
+
+md2html <- function(x){
+  #browser()
+  # md2h <- function(x){ markdown::markdownToHTML(text = x, fragment.only=T)[1] }
+  # y <- x %>%
+  x %>%
+    stringr::str_replace_all('\"', '\\"') %>%
+    # md2h() %>%
+    markdown::markdownToHTML(text = x, fragment.only=T) %>%
+    stringr::str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")
+  # message(glue("\n\n{x}\n ->\n{y}\n\n"))
+  # y
 }

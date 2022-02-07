@@ -313,12 +313,6 @@ source(here::here("_functions.R"))
 
 d <- googlesheets4::read_sheet(sched_gsheet, "lab2_pts")
 
-md2html <- function(x){
-  x %>% 
-    stringr::str_replace_all('\"', '\\"') %>% 
-    markdown::markdownToHTML(text = x, fragment.only=T) %>%
-    stringr::str_replace("^(<p>)(.*)(</p>)\\n$", "\\2")}
-
 # d_0 <- d # d <- d_0
 d <- d %>%
   mutate(
