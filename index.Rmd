@@ -62,6 +62,9 @@ NoCite(bib, "zhongMachineLearningNew2021")
 NoCite(bib, "elithSpeciesDistributionModels2009")
 NoCite(bib, "evansModelingSpeciesDistribution2011")
 NoCite(bib, "andradeENMTMLPackageStraightforward2020")
+NoCite(bib, "kindtTreeDiversityAnalysis2005")
+NoCite(bib, "cholletDeepLearning2018")
+
 
 PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
 ```

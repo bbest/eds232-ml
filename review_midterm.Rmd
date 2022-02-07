@@ -78,13 +78,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Lab: [Species: regress](https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html)
 
--   Reading: [Elith & Leathwick (2009)](https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs) Species Distribution Models:
-    Ecological Explanation and Prediction Across Space and Time
+-   Reading: [Elith & Leathwick (2009)](https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&authuser=benbest%40ucsb.edu&usp=drive_fs) Species Distribution Models: Ecological Explanation and Prediction Across Space and Time
 
     -   <div>
 
-        > Key steps: gathering relevant data; assessing its adequacy (the accuracy and comprehensiveness of the species data; the relevance and completeness of the predictors); deciding how to deal with correlated predictor variables; selecting an appropriate modeling algorithm; fitting the model to the training data; evaluating the model including the realism of fitted response functions, the model's fit to data, characteristics of residuals, and predictive performance on test data; mapping predictions to geographic space;
-        > selecting a threshold if continuous predictions need reduction to a binary map; and iterating the process to improve the model in light of knowledge gained throughout the process.
+        > Key steps: gathering relevant data; assessing its adequacy (the accuracy and comprehensiveness of the species data; the relevance and completeness of the predictors); deciding how to deal with correlated predictor variables; selecting an appropriate modeling algorithm; fitting the model to the training data; evaluating the model including the realism of fitted response functions, the model's fit to data, characteristics of residuals, and predictive performance on test data; mapping predictions to geographic space; selecting a threshold if continuous predictions need reduction to a binary map; and iterating the process to improve the model in light of knowledge gained throughout the process.
 
         </div>
 
@@ -96,8 +94,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 -   Reading: [Evans et al. (2011)](https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing) Modeling Species Distribution and Change Using Random Forest
 
-    -   issues: complex non-linear interactions, spatial autocorrelation, high-dimensionality, non-stationary,
-        historic signal, anisotropy, and scale
+    -   issues: complex non-linear interactions, spatial autocorrelation, high-dimensionality, non-stationary, historic signal, anisotropy, and scale
 
     -   Classification and Regression Trees versus Random Forest Algorithm (ensemble)
 
@@ -124,8 +121,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   Lab: [Communities: cluster](https://bbest.github.io/eds232-ml/lab2a_community-cluster.html)
 
 -   Reading: [Ch. 8-9 (p.123-152) of Kindt & Coe (2005)](https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs)\
-    Ch. 8 Analysis of differences in species composition;
-    Ch. 9 Analysis of ecological distance by clustering
+    Ch. 8 Analysis of differences in species composition; Ch. 9 Analysis of ecological distance by clustering
 
     -   **Ecological Distance** metrics to build matrices of between site dissimilarity based on species composition: **Euclidean**, **Manhattan**, **Bray-Curtis**
 
