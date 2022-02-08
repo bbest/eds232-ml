@@ -250,7 +250,7 @@ Now, you can try and answer some questions about the vegetation data.
 
 ```{block2, type="rmdquestion"}
 1. What part of the study area is the 13th vegetation class found in (hint: make a map)? For instance, is it in the south-eastern part of the study area?
-2. What proportion of cells contain the 12th vegetation class?
+2. What proportion of cells contain the 12th vegetation class? _Hint: You can use expressions inside `cellStats()` like `!is.na(veg_data[[1]])` and `veg_data[[1]] > 0`._
 3. Which vegetation class is the most abundant (i.e. present in the greatest number of cells)?
 ```
 
