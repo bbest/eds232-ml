@@ -368,7 +368,7 @@ Now let's investigate how well the species are represented.
 
 ```{block2, type="rmdquestion"}
 1. What is the average proportion of the features held in protected areas (hint: use `mean(table$relative_held)` with the correct `table` name)?
-2. If we set a target of 10% coverage by protected areas, how many features fail to meet this target (hint: use `sum(table$relative_held >= target_value)`  with the correct `table` name)?
+2. If we set a target of 10% coverage by protected areas, how many features fail to meet this target (hint: use `sum(table$relative_held < target_value)` [OLD typo: `sum(table$relative_held >= target_value)`]  with the correct `table` name)?
 3. If we set a target of 20% coverage by protected areas, how many features fail to meet this target?
 4. Is there a relationship between the total abundance of a feature and how well it is represented by protected areas (hint: `plot(abundance_data$absolute_abundance ~ repr_data$relative_held)`)?
 
@@ -533,6 +533,10 @@ spplot(s4, "solution_1", col.regions = c("grey80", "darkgreen"), main = "s4",
 ```
 
 ```{r, include=FALSE}
+# eval_cost_summary(p1, s1[, "solution_1"]) # 385
+# eval_cost_summary(p2, s2[, "solution_1"]) # 6600
+# eval_cost_summary(p3, s3[, "solution_1"]) # 6670
+# eval_cost_summary(p4, s4[, "solution_1"]) # 6712
 assert_that(
   !identical(s3$solution_1, s4$solution_1),
   eval_cost_summary(p3, s3[, "solution_1"])$cost <
