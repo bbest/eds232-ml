@@ -193,9 +193,3 @@ You can then download the first notebook, i.e. [2.1-a-first-look-at-a-neural-net
 
 After you start a Then you can start a new JupyterLab Session and Python 3 (ipykernel) Notebook. Then upload the notebook file (`*.ipynb`) you previously downloaded.
 
-```{block2, type="rmdquestion"}
-1. How many planning units are in the planning unit data?
-2. What is the highest cost value?
-3. Is there a spatial pattern in the planning unit cost values (hint: use `plot` to make a map)?
-```
-
