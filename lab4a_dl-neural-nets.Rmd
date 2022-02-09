@@ -48,7 +48,7 @@ if (!keras::is_keras_available())
 
 Next, tell RStudio to use this version of Python by default. Go to Tools > Global Options > Python and Select... to navigate to the option `~/.local/share/r-miniconda/bin/python`. You'll need to Apply and it should ask you to restart your session, which you'll need to accept.
 
-[INSERT SCREENSHOT] 
+![](./img/lab4_dl/rstudio_select-python-miniconda.png)
 
 ***
 
@@ -169,6 +169,10 @@ network %>% fit(train_images, train_labels, epochs = 5, batch_size = 128)
 ```
 
 Two quantities are being displayed during training: the "loss" of the network over the training data, and the accuracy of the network over the training data.
+
+_Notice the Viewer pane plotted output in RStudio of **loss** and **accuracy**._
+
+![](./img/lab4_dl/rstudio_loss.png)
 
 We quickly reach an accuracy of 0.989 (i.e. 98.9%) on the training data. Now let's check that our model performs well on the test set too:
 
