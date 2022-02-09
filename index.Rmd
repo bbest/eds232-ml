@@ -15,8 +15,8 @@ knitr::opts_chunk$set(echo = F)
 # Course Schedule
 
 -   **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
--   The Zoom link is shared in your Google Calendar invite and on the \#eds-232 Slack Channel for MEDS. It's not share publicly to avoid [Zoombombing](https://en.wikipedia.org/wiki/Zoombombing)
--   [**Feedback Form**](https://forms.gle/GW9SBEXg9fuQvX3A7){target="_blank"}. Please share any/all feedback anonymously and as frequently, eg weekly, as you like. Your input is always welcome and appreciated.
+-   The Zoom link is shared in your Google Calendar invite and on the \#eds-232 Slack Channel for MEDS (and not shared publicly to avoid [Zoombombing](https://en.wikipedia.org/wiki/Zoombombing)).
+-   [**Feedback Form**](https://forms.gle/GW9SBEXg9fuQvX3A7){target="_blank"}. Please share any/all feedback anonymously and as frequently, e.g. weekly, as you like. Your input is always welcome and appreciated.
 
 ```{r schedule}
 source(here::here("_functions.R"))
