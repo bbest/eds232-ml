@@ -23,6 +23,8 @@ navbar:
           href: lab3_reserves.html
         - text: "Mid-Term Review"
           href: review_midterm.html
+        - text: "4. Deep Learning: neural networks"
+          href: lab4a_dl-neural-nets.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"

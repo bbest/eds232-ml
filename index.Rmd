@@ -24,7 +24,7 @@ get_sched() %>%
   dt_sched()
 ```
 
-\* NOTE: Reading PDFs are in a Google Drive folder requiring a UCSB Google login for access to prevent copyright infringement. The full reference with source DOI link are listed below under [Readings](#readings).
+\* NOTE: Readings in the Course Schedule reference articles in Author (Year) format and _textbooks_ with acronyms in italics. PDFs are in a Google Drive folder requiring a _**UCSB Google login**_ for access to prevent copyright infringement. The full references are listed below under [Readings](#readings).
 
 # Course Description
 
@@ -51,20 +51,53 @@ The majority of points (100 total) will come from the labs. The exams will draw 
 | Exam  | Final                     | 10     |
 | Other | Participation             | 5      |
 
-# Readings {#readings}
+# Readings
 
-```{r references, results = "asis", echo = FALSE}
-librarian::shelf(RefManageR)
+## Textbooks
+
+```{r}
+librarian::shelf(
+  glue, RefManageR)
 bib <- ReadBib("ml-env.bib", check = FALSE)
 BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "authoryear")
+```
 
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+bib_txt <- function(acronym, link, bibkey){
+  writeLines(glue("- [_{acronym}_]({link}) "))
+  print(
+    bib[key = bibkey], 
+    .opts = list(
+      check.entries = FALSE, 
+      style = "html", 
+      bib.style = "authoryear"))
+}
+bib_txt(
+  "DLR", "https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&authuser=ben%40ecoquants.com&usp=drive_fs",
+  "cholletDeepLearning2018")
+bib_txt(
+  "DLPy", "https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&authuser=ben%40ecoquants.com&usp=drive_fs",
+  "cholletDeepLearningPython2018")
+bib_txt(
+  "HOMLR", "https://bradleyboehmke.github.io/HOML/",
+  "greenwellHandsOnMachineLearning2020")
+bib_txt(
+  "SDMR", "https://rspatial.org/raster/sdm/",
+  "hijmansSpeciesDistributionModeling2021")
+bib_txt(
+  "TDA", "https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&authuser=ben%40ecoquants.com&usp=drive_fs",
+  "kindtTreeDiversityAnalysis2005")
+```
+
+## Articles
+
+```{r references, results = "asis", echo = FALSE}
 NoCite(bib, "zhongMachineLearningNew2021")
 NoCite(bib, "elithSpeciesDistributionModels2009")
 NoCite(bib, "evansModelingSpeciesDistribution2011")
 NoCite(bib, "andradeENMTMLPackageStraightforward2020")
-NoCite(bib, "kindtTreeDiversityAnalysis2005")
-NoCite(bib, "cholletDeepLearning2018")
-
+NoCite(bib, "oksanenMultivariateAnalysisEcological2022")
 
 PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
 ```

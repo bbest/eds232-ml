@@ -38,13 +38,7 @@ dt_sched <- function(d_sched){
           is.na(Lab_link),
           Lab,
           glue::glue("<a href='{Lab_link}' target='_blank'>{Lab}</a>"))),
-      `Reading *` = ifelse(
-        is.na(`Reading *`),
-        "",
-        ifelse(
-          is.na(Reading_link),
-          `Reading *`,
-          glue::glue("<a href='{Reading_link}' target='_blank'>{`Reading *`}</a>"))),
+      `Reading *` = map_chr(`Reading *`, md2html),
       `Lab Due` = ifelse(
         is.na(`Lab Due`),
         "",
@@ -60,7 +54,7 @@ dt_sched <- function(d_sched){
     options = list(
       #dom = 't',
       pageLength = 11,
-      #displayStart = 12,
+      displayStart = 11,
       rowGroup = list(
         dataSrc=c(i_mod)),
       columnDefs = list(list(visible=F, targets=c(i_mod)))),
@@ -78,6 +72,10 @@ md2html <- function(x){
   #browser()
   # md2h <- function(x){ markdown::markdownToHTML(text = x, fragment.only=T)[1] }
   # y <- x %>%
+
+  if (is.na(x))
+    return(NA)
+
   x %>%
     stringr::str_replace_all('\"', '\\"') %>%
     # md2h() %>%

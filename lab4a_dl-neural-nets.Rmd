@@ -1,5 +1,5 @@
 ---
-title: "Lab 4. Deep Learning"
+title: "Lab 4a. Deep Learning - Neural Networks"
 output: html_document
 bibliography: "ml-env.bib"
 css: "files/prioritizr-style.css"
