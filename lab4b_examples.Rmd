@@ -1,5 +1,5 @@
 ---
-title: "Lab 4b. Deep Learning - Tensorflow and Keras Examples"
+title: "Lab 4b. Deep Learning - Keras Examples"
 editor_options: 
   chunk_output_type: console
 ---
@@ -16,11 +16,11 @@ In today's lab you'll run through introductory examples with the most common typ
 
 -   3.5 📰 Newswires (multi-class classification)\
     Classify news wires by topic.\
-    R: [html](./lab4b_3.5.newswires.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.5.newswires.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb) [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb)
+    R: [html](./lab4b_3.5.newswires.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.5.newswires.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb),  [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb)
 
 -   3.6 🏠 House prices (regression)\
     Estimate the price of a house, given real-estate data.\
-    R: [html](./lab4b_3.6.houseprices.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.6.houseprices.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb) [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb)
+    R: [html](./lab4b_3.6.houseprices.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.6.houseprices.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb),  [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb)
 
 -   4.4 🍿 Overfitting and underfitting\
     Refine movie review classification model.\

@@ -25,8 +25,8 @@ navbar:
           href: review_midterm.html
         - text: "4a. Deep Learning: neural networks"
           href: lab4a_dl-neural-nets.html
-        - text: "4b. Deep Learning: Keras & Tensorflow"
-          href: lab4b_demos.html
+        - text: "4b. Deep Learning: keras"
+          href: lab4b_examples.html
         - text: "Group Project: Kaggle Competition"
           href: gp_kaggle.html
     - text: "Glosssary"
