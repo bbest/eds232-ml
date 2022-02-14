@@ -1,0 +1,27 @@
+---
+title: "Lab 4b. Deep Learning - Tensorflow and Keras Examples"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+In today's lab you'll run through introductory examples with the most common types of response variables, i.e. targets, from *Deep Learning with R/Python*.
+
+-   3.4 🍿 Movies (binary classification)\
+    Classify movie reviews as positive or negative.\
+    R: [html](./lab4b_3.4.movies.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.4.movies.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.5-classifying-movie-reviews.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.5-classifying-movie-reviews.ipynb)
+
+-   3.5 📰 Newswires (multi-class classification)\
+    Classify news wires by topic.\
+    R: [html](./lab4b_3.5.newswires.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.5.newswires.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb) [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb)
+
+-   3.6 🏠 House prices (regression)\
+    Estimate the price of a house, given real-estate data.\
+    R: [html](./lab4b_3.6.houseprices.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.6.houseprices.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb) [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb)
+
+-   4.4 🍿 Overfitting and underfitting\
+    Refine movie review classification model.\
+    R: [html](./lab4b_4.4.overfitting.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_4.4.overfitting.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/4.4-overfitting-and-underfitting.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/4.4-overfitting-and-underfitting.ipynb)

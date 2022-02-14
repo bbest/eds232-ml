@@ -14,9 +14,13 @@ knitr::opts_chunk$set(echo = F)
 
 # Course Schedule
 
--   **Lectures/Labs**: MW 9:30am - 10:45am on Zoom
--   The Zoom link is shared in your Google Calendar invite and on the \#eds-232 Slack Channel for MEDS (and not shared publicly to avoid [Zoombombing](https://en.wikipedia.org/wiki/Zoombombing)).
+-   **Lectures/Labs**: MW 9:30am - 10:45am at NCEAS. For Covid compliance, lectures will be available via Zoom link that is shared in your Google Calendar invite and on the \#eds-232 Slack Channel for MEDS (and not shared publicly to avoid [Zoombombing](https://en.wikipedia.org/wiki/Zoombombing)).
+
 -   [**Feedback Form**](https://forms.gle/GW9SBEXg9fuQvX3A7){target="_blank"}. Please share any/all feedback anonymously and as frequently, e.g. weekly, as you like. Your input is always welcome and appreciated.
+
+-   **Instructor**: Ben Best (ben\@ecoquants.com)
+
+-   **Office hours**: Mondays 11am-12:30 pm on Zoom / NCEAS office
 
 ```{r schedule}
 source(here::here("_functions.R"))
@@ -30,15 +34,9 @@ get_sched() %>%
 
 Machine learning enables predictions from big, complex data into actionable insights. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition with environmental data. Supervised learning (logistic regression, decision trees and neural networks) and unsupervised learning (clustering and ordination) techniques will be applied to the environmental tasks of mapping species distributions and ecological community analyses, respectively. Integer linear programming will be used to optimize biodiversity in planning a reserve. Deep learning techniques (convolutional neural networks) will enable species classification from photos and landcover classification from satellite imagery using Google Earth Engine. The first half of the course will use R and Rmarkdown on the desktop and second half will use Python and Jupyter notebooks in the cloud. This class teaches a broad sweep of advanced scientific programming skills for environmental problem solving.
 
-# Instructor
-
-Ben Best (ben\@ecoquants.com)
-
--   **Office hours**: Tuesdays TBD on Zoom
-
 # Grading
 
-The majority of points (100 total) will come from the labs. The exams will draw questions from lecture, lab and reading materials. Participation will be based on class attendance.
+The majority of points (100 total) will come from the labs. The Mid-Term exam will draw questions from lecture, lab and reading materials. For the [Group Project](./gp_kaggle.html) you will select a [Kaggle competition](https://www.kaggle.com/competitions), submit an entry, and present on it for the last day of class. Participation will be based on class attendance.
 
 | Type  | Item                      | Points |
 |-------|---------------------------|--------|
@@ -46,9 +44,9 @@ The majority of points (100 total) will come from the labs. The exams will draw 
 | Lab   | 2\. Communities           | 10     |
 | Lab   | 3\. Reserves              | 10     |
 | Exam  | Mid-Term                  | 10     |
-| Lab   | 4\. Species Images        | 20     |
-| Lab   | 5\. Satellite             | 15     |
-| Exam  | Final                     | 10     |
+| Lab   | 4\. Species Images        | 15     |
+| Lab   | 5\. Satellite             | 10     |
+| GP    | Group Project             | 20     |
 | Other | Participation             | 5      |
 
 # Readings

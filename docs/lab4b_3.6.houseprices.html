@@ -87,27 +87,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: Lab 4a. Deep Learning - Neural Networks</title>
+  <title>EDS 232: lab4b_3.6.houseprices</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: Lab 4a. Deep Learning - Neural Networks"/>
+  <meta property="og:title" content="EDS 232: lab4b_3.6.houseprices"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: Lab 4a. Deep Learning - Neural Networks"/>
+  <meta property="twitter:title" content="EDS 232: lab4b_3.6.houseprices"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output","bibliography","css","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 4a. Deep Learning - Neural Networks"]},{"type":"character","attributes":{},"value":["html_document"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"character","attributes":{},"value":["files/prioritizr-style.css"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["lab4b_3.6.houseprices"]},{"type":"character","attributes":{},"value":["html_document"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2460,7 +2459,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="files/prioritizr-style.css" type="text/css"/>
 
 </head>
 
@@ -2469,7 +2467,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Lab 4a. Deep Learning - Neural Networks","authors":[]}
+{"title":"lab4b_3.6.houseprices","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2512,7 +2510,7 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Lab 4a. Deep Learning - Neural Networks</h1>
+<h1>lab4b_3.6.houseprices</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2524,230 +2522,261 @@ Labs
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#overview"><span class="toc-section-number">1</span> Overview</a></li>
-<li><a href="#learning-objectives">Learning Objectives</a></li>
-<li><a href="#playing-with-numbers-mnist"><span class="toc-section-number">2</span> Playing with Numbers (MNIST)</a>
+<li><a href="#house-prices-regression"><span class="toc-section-number">1</span> 🏠 House prices (regression)</a>
 <ul>
-<li><a href="#r"><span class="toc-section-number">2.1</span> R</a>
-<ul>
-<li><a href="#install-python-for-r"><span class="toc-section-number">2.1.1</span> Install Python for R</a></li>
-<li><a href="#listing-2.1-loading-the-mnist-dataset-in-keras"><span class="toc-section-number">2.1.2</span> Listing 2.1 Loading the MNIST dataset in Keras</a></li>
-<li><a href="#listing-2.2-the-network-architecture"><span class="toc-section-number">2.1.3</span> Listing 2.2 The network architecture</a></li>
-<li><a href="#listing-2.3-the-compilation-step"><span class="toc-section-number">2.1.4</span> Listing 2.3 The compilation step</a></li>
-<li><a href="#listing-2.4-preparing-the-image-data"><span class="toc-section-number">2.1.5</span> Listing 2.4 Preparing the image data</a></li>
-<li><a href="#listing-2.5-preparing-the-labels"><span class="toc-section-number">2.1.6</span> Listing 2.5 Preparing the labels</a></li>
-</ul></li>
-<li><a href="#python"><span class="toc-section-number">2.2</span> Python</a></li>
+<li><a href="#the-boston-housing-price-dataset"><span class="toc-section-number">1.1</span> The Boston Housing Price dataset</a></li>
+<li><a href="#preparing-the-data"><span class="toc-section-number">1.2</span> Preparing the data</a></li>
+<li><a href="#building-our-network"><span class="toc-section-number">1.3</span> Building our network</a></li>
+<li><a href="#validating-our-approach-using-k-fold-validation"><span class="toc-section-number">1.4</span> Validating our approach using K-fold validation</a></li>
+<li><a href="#wrapping-up"><span class="toc-section-number">1.5</span> Wrapping up</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
-<h1 data-number="1" id="overview"><span class="header-section-number">1</span> Overview</h1>
-<p>In this lab, you’ll become introduced to <strong>Deep Learning</strong> techniques that enable you to classify complex input data, such as imagery or sound. Eventually you’ll use a subset of the dataset from <a href="https://www.kaggle.com/c/inaturalist-2021">iNat Challenge 2021 - FGVC8 | Kaggle</a> to apply Deep Learning techniques to classify species from images. The cofounder of <a href="https://www.inaturalist.org/">iNaturalist</a>, <a href="https://www.calacademy.org/patterson-scholar-scott-loarie">Scott Loarie</a>, will also join our expert panel for the last class.</p>
-<p>In this lab, you can <em>choose your own adventure</em> by either doing it in <strong>R</strong> <em><strong>or</strong></em> <strong>Python</strong> (or both if you so choose). Regardless, please use the server <code>taylor.bren.ucsb.edu</code>, which has all the necessary software installed. For R, you can continue using an RStudio Session and Rmarkdown document. For Python, it is recommended to use a JupyterLab Session and Python 3 (ipykernel) Notebook.</p>
-<h1 class="unnumbered" id="learning-objectives">Learning Objectives</h1>
-<h1 data-number="2" id="playing-with-numbers-mnist"><span class="header-section-number">2</span> Playing with Numbers (MNIST)</h1>
-<h2 data-number="2.1" id="r"><span class="header-section-number">2.1</span> R</h2>
-<h3 data-number="2.1.1" id="install-python-for-r"><span class="header-section-number">2.1.1</span> Install Python for R</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load libraries</span>
-<span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
-  <span class='va'>devtools</span>,
-  <span class='va'>keras</span>,
-  <span class='va'>reticulate</span>,
-  <span class='va'>tensorflow</span><span class='op'>)</span>
-
-<span class='co'># show library versions and paths</span>
-<span class='fu'>session_info</span><span class='op'>(</span><span class='op'>)</span> 
-
-<span class='co'># install Python into user space</span>
-<span class='op'>(</span><span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/miniconda_path.html'>miniconda_path</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># show the Python path</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/miniconda_path.html'>miniconda_path</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/install_miniconda.html'>install_miniconda</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># install keras with tensorflow</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'>keras</span><span class='fu'>::</span><span class='fu'><a href='https://keras.rstudio.com/reference/is_keras_available.html'>is_keras_available</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'>keras</span><span class='fu'>::</span><span class='fu'><a href='https://keras.rstudio.com/reference/install_keras.html'>install_keras</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Next, tell RStudio to use this version of Python by default. Go to Tools &gt; Global Options &gt; Python and Select… to navigate to the option <code>~/.local/share/r-miniconda/bin/python</code>. You’ll need to Apply and it should ask you to restart your session, which you’ll need to accept.</p>
-<p><img src="img/lab4_dl/rstudio_select-python-miniconda.png" /></p>
+<h1 data-number="1" id="house-prices-regression"><span class="header-section-number">1</span> 🏠 House prices (regression)</h1>
 <hr />
-<p>This notebook contains the code samples found in Chapter 2, Section 1 of <a href="https://www.manning.com/books/deep-learning-with-r">Deep Learning with R</a>. Note that the original text features far more content, in particular further explanations and figures: in this notebook, you will only find source code and related comments.</p>
+<p>This notebook contains the code samples found in Chapter 3, Section 7 of <a href="https://www.manning.com/books/deep-learning-with-r">Deep Learning with R</a>. Note that the original text features far more content, in particular further explanations and figures: in this notebook, you will only find source code and related comments.</p>
 <hr />
-<p>Let’s look at a concrete example of a neural network that uses the Keras R package to learn to classify hand-written digits. Unless you already have experience with Keras or similar libraries, you will not understand everything about this first example right away. You probably haven’t even installed Keras yet. Don’t worry, that is perfectly fine. In the next chapter, we will review each element in our example and explain them in detail. So don’t worry if some steps seem arbitrary or look like magic to you! We’ve got to start somewhere.</p>
-<p>The problem we’re trying to solve here is to classify grayscale images of handwritten digits (28 pixels by 28 pixels) into their 10 categories (0 to 9). We’ll use the MNIST dataset, a classic dataset in the machine-learning community, which has been around almost as long as the field itself and has been intensively studied. It’s a set of 60,000 training images, plus 10,000 test images, assembled by the National Institute of Standards and Technology (the NIST in MNIST) in the 1980s. You can think of “solving” MNIST as the “Hello World” of deep learning—it’s what you do to verify that your algorithms are working as expected. As you become a machine-learning practitioner, you’ll see MNIST come up over and over again, in scientific papers, blog posts, and so on.</p>
-<p>The MNIST dataset comes preloaded in Keras, in the form of <code>train</code> and <code>test</code> lists, each of which includes a set of images (<code>x</code>) and associated labels (<code>y</code>):</p>
-<h3 data-number="2.1.2" id="listing-2.1-loading-the-mnist-dataset-in-keras"><span class="header-section-number">2.1.2</span> Listing 2.1 Loading the MNIST dataset in Keras</h3>
+<p>In our two previous examples, we were considering classification problems, where the goal was to predict a single discrete label of an input data point. Another common type of machine learning problem is “regression”, which consists of predicting a continuous value instead of a discrete label. For instance, predicting the temperature tomorrow, given meteorological data, or predicting the time that a software project will take to complete, given its specifications.</p>
+<p>Do not mix up “regression” with the algorithm “logistic regression”: confusingly, “logistic regression” is not a regression algorithm, it is a classification algorithm.</p>
+<h2 data-number="1.1" id="the-boston-housing-price-dataset"><span class="header-section-number">1.1</span> The Boston Housing Price dataset</h2>
+<p>We will be attempting to predict the median price of homes in a given Boston suburb in the mid-1970s, given a few data points about the suburb at the time, such as the crime rate, the local property tax rate, etc.</p>
+<p>The dataset we will be using has another interesting difference from our two previous examples: it has very few data points, only 506 in total, split between 404 training samples and 102 test samples, and each “feature” in the input data (e.g. the crime rate is a feature) has a different scale. For instance some values are proportions, which take a values between 0 and 1, others take values between 1 and 12, others between 0 and 100…</p>
+<p>Let’s take a look at the data:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://keras.rstudio.com'>keras</a></span><span class='op'>)</span>
-<span class='va'>mnist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/dataset_mnist.html'>dataset_mnist</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p><em>The R package reticulate interfaces with Python. When you pass tensorflow functions from R to Python on the server Taylor, you’ll see messages like below stating that you do not have the GPU setup, which refers the to the graphics processing unit or graphics card that speeds up computation of deep learning. That’s fine, it will instead use the CPU (central processing unit).</em></p>
-<pre><code>2022-02-09 03:47:25.915183: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/R/4.0.5/lib/R/lib::/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-11-openjdk-amd64/lib/server
-2022-02-09 03:47:25.915213: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-Loaded Tensorflow version 2.7.1</code></pre>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>train</span><span class='op'>$</span><span class='va'>x</span>
-<span class='va'>train_labels</span> <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>train</span><span class='op'>$</span><span class='va'>y</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>test</span><span class='op'>$</span><span class='va'>x</span>
-<span class='va'>test_labels</span>  <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>test</span><span class='op'>$</span><span class='va'>y</span>
-</code></pre>
-</div>
-</div>
-<p>The <code>train_images</code> and <code>train_labels</code> form the <em>training set</em>, the data that the model will learn from. The model will then be tested on the <em>test set</em>, <code>test_images</code> and <code>test_labels</code>. The images are encoded as 3D arrays, and the labels are a 1D array of digits, ranging from 0 to 9. There is a one-to-one correspondence between the images and the labels.</p>
-<p>The R <code>str()</code> function is a convenient way to get a quick glimpse at the structure of an array. Let’s use it to have a look at the training data:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:60000, 1:28, 1:28] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:60000(1d)] 5 0 4 1 9 2 1 3 1 4 ...</code></pre>
-</div>
-<p>Let’s have a look at the test data:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>test_images</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:10000, 1:28, 1:28] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>test_labels</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:10000(1d)] 7 2 1 0 4 1 4 9 5 9 ...</code></pre>
-</div>
-<p><em>Let’s look at the first 4 training images and their labels.</em></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span><span class='va'>glue</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/dataset_boston_housing.html'>dataset_boston_housing</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>train_data</span>, <span class='va'>train_targets</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>test_data</span>, <span class='va'>test_targets</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/multi-assign.html'>%&lt;-%</a></span> <span class='va'>dataset</span>
 </code></pre>
 </div>
-<pre><code>[1] 60000    28    28</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-</code></pre>
 </div>
-<pre><code>[1] 60000</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span>
-  <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span>
-      <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>[</span><span class='va'>i</span>,,<span class='op'>]</span>, <span class='fl'>2</span>, <span class='va'>rev</span><span class='op'>)</span><span class='op'>)</span>,
-      col  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.colors.html'>gray.colors</a></span><span class='op'>(</span><span class='fl'>256</span><span class='op'>)</span>, 
-      main <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"image_{i}: label = {train_labels[i]}"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lab4a_dl-neural-nets_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
-<pre><code>[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL</code></pre>
-</div>
-<p>The workflow will be as follows: first we’ll feed the neural network the training data, <code>train_images</code> and <code>train_labels</code>. The network will then learn to associate images and labels. Finally, we’ll ask the network to produce predictions for <code>test_images</code>, and we’ll verify whether these predictions match the labels from <code>test_labels</code>.</p>
-<p>Let’s build the network – again, remember that you aren’t supposed to understand everything about this example yet.</p>
-<h3 data-number="2.1.3" id="listing-2.2-the-network-architecture"><span class="header-section-number">2.1.3</span> Listing 2.2 The network architecture</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/keras_model_sequential.html'>keras_model_sequential</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>512</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span>, input_shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>10</span>, activation <span class='op'>=</span> <span class='st'>"softmax"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_data</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> num [1:404, 1:13] 1.2325 0.0218 4.8982 0.0396 3.6931 ...</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>test_data</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> num [1:102, 1:13] 18.0846 0.1233 0.055 1.2735 0.0715 ...</code></pre>
+</div>
+<p>As you can see, we have 404 training samples and 102 test samples. The data comprises 13 features. The 13 features in the input data are as follow:</p>
+<ol type="1">
+<li>Per capita crime rate.</li>
+<li>Proportion of residential land zoned for lots over 25,000 square feet.</li>
+<li>Proportion of non-retail business acres per town.</li>
+<li>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).</li>
+<li>Nitric oxides concentration (parts per 10 million).</li>
+<li>Average number of rooms per dwelling.</li>
+<li>Proportion of owner-occupied units built prior to 1940.</li>
+<li>Weighted distances to five Boston employment centres.</li>
+<li>Index of accessibility to radial highways.</li>
+<li>Full-value property-tax rate per $10,000.</li>
+<li>Pupil-teacher ratio by town.</li>
+<li>1000 * (Bk - 0.63) ** 2 where Bk is the proportion of Black people by town.</li>
+<li>% lower status of the population.</li>
+</ol>
+<p>The targets are the median values of owner-occupied homes, in thousands of dollars:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_targets</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> num [1:404(1d)] 15.2 42.3 50 21.1 17.7 18.5 11.3 15.6 15.6 14.4 ...</code></pre>
+</div>
+<p>The prices are typically between $10,000 and $50,000. If that sounds cheap, remember this was the mid-1970s, and these prices are not inflation-adjusted.</p>
+<h2 data-number="1.2" id="preparing-the-data"><span class="header-section-number">1.2</span> Preparing the data</h2>
+<p>It would be problematic to feed into a neural network values that all take wildly different ranges. The network might be able to automatically adapt to such heterogeneous data, but it would definitely make learning more difficult. A widespread best practice to deal with such data is to do feature-wise normalization: for each feature in the input data (a column in the input data matrix), you subtract the mean of the feature and divide by the standard deviation, so that the feature is centered around 0 and has a unit standard deviation. This is easily done in R using the <code>scale()</code> function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>train_data</span>, <span class='fl'>2</span>, <span class='va'>mean</span><span class='op'>)</span>
+<span class='va'>std</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>train_data</span>, <span class='fl'>2</span>, <span class='va'>sd</span><span class='op'>)</span>
+<span class='va'>train_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>train_data</span>, center <span class='op'>=</span> <span class='va'>mean</span>, scale <span class='op'>=</span> <span class='va'>std</span><span class='op'>)</span>
+<span class='va'>test_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>test_data</span>, center <span class='op'>=</span> <span class='va'>mean</span>, scale <span class='op'>=</span> <span class='va'>std</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p><em>You may alternatively see messages about missing <code>cuda</code> or some <code>nvidia</code> driver doesn’t exist. That again is because we only have a CPU and not GPU setup on Taylor. Nvidia is the GPU manufacturer who made the CUDA language to interface with the GPU that most dedicated deep learning systems use.</em></p>
-<p>The core building block of neural networks is the <em>layer</em>, a data-processing module that you can think of as a filter for data. Some data comes in, and it comes out in a more useful form. Specifically, layers extract <em>representations</em> out of the data fed into them—hopefully representations that are more meaningful for the problem at hand. Most of deep learning consists of chaining together simple layers that will implement a form of progressive <em>data distillation</em>. A deep-learning model is like a sieve for data processing, made of a succession of increasingly refined data filters—the layers.</p>
-<p>Here our network consists of a sequence of two layers, which are densely connected (also called <em>fully connected</em>) neural layers. The second (and last) layer is a 10-way <em>softmax</em> layer, which means it will return an array of 10 probability scores (summing to 1). Each score will be the probability that the current digit image belongs to one of our 10 digit classes.</p>
-<p>To make the network ready for training, we need to pick three more things, as part of the <em>compilation</em> step:</p>
+<p>Note that the quantities that we use for normalizing the test data have been computed using the training data. We should never use in our workflow any quantity computed on the test data, even for something as simple as data normalization.</p>
+<h2 data-number="1.3" id="building-our-network"><span class="header-section-number">1.3</span> Building our network</h2>
+<p>Because so few samples are available, we will be using a very small network with two hidden layers, each with 64 units. In general, the less training data you have, the worse overfitting will be, and using a small network is one way to mitigate overfitting.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Because we will need to instantiate the same model multiple times,</span>
+<span class='co'># we use a function to construct it.</span>
+<span class='va'>build_model</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/keras_model_sequential.html'>keras_model_sequential</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>64</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span>, 
+                input_shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>train_data</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>64</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> 
+    
+  <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/compile.html'>compile</a></span><span class='op'>(</span>
+    optimizer <span class='op'>=</span> <span class='st'>"rmsprop"</span>, 
+    loss <span class='op'>=</span> <span class='st'>"mse"</span>, 
+    metrics <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mae"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<p>Our network ends with a single unit, and no activation (i.e. it will be linear layer). This is a typical setup for scalar regression (i.e. regression where we are trying to predict a single continuous value). Applying an activation function would constrain the range that the output can take; for instance if we applied a <code>sigmoid</code> activation function to our last layer, the network could only learn to predict values between 0 and 1. Here, because the last layer is purely linear, the network is free to learn to predict values in any range.</p>
+<p>Note that we are compiling the network with the <code>mse</code> loss function – Mean Squared Error, the square of the difference between the predictions and the targets, a widely used loss function for regression problems.</p>
+<p>We are also monitoring a new metric during training: <code>mae</code>. This stands for Mean Absolute Error. It is simply the absolute value of the difference between the predictions and the targets. For instance, a MAE of 0.5 on this problem would mean that our predictions are off by $500 on average.</p>
+<h2 data-number="1.4" id="validating-our-approach-using-k-fold-validation"><span class="header-section-number">1.4</span> Validating our approach using K-fold validation</h2>
+<p>To evaluate our network while we keep adjusting its parameters (such as the number of epochs used for training), we could simply split the data into a training set and a validation set, as we were doing in our previous examples. However, because we have so few data points, the validation set would end up being very small (e.g. about 100 examples). A consequence is that our validation scores may change a lot depending on <em>which</em> data points we choose to use for validation and which we choose for training, i.e. the validation scores may have a high <em>variance</em> with regard to the validation split. This would prevent us from reliably evaluating our model.</p>
+<p>The best practice in such situations is to use K-fold cross-validation. It consists of splitting the available data into K partitions (typically K=4 or 5), then instantiating K identical models, and training each one on K-1 partitions while evaluating on the remaining partition. The validation score for the model used would then be the average of the K validation scores obtained.</p>
+<p>In terms of code, this is straightforward:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>k</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
+<span class='va'>indices</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>train_data</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>folds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>indices</span><span class='op'>)</span>, breaks <span class='op'>=</span> <span class='va'>k</span>, labels <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> 
+
+<span class='va'>num_epochs</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
+<span class='va'>all_scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>k</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># i = 1</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"processing fold #"</span>, <span class='va'>i</span>, <span class='st'>"\n"</span><span class='op'>)</span>
+  <span class='co'># Prepare the validation data: data from partition # k</span>
+  <span class='va'>val_indices</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>folds</span> <span class='op'>==</span> <span class='va'>i</span>, arr.ind <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> 
+  <span class='va'>val_data</span>    <span class='op'>&lt;-</span> <span class='va'>train_data</span><span class='op'>[</span><span class='va'>val_indices</span>,<span class='op'>]</span>
+  <span class='va'>val_targets</span> <span class='op'>&lt;-</span> <span class='va'>train_targets</span><span class='op'>[</span><span class='va'>val_indices</span><span class='op'>]</span>
+  
+  <span class='co'># Prepare the training data: data from all other partitions</span>
+  <span class='va'>partial_train_data</span>    <span class='op'>&lt;-</span> <span class='va'>train_data</span><span class='op'>[</span><span class='op'>-</span><span class='va'>val_indices</span>,<span class='op'>]</span>
+  <span class='va'>partial_train_targets</span> <span class='op'>&lt;-</span> <span class='va'>train_targets</span><span class='op'>[</span><span class='op'>-</span><span class='va'>val_indices</span><span class='op'>]</span>
+  
+  <span class='co'># Build the Keras model (already compiled)</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>build_model</span><span class='op'>(</span><span class='op'>)</span>
+  
+  <span class='co'># Train the model (in silent mode, verbose=0)</span>
+  <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span>
+    <span class='va'>partial_train_data</span>, <span class='va'>partial_train_targets</span>,
+    epochs <span class='op'>=</span> <span class='va'>num_epochs</span>, batch_size <span class='op'>=</span> <span class='fl'>1</span>, verbose <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+                
+  <span class='co'># Evaluate the model on the validation data</span>
+  <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/tensorflow/man/evaluate.html'>evaluate</a></span><span class='op'>(</span><span class='va'>val_data</span>, <span class='va'>val_targets</span>, verbose <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+  <span class='va'>all_scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>all_scores</span>, <span class='va'>results</span><span class='op'>[</span><span class='st'>'mae'</span><span class='op'>]</span><span class='op'>)</span>
+<span class='op'>}</span>  
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>all_scores</span>
+</code></pre>
+</div>
+<pre><code>     mae      mae      mae      mae 
+2.130093 2.658885 2.618013 2.503678 </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>all_scores</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 2.477668</code></pre>
+</div>
+<p>As you can notice, the different runs do indeed show rather different validation scores, from 2.1 to 2.6. Their average (2.37) is a much more reliable metric than any single of these scores – that’s the entire point of K-fold cross-validation. In this case, we are off by $2,375 on average, which is still significant considering that the prices range from $10,000 to $50,000.</p>
+<p>Let’s try training the network for a bit longer: 500 epochs. To keep a record of how well the model did at each epoch, we will modify our training loop to save the per-epoch validation score log:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Some memory clean-up</span>
+<span class='fu'><a href='https://keras.rstudio.com/reference/k_clear_session.html'>k_clear_session</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>num_epochs</span> <span class='op'>&lt;-</span> <span class='fl'>500</span>
+<span class='va'>all_mae_histories</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>k</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># i=1</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"processing fold #"</span>, <span class='va'>i</span>, <span class='st'>"\n"</span><span class='op'>)</span>
+  
+  <span class='co'># Prepare the validation data: data from partition # k</span>
+  <span class='va'>val_indices</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>folds</span> <span class='op'>==</span> <span class='va'>i</span>, arr.ind <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='va'>val_data</span> <span class='op'>&lt;-</span> <span class='va'>train_data</span><span class='op'>[</span><span class='va'>val_indices</span>,<span class='op'>]</span>
+  <span class='va'>val_targets</span> <span class='op'>&lt;-</span> <span class='va'>train_targets</span><span class='op'>[</span><span class='va'>val_indices</span><span class='op'>]</span>
+  
+  <span class='co'># Prepare the training data: data from all other partitions</span>
+  <span class='va'>partial_train_data</span> <span class='op'>&lt;-</span> <span class='va'>train_data</span><span class='op'>[</span><span class='op'>-</span><span class='va'>val_indices</span>,<span class='op'>]</span>
+  <span class='va'>partial_train_targets</span> <span class='op'>&lt;-</span> <span class='va'>train_targets</span><span class='op'>[</span><span class='op'>-</span><span class='va'>val_indices</span><span class='op'>]</span>
+  
+  <span class='co'># Build the Keras model (already compiled)</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>build_model</span><span class='op'>(</span><span class='op'>)</span>
+  
+  <span class='co'># Train the model (in silent mode, verbose=0)</span>
+  <span class='va'>history</span> <span class='op'>&lt;-</span> <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span>
+    <span class='va'>partial_train_data</span>, <span class='va'>partial_train_targets</span>,
+    validation_data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>val_data</span>, <span class='va'>val_targets</span><span class='op'>)</span>,
+    epochs <span class='op'>=</span> <span class='va'>num_epochs</span>, batch_size <span class='op'>=</span> <span class='fl'>1</span>, verbose <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+  
+  <span class='va'>mae_history</span> <span class='op'>&lt;-</span> <span class='va'>history</span><span class='op'>$</span><span class='va'>metrics</span><span class='op'>$</span><span class='va'>val_mae</span>
+  <span class='va'>all_mae_histories</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>all_mae_histories</span>, <span class='va'>mae_history</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<p>We can then compute the average of the per-epoch MAE scores for all folds:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>average_mae_history</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  epoch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>all_mae_histories</span><span class='op'>)</span><span class='op'>)</span>,
+  validation_mae <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>all_mae_histories</span>, <span class='fl'>2</span>, <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Let’s plot this:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>average_mae_history</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>epoch</span>, y <span class='op'>=</span> <span class='va'>validation_mae</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lab4b_3.6.houseprices_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
+</div>
+<p>It may be a bit hard to see the plot due to scaling issues and relatively high variance. Let’s use <code>geom_smooth()</code> to try to get a clearer picture:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>average_mae_history</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>epoch</span>, y <span class='op'>=</span> <span class='va'>validation_mae</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lab4b_3.6.houseprices_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+</div>
+<p>According to this plot, it seems that validation MAE stops improving significantly after 70 epochs. Past that point, we start overfitting.</p>
+<p>Once we are done tuning other parameters of our model (besides the number of epochs, we could also adjust the size of the hidden layers), we can train a final “production” model on all of the training data, with the best parameters, then look at its performance on the test data:</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>result</span>
+</code></pre>
+</div>
+<pre><code>     loss       mae 
+18.381187  2.794243 </code></pre>
+</div>
+<p>We are still off by about $2,680.</p>
+<h2 data-number="1.5" id="wrapping-up"><span class="header-section-number">1.5</span> Wrapping up</h2>
+<p>Here’s what you should take away from this example:</p>
 <ul>
-<li><em><strong>A loss function</strong></em>: How the network will be able to measure how good a job it’s doing on its training data, and thus how it will be able to steer itself in the right direction.</li>
-<li><em><strong>An optimizer</strong></em>: The mechanism through which the network will update itself based on the data it sees and its loss function.</li>
-<li><em><strong>Metrics to monitor during training and testing</strong></em>: Here we’ll only care about accuracy (the fraction of the images that were correctly classified).</li>
+<li>Regression is done using different loss functions from classification; Mean Squared Error (MSE) is a commonly used loss function for regression.</li>
+<li>Similarly, evaluation metrics to be used for regression differ from those used for classification; naturally the concept of “accuracy” does not apply for regression. A common regression metric is Mean Absolute Error (MAE).</li>
+<li>When features in the input data have values in different ranges, each feature should be scaled independently as a preprocessing step.</li>
+<li>When there is little data available, using K-Fold validation is a great way to reliably evaluate a model.</li>
+<li>When little training data is available, it is preferable to use a small network with very few hidden layers (typically only one or two), in order to avoid severe overfitting.</li>
 </ul>
-<p>The exact purpose of the loss function and the optimizer will be made clear throughout the next two chapters.</p>
-<h3 data-number="2.1.4" id="listing-2.3-the-compilation-step"><span class="header-section-number">2.1.4</span> Listing 2.3 The compilation step</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/compile.html'>compile</a></span><span class='op'>(</span>
-  optimizer <span class='op'>=</span> <span class='st'>"rmsprop"</span>,
-  loss      <span class='op'>=</span> <span class='st'>"categorical_crossentropy"</span>,
-  metrics   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"accuracy"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Before training, we’ll preprocess the data by reshaping it into the shape the network expects and scaling it so that all values are in the <code>[0, 1]</code> interval. Previously, our training images, for instance, were stored in an array of shape <code>(60000, 28, 28)</code> of type integer with values in the <code>[0, 255]</code> interval. We transform it into a double array of shape <code>(60000, 28 * 28)</code> with values between 0 and 1.</p>
-<h3 data-number="2.1.5" id="listing-2.4-preparing-the-image-data"><span class="header-section-number">2.1.5</span> Listing 2.4 Preparing the image data</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60000</span>, <span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='va'>train_images</span> <span class='op'>/</span> <span class='fl'>255</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='va'>test_images</span> <span class='op'>/</span> <span class='fl'>255</span>
-</code></pre>
-</div>
-</div>
-<p>We also need to categorically encode the labels, a step which we explain in chapter 3:</p>
-<h3 data-number="2.1.6" id="listing-2.5-preparing-the-labels"><span class="header-section-number">2.1.6</span> Listing 2.5 Preparing the labels</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-<span class='va'>test_labels</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>test_labels</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>We are now ready to train our network, which in Keras is done via a call to the <code>fit</code> method of the network: we “fit” the model to its training data.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='va'>train_labels</span>, epochs <span class='op'>=</span> <span class='fl'>5</span>, batch_size <span class='op'>=</span> <span class='fl'>128</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Two quantities are being displayed during training: the “loss” of the network over the training data, and the accuracy of the network over the training data.</p>
-<p><em><strong>Loss</strong> is a measure of the distance in value between predicted versus truth, which can have arbitrary units; whereas <strong>accuracy</strong> is the percent of correct values predicted.</em></p>
-<p><em>Notice the Viewer pane plotted output in RStudio of <strong>loss</strong> and <strong>accuracy</strong>.</em></p>
-<p><img src="img/lab4_dl/rstudio_loss.png" /></p>
-<p>We quickly reach an accuracy of 0.989 (i.e. 98.9%) on the training data. Now let’s check that our model performs well on the test set too:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>metrics</span> <span class='op'>&lt;-</span> <span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/tensorflow/man/evaluate.html'>evaluate</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='va'>test_labels</span>, verbose <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-<span class='va'>metrics</span>
-</code></pre>
-</div>
-<pre><code>      loss   accuracy 
-0.08055136 0.97539997 </code></pre>
-</div>
-<p>Our test set accuracy turns out to be 98.1% – that’s quite a bit lower than the training set accuracy. This gap between training accuracy and test accuracy is an example of “overfitting,” the fact that machine learning models tend to perform worse on new data than on their training data. Overfitting will be a central topic in chapter 3.</p>
-<p>This concludes our first example – you just saw how you can build and a train a neural network to classify handwritten digits in less than 20 lines of R code. In the next chapter, we’ll go into detail about every moving piece we just previewed and clarify what’s going on behind the scenes. You’ll learn about tensors, the data-storing objects going into the network; about tensor operations, which layers are made of; and about gradient descent, which allows your network to learn from its training examples.</p>
-<h2 data-number="2.2" id="python"><span class="header-section-number">2.2</span> Python</h2>
-<p>Visit <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/tree/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40">fchollet/deep-learning-with-python-notebooks at 8a30b90</a>, which is the author’s repository of Python notebooks at the 2017 commit before switching to the second edition in 2021.</p>
-<p>You can then download the first notebook, i.e. <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/raw/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/">2.1-a-first-look-at-a-neural-network.ipynb</a> by right-clicking to Save link as… locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as…</p>
-<p>Then you can start a new JupyterLab Session and Python 3 (ipykernel) Notebook and upload the notebook file (<code>*.ipynb</code>) you previously downloaded.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>This example concludes our series of three introductory practical examples. You are now able to handle common types of problems with vector data input:</p>
+<ul>
+<li>Binary (2-class) classification.</li>
+<li>Multi-class, single-label classification.</li>
+<li>Scalar regression.</li>
+</ul>
+<p>In the next chapter, you will acquire a more formal understanding of some of the concepts you have encountered in these first examples, such as data preprocessing, model evaluation, and overfitting.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2759,10 +2788,7 @@ NULL</code></pre>
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

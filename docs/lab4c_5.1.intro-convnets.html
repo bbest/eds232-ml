@@ -87,27 +87,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: Lab 4a. Deep Learning - Neural Networks</title>
+  <title>EDS 232: lab4b_4.4.overfitting</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: Lab 4a. Deep Learning - Neural Networks"/>
+  <meta property="og:title" content="EDS 232: lab4b_4.4.overfitting"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: Lab 4a. Deep Learning - Neural Networks"/>
+  <meta property="twitter:title" content="EDS 232: lab4b_4.4.overfitting"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output","bibliography","css","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 4a. Deep Learning - Neural Networks"]},{"type":"character","attributes":{},"value":["html_document"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"character","attributes":{},"value":["files/prioritizr-style.css"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["lab4b_4.4.overfitting"]},{"type":"character","attributes":{},"value":["html_document"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2460,7 +2459,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="files/prioritizr-style.css" type="text/css"/>
 
 </head>
 
@@ -2469,7 +2467,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Lab 4a. Deep Learning - Neural Networks","authors":[]}
+{"title":"lab4b_4.4.overfitting","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2512,7 +2510,7 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Lab 4a. Deep Learning - Neural Networks</h1>
+<h1>lab4b_4.4.overfitting</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2520,234 +2518,143 @@ Labs
 
 
 <div class="d-article">
-<div class="d-contents d-contents-float">
-<nav class="l-text toc figcaption" id="TOC">
-<h3>Contents</h3>
-<ul>
-<li><a href="#overview"><span class="toc-section-number">1</span> Overview</a></li>
-<li><a href="#learning-objectives">Learning Objectives</a></li>
-<li><a href="#playing-with-numbers-mnist"><span class="toc-section-number">2</span> Playing with Numbers (MNIST)</a>
-<ul>
-<li><a href="#r"><span class="toc-section-number">2.1</span> R</a>
-<ul>
-<li><a href="#install-python-for-r"><span class="toc-section-number">2.1.1</span> Install Python for R</a></li>
-<li><a href="#listing-2.1-loading-the-mnist-dataset-in-keras"><span class="toc-section-number">2.1.2</span> Listing 2.1 Loading the MNIST dataset in Keras</a></li>
-<li><a href="#listing-2.2-the-network-architecture"><span class="toc-section-number">2.1.3</span> Listing 2.2 The network architecture</a></li>
-<li><a href="#listing-2.3-the-compilation-step"><span class="toc-section-number">2.1.4</span> Listing 2.3 The compilation step</a></li>
-<li><a href="#listing-2.4-preparing-the-image-data"><span class="toc-section-number">2.1.5</span> Listing 2.4 Preparing the image data</a></li>
-<li><a href="#listing-2.5-preparing-the-labels"><span class="toc-section-number">2.1.6</span> Listing 2.5 Preparing the labels</a></li>
-</ul></li>
-<li><a href="#python"><span class="toc-section-number">2.2</span> Python</a></li>
-</ul></li>
-</ul>
-</nav>
-</div>
-<h1 data-number="1" id="overview"><span class="header-section-number">1</span> Overview</h1>
-<p>In this lab, you’ll become introduced to <strong>Deep Learning</strong> techniques that enable you to classify complex input data, such as imagery or sound. Eventually you’ll use a subset of the dataset from <a href="https://www.kaggle.com/c/inaturalist-2021">iNat Challenge 2021 - FGVC8 | Kaggle</a> to apply Deep Learning techniques to classify species from images. The cofounder of <a href="https://www.inaturalist.org/">iNaturalist</a>, <a href="https://www.calacademy.org/patterson-scholar-scott-loarie">Scott Loarie</a>, will also join our expert panel for the last class.</p>
-<p>In this lab, you can <em>choose your own adventure</em> by either doing it in <strong>R</strong> <em><strong>or</strong></em> <strong>Python</strong> (or both if you so choose). Regardless, please use the server <code>taylor.bren.ucsb.edu</code>, which has all the necessary software installed. For R, you can continue using an RStudio Session and Rmarkdown document. For Python, it is recommended to use a JupyterLab Session and Python 3 (ipykernel) Notebook.</p>
-<h1 class="unnumbered" id="learning-objectives">Learning Objectives</h1>
-<h1 data-number="2" id="playing-with-numbers-mnist"><span class="header-section-number">2</span> Playing with Numbers (MNIST)</h1>
-<h2 data-number="2.1" id="r"><span class="header-section-number">2.1</span> R</h2>
-<h3 data-number="2.1.1" id="install-python-for-r"><span class="header-section-number">2.1.1</span> Install Python for R</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load libraries</span>
-<span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
-  <span class='va'>devtools</span>,
-  <span class='va'>keras</span>,
-  <span class='va'>reticulate</span>,
-  <span class='va'>tensorflow</span><span class='op'>)</span>
-
-<span class='co'># show library versions and paths</span>
-<span class='fu'>session_info</span><span class='op'>(</span><span class='op'>)</span> 
-
-<span class='co'># install Python into user space</span>
-<span class='op'>(</span><span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/miniconda_path.html'>miniconda_path</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># show the Python path</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/miniconda_path.html'>miniconda_path</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rstudio.github.io/reticulate/reference/install_miniconda.html'>install_miniconda</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># install keras with tensorflow</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'>keras</span><span class='fu'>::</span><span class='fu'><a href='https://keras.rstudio.com/reference/is_keras_available.html'>is_keras_available</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'>keras</span><span class='fu'>::</span><span class='fu'><a href='https://keras.rstudio.com/reference/install_keras.html'>install_keras</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Next, tell RStudio to use this version of Python by default. Go to Tools &gt; Global Options &gt; Python and Select… to navigate to the option <code>~/.local/share/r-miniconda/bin/python</code>. You’ll need to Apply and it should ask you to restart your session, which you’ll need to accept.</p>
-<p><img src="img/lab4_dl/rstudio_select-python-miniconda.png" /></p>
 <hr />
-<p>This notebook contains the code samples found in Chapter 2, Section 1 of <a href="https://www.manning.com/books/deep-learning-with-r">Deep Learning with R</a>. Note that the original text features far more content, in particular further explanations and figures: in this notebook, you will only find source code and related comments.</p>
+<p>This notebook contains the code samples found in Chapter 5, Section 1 of <a href="https://www.manning.com/books/deep-learning-with-r">Deep Learning with R</a>. Note that the original text features far more content, in particular further explanations and figures: in this notebook, you will only find source code and related comments.</p>
 <hr />
-<p>Let’s look at a concrete example of a neural network that uses the Keras R package to learn to classify hand-written digits. Unless you already have experience with Keras or similar libraries, you will not understand everything about this first example right away. You probably haven’t even installed Keras yet. Don’t worry, that is perfectly fine. In the next chapter, we will review each element in our example and explain them in detail. So don’t worry if some steps seem arbitrary or look like magic to you! We’ve got to start somewhere.</p>
-<p>The problem we’re trying to solve here is to classify grayscale images of handwritten digits (28 pixels by 28 pixels) into their 10 categories (0 to 9). We’ll use the MNIST dataset, a classic dataset in the machine-learning community, which has been around almost as long as the field itself and has been intensively studied. It’s a set of 60,000 training images, plus 10,000 test images, assembled by the National Institute of Standards and Technology (the NIST in MNIST) in the 1980s. You can think of “solving” MNIST as the “Hello World” of deep learning—it’s what you do to verify that your algorithms are working as expected. As you become a machine-learning practitioner, you’ll see MNIST come up over and over again, in scientific papers, blog posts, and so on.</p>
-<p>The MNIST dataset comes preloaded in Keras, in the form of <code>train</code> and <code>test</code> lists, each of which includes a set of images (<code>x</code>) and associated labels (<code>y</code>):</p>
-<h3 data-number="2.1.2" id="listing-2.1-loading-the-mnist-dataset-in-keras"><span class="header-section-number">2.1.2</span> Listing 2.1 Loading the MNIST dataset in Keras</h3>
+<p>We’re about to dive into the theory of what convnets are and why they have been so successful at computer vision tasks. But first, let’s take a practical look at a simple convnet example. It uses a convnet to classify MNIST digits, a task we performed in chapter 2 using a densely connected network (our test accuracy then was 97.8%). Even though the convnet will be basic, its accuracy will blow out of the water that of the densely connected model from chapter 2.</p>
+<p>The following lines of code show you what a basic convnet looks like. It’s a stack of <code>layer_conv_2d()</code> and <code>layer_max_pooling_2d()</code> layers. You’ll see in a minute exactly what they do.</p>
+<p>Importantly, a convnet takes as input tensors of shape <code>(image_height, image_width, image_channels)</code> (not including the batch dimension). In this case, we’ll configure the convnet to process inputs of size <code>(28, 28, 1)</code>, which is the format of MNIST images. We do this by passing the argument <code>input_shape = c(28, 28, 1)</code> to the first layer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://keras.rstudio.com'>keras</a></span><span class='op'>)</span>
-<span class='va'>mnist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/dataset_mnist.html'>dataset_mnist</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p><em>The R package reticulate interfaces with Python. When you pass tensorflow functions from R to Python on the server Taylor, you’ll see messages like below stating that you do not have the GPU setup, which refers the to the graphics processing unit or graphics card that speeds up computation of deep learning. That’s fine, it will instead use the CPU (central processing unit).</em></p>
-<pre><code>2022-02-09 03:47:25.915183: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/R/4.0.5/lib/R/lib::/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-11-openjdk-amd64/lib/server
-2022-02-09 03:47:25.915213: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-Loaded Tensorflow version 2.7.1</code></pre>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>train</span><span class='op'>$</span><span class='va'>x</span>
-<span class='va'>train_labels</span> <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>train</span><span class='op'>$</span><span class='va'>y</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>test</span><span class='op'>$</span><span class='va'>x</span>
-<span class='va'>test_labels</span>  <span class='op'>&lt;-</span> <span class='va'>mnist</span><span class='op'>$</span><span class='va'>test</span><span class='op'>$</span><span class='va'>y</span>
-</code></pre>
-</div>
-</div>
-<p>The <code>train_images</code> and <code>train_labels</code> form the <em>training set</em>, the data that the model will learn from. The model will then be tested on the <em>test set</em>, <code>test_images</code> and <code>test_labels</code>. The images are encoded as 3D arrays, and the labels are a 1D array of digits, ranging from 0 to 9. There is a one-to-one correspondence between the images and the labels.</p>
-<p>The R <code>str()</code> function is a convenient way to get a quick glimpse at the structure of an array. Let’s use it to have a look at the training data:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:60000, 1:28, 1:28] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:60000(1d)] 5 0 4 1 9 2 1 3 1 4 ...</code></pre>
-</div>
-<p>Let’s have a look at the test data:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>test_images</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:10000, 1:28, 1:28] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>test_labels</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> int [1:10000(1d)] 7 2 1 0 4 1 4 9 5 9 ...</code></pre>
-</div>
-<p><em>Let’s look at the first 4 training images and their labels.</em></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span><span class='va'>glue</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>)</span>
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/keras_model_sequential.html'>keras_model_sequential</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_conv_2d.html'>layer_conv_2d</a></span><span class='op'>(</span>filters <span class='op'>=</span> <span class='fl'>32</span>, kernel_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span>,
+                input_shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>28</span>, <span class='fl'>28</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_max_pooling_2d.html'>layer_max_pooling_2d</a></span><span class='op'>(</span>pool_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_conv_2d.html'>layer_conv_2d</a></span><span class='op'>(</span>filters <span class='op'>=</span> <span class='fl'>64</span>, kernel_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_max_pooling_2d.html'>layer_max_pooling_2d</a></span><span class='op'>(</span>pool_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_conv_2d.html'>layer_conv_2d</a></span><span class='op'>(</span>filters <span class='op'>=</span> <span class='fl'>64</span>, kernel_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] 60000    28    28</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-</code></pre>
 </div>
-<pre><code>[1] 60000</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span>
-  <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span>
-      <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>[</span><span class='va'>i</span>,,<span class='op'>]</span>, <span class='fl'>2</span>, <span class='va'>rev</span><span class='op'>)</span><span class='op'>)</span>,
-      col  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.colors.html'>gray.colors</a></span><span class='op'>(</span><span class='fl'>256</span><span class='op'>)</span>, 
-      main <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"image_{i}: label = {train_labels[i]}"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lab4a_dl-neural-nets_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
-<pre><code>[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL</code></pre>
-</div>
-<p>The workflow will be as follows: first we’ll feed the neural network the training data, <code>train_images</code> and <code>train_labels</code>. The network will then learn to associate images and labels. Finally, we’ll ask the network to produce predictions for <code>test_images</code>, and we’ll verify whether these predictions match the labels from <code>test_labels</code>.</p>
-<p>Let’s build the network – again, remember that you aren’t supposed to understand everything about this example yet.</p>
-<h3 data-number="2.1.3" id="listing-2.2-the-network-architecture"><span class="header-section-number">2.1.3</span> Listing 2.2 The network architecture</h3>
+<p>Let’s display the architecture of our convnet so far:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/keras_model_sequential.html'>keras_model_sequential</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>512</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span>, input_shape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Model: &quot;sequential&quot;
+______________________________________________________________________
+ Layer (type)                  Output Shape                Param #    
+======================================================================
+ conv2d_2 (Conv2D)             (None, 26, 26, 32)          320        
+                                                                      
+ max_pooling2d_1 (MaxPooling2D  (None, 13, 13, 32)         0          
+ )                                                                    
+                                                                      
+ conv2d_1 (Conv2D)             (None, 11, 11, 64)          18496      
+                                                                      
+ max_pooling2d (MaxPooling2D)  (None, 5, 5, 64)            0          
+                                                                      
+ conv2d (Conv2D)               (None, 3, 3, 64)            36928      
+                                                                      
+======================================================================
+Total params: 55,744
+Trainable params: 55,744
+Non-trainable params: 0
+______________________________________________________________________</code></pre>
+</div>
+<p>You can see that the output of every <code>layer_conv_2d()</code> and <code>layer_max_pooling_2d()</code> is a 3D tensor of shape <code>(height, width, channels)</code>. The width and height dimensions tend to shrink as you go deeper in the network. The number of channels is controlled by the first argument passed to the <code>layer_conv_2d()</code> (32 or 64).</p>
+<p>The next step is to feed the last output tensor (of shape <code>(3, 3, 64)</code>) into a densely connected classifier network like those you’re already familiar with: a stack of dense layers. These classifiers process vectors, which are 1D, whereas the current output is a 3D tensor. First we have to flatten the 3D outputs to 1D, and then add a few dense layers on top.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_flatten.html'>layer_flatten</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>64</span>, activation <span class='op'>=</span> <span class='st'>"relu"</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://keras.rstudio.com/reference/layer_dense.html'>layer_dense</a></span><span class='op'>(</span>units <span class='op'>=</span> <span class='fl'>10</span>, activation <span class='op'>=</span> <span class='st'>"softmax"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p><em>You may alternatively see messages about missing <code>cuda</code> or some <code>nvidia</code> driver doesn’t exist. That again is because we only have a CPU and not GPU setup on Taylor. Nvidia is the GPU manufacturer who made the CUDA language to interface with the GPU that most dedicated deep learning systems use.</em></p>
-<p>The core building block of neural networks is the <em>layer</em>, a data-processing module that you can think of as a filter for data. Some data comes in, and it comes out in a more useful form. Specifically, layers extract <em>representations</em> out of the data fed into them—hopefully representations that are more meaningful for the problem at hand. Most of deep learning consists of chaining together simple layers that will implement a form of progressive <em>data distillation</em>. A deep-learning model is like a sieve for data processing, made of a succession of increasingly refined data filters—the layers.</p>
-<p>Here our network consists of a sequence of two layers, which are densely connected (also called <em>fully connected</em>) neural layers. The second (and last) layer is a 10-way <em>softmax</em> layer, which means it will return an array of 10 probability scores (summing to 1). Each score will be the probability that the current digit image belongs to one of our 10 digit classes.</p>
-<p>To make the network ready for training, we need to pick three more things, as part of the <em>compilation</em> step:</p>
-<ul>
-<li><em><strong>A loss function</strong></em>: How the network will be able to measure how good a job it’s doing on its training data, and thus how it will be able to steer itself in the right direction.</li>
-<li><em><strong>An optimizer</strong></em>: The mechanism through which the network will update itself based on the data it sees and its loss function.</li>
-<li><em><strong>Metrics to monitor during training and testing</strong></em>: Here we’ll only care about accuracy (the fraction of the images that were correctly classified).</li>
-</ul>
-<p>The exact purpose of the loss function and the optimizer will be made clear throughout the next two chapters.</p>
-<h3 data-number="2.1.4" id="listing-2.3-the-compilation-step"><span class="header-section-number">2.1.4</span> Listing 2.3 The compilation step</h3>
+<p>We are going to do 10-way classification, so we use a final layer with 10 outputs and a softmax activation. Now here’s what our network looks like:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/compile.html'>compile</a></span><span class='op'>(</span>
-  optimizer <span class='op'>=</span> <span class='st'>"rmsprop"</span>,
-  loss      <span class='op'>=</span> <span class='st'>"categorical_crossentropy"</span>,
-  metrics   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"accuracy"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 </code></pre>
 </div>
+<pre><code>Model: &quot;sequential&quot;
+______________________________________________________________________
+ Layer (type)                  Output Shape                Param #    
+======================================================================
+ conv2d_2 (Conv2D)             (None, 26, 26, 32)          320        
+                                                                      
+ max_pooling2d_1 (MaxPooling2D  (None, 13, 13, 32)         0          
+ )                                                                    
+                                                                      
+ conv2d_1 (Conv2D)             (None, 11, 11, 64)          18496      
+                                                                      
+ max_pooling2d (MaxPooling2D)  (None, 5, 5, 64)            0          
+                                                                      
+ conv2d (Conv2D)               (None, 3, 3, 64)            36928      
+                                                                      
+ flatten (Flatten)             (None, 576)                 0          
+                                                                      
+ dense_1 (Dense)               (None, 64)                  36928      
+                                                                      
+ dense (Dense)                 (None, 10)                  650        
+                                                                      
+======================================================================
+Total params: 93,322
+Trainable params: 93,322
+Non-trainable params: 0
+______________________________________________________________________</code></pre>
 </div>
-<p>Before training, we’ll preprocess the data by reshaping it into the shape the network expects and scaling it so that all values are in the <code>[0, 1]</code> interval. Previously, our training images, for instance, were stored in an array of shape <code>(60000, 28, 28)</code> of type integer with values in the <code>[0, 255]</code> interval. We transform it into a double array of shape <code>(60000, 28 * 28)</code> with values between 0 and 1.</p>
-<h3 data-number="2.1.5" id="listing-2.4-preparing-the-image-data"><span class="header-section-number">2.1.5</span> Listing 2.4 Preparing the image data</h3>
+<p>As you can see, the <code>(3, 3, 64)</code> outputs are flattened into vectors of shape <code>(576)</code> before going through two dense layers.</p>
+<p>Now, let’s train the convnet on the MNIST digits. We’ll reuse a lot of the code from the MNIST example in chapter 2.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60000</span>, <span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mnist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/dataset_mnist.html'>dataset_mnist</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='va'>train_labels</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='va'>test_labels</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://keras.rstudio.com/reference/multi-assign.html'>%&lt;-%</a></span> <span class='va'>mnist</span>
+
+<span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60000</span>, <span class='fl'>28</span>, <span class='fl'>28</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>train_images</span> <span class='op'>&lt;-</span> <span class='va'>train_images</span> <span class='op'>/</span> <span class='fl'>255</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>28</span> <span class='op'>*</span> <span class='fl'>28</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>test_images</span>  <span class='op'>&lt;-</span> <span class='va'>test_images</span> <span class='op'>/</span> <span class='fl'>255</span>
+
+<span class='va'>test_images</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rstudio.github.io/reticulate/reference/array_reshape.html'>array_reshape</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>28</span>, <span class='fl'>28</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>test_images</span> <span class='op'>&lt;-</span> <span class='va'>test_images</span> <span class='op'>/</span> <span class='fl'>255</span>
+
+<span class='va'>train_labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
+<span class='va'>test_labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>test_labels</span><span class='op'>)</span>
+
+<span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/compile.html'>compile</a></span><span class='op'>(</span>
+  optimizer <span class='op'>=</span> <span class='st'>"rmsprop"</span>,
+  loss <span class='op'>=</span> <span class='st'>"categorical_crossentropy"</span>,
+  metrics <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"accuracy"</span><span class='op'>)</span>
+<span class='op'>)</span>
+              
+<span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span>
+  <span class='va'>train_images</span>, <span class='va'>train_labels</span>, 
+  epochs <span class='op'>=</span> <span class='fl'>5</span>, batch_size<span class='op'>=</span><span class='fl'>64</span>
+<span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>We also need to categorically encode the labels, a step which we explain in chapter 3:</p>
-<h3 data-number="2.1.6" id="listing-2.5-preparing-the-labels"><span class="header-section-number">2.1.6</span> Listing 2.5 Preparing the labels</h3>
+<p>Let’s evaluate the model on the test data:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train_labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>train_labels</span><span class='op'>)</span>
-<span class='va'>test_labels</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://keras.rstudio.com/reference/to_categorical.html'>to_categorical</a></span><span class='op'>(</span><span class='va'>test_labels</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='va'>model</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/tensorflow/man/evaluate.html'>evaluate</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='va'>test_labels</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>We are now ready to train our network, which in Keras is done via a call to the <code>fit</code> method of the network: we “fit” the model to its training data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>train_images</span>, <span class='va'>train_labels</span>, epochs <span class='op'>=</span> <span class='fl'>5</span>, batch_size <span class='op'>=</span> <span class='fl'>128</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Two quantities are being displayed during training: the “loss” of the network over the training data, and the accuracy of the network over the training data.</p>
-<p><em><strong>Loss</strong> is a measure of the distance in value between predicted versus truth, which can have arbitrary units; whereas <strong>accuracy</strong> is the percent of correct values predicted.</em></p>
-<p><em>Notice the Viewer pane plotted output in RStudio of <strong>loss</strong> and <strong>accuracy</strong>.</em></p>
-<p><img src="img/lab4_dl/rstudio_loss.png" /></p>
-<p>We quickly reach an accuracy of 0.989 (i.e. 98.9%) on the training data. Now let’s check that our model performs well on the test set too:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>metrics</span> <span class='op'>&lt;-</span> <span class='va'>network</span> <span class='op'><a href='https://keras.rstudio.com/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/tensorflow/man/evaluate.html'>evaluate</a></span><span class='op'>(</span><span class='va'>test_images</span>, <span class='va'>test_labels</span>, verbose <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-<span class='va'>metrics</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>results</span>
 </code></pre>
 </div>
 <pre><code>      loss   accuracy 
-0.08055136 0.97539997 </code></pre>
+0.04153517 0.98820001 </code></pre>
 </div>
-<p>Our test set accuracy turns out to be 98.1% – that’s quite a bit lower than the training set accuracy. This gap between training accuracy and test accuracy is an example of “overfitting,” the fact that machine learning models tend to perform worse on new data than on their training data. Overfitting will be a central topic in chapter 3.</p>
-<p>This concludes our first example – you just saw how you can build and a train a neural network to classify handwritten digits in less than 20 lines of R code. In the next chapter, we’ll go into detail about every moving piece we just previewed and clarify what’s going on behind the scenes. You’ll learn about tensors, the data-storing objects going into the network; about tensor operations, which layers are made of; and about gradient descent, which allows your network to learn from its training examples.</p>
-<h2 data-number="2.2" id="python"><span class="header-section-number">2.2</span> Python</h2>
-<p>Visit <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/tree/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40">fchollet/deep-learning-with-python-notebooks at 8a30b90</a>, which is the author’s repository of Python notebooks at the 2017 commit before switching to the second edition in 2021.</p>
-<p>You can then download the first notebook, i.e. <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/raw/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/">2.1-a-first-look-at-a-neural-network.ipynb</a> by right-clicking to Save link as… locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as…</p>
-<p>Then you can start a new JupyterLab Session and Python 3 (ipykernel) Notebook and upload the notebook file (<code>*.ipynb</code>) you previously downloaded.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>While our densely-connected network from Chapter 2 had a test accuracy of 97.8%, our basic convnet has a test accuracy of 99%: we decreased our error rate by 68% (relative). Not bad!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2759,10 +2666,7 @@ NULL</code></pre>
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

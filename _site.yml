@@ -19,12 +19,16 @@ navbar:
           href: lab2a_community-cluster.html
         - text: "2b. Community: ordination"
           href: lab2b_community-ordination.html
-        - text: "3. Conservation Planning"
+        - text: "3. Reserve Design: prioritize"
           href: lab3_reserves.html
         - text: "Mid-Term Review"
           href: review_midterm.html
-        - text: "4. Deep Learning: neural networks"
+        - text: "4a. Deep Learning: neural networks"
           href: lab4a_dl-neural-nets.html
+        - text: "4b. Deep Learning: Keras & Tensorflow"
+          href: lab4b_demos.html
+        - text: "Group Project: Kaggle Competition"
+          href: gp_kaggle.html
     - text: "Glosssary"
       href: glossary.html
     - text: "Resources"

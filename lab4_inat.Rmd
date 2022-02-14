@@ -1,5 +1,8 @@
 ---
-title: "Lab 4a. Deep Learning - Neural Networks"
+title: "Lab 4b. Deep Learning - TensorFlow & Keras"
+output: html_document
+bibliography: "ml-env.bib"
+css: "files/prioritizr-style.css"
 editor_options: 
   chunk_output_type: console
 ---
@@ -13,8 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 In this lab, you'll become introduced to **Deep Learning** techniques that enable you to classify complex input data, such as imagery or sound. Eventually you'll use a subset of the dataset from [iNat Challenge 2021 - FGVC8 | Kaggle](https://www.kaggle.com/c/inaturalist-2021) to apply Deep Learning techniques to classify species from images. The cofounder of [iNaturalist](https://www.inaturalist.org/), [Scott Loarie](https://www.calacademy.org/patterson-scholar-scott-loarie), will also join our expert panel for the last class.
 
 In this lab, you can _choose your own adventure_ by either doing it in **R** _**or**_ **Python** (or both if you so choose). Regardless, please use the server `taylor.bren.ucsb.edu`, which has all the necessary software installed. For R, you can continue using an RStudio Session and Rmarkdown document. For Python, it is recommended to use a JupyterLab Session and Python 3 (ipykernel) Notebook.
-
-# Learning Objectives {.unnumbered}
 
 # Playing with Numbers (MNIST)
 
@@ -105,22 +106,6 @@ str(test_labels)
 
 The workflow will be as follows: first we'll feed the neural network the training data, `train_images` and `train_labels`. The network will then learn to associate images and labels. Finally, we'll ask the network to produce predictions for `test_images`, and we'll verify whether these predictions match the labels from `test_labels`.
 
-```{r}
-librarian::shelf(glue)
-
-dim(train_images)
-dim(train_labels)
-
-par(mfrow=c(2,2))
-sapply(
-  1:4, function(i){ # i = 5
-    plot(
-      as.raster(train_images[i,,]/255),
-      main = glue("image_{i}: label = {train_labels[i]}")) })
-```
-
-
-
 Let's build the network -- again, remember that you aren't supposed to understand everything about this example yet.
 
 ### Listing 2.2 The network architecture
@@ -139,9 +124,9 @@ Here our network consists of a sequence of two layers, which are densely connect
 
 To make the network ready for training, we need to pick three more things, as part of the _compilation_ step:
 
-* _**A loss function**_: How the network will be able to measure how good a job it's doing on its training data, and thus how it will be able to steer itself in the right direction.
-* _**An optimizer**_: The mechanism through which the network will update itself based on the data it sees and its loss function.
-* _**Metrics to monitor during training and testing**_: Here we'll only care about accuracy (the fraction of the images that were correctly classified).
+* _A loss function_—How the network will be able to measure how good a job it's doing on its training data, and thus how it will be able to steer itself in the right direction.
+* _An optimizer_—The mechanism through which the network will update itself based on the data it sees and its loss function.
+* _Metrics to monitor during training and testing_—Here we'll only care about accuracy (the fraction of the images that were correctly classified).
 
 The exact purpose of the loss function and the optimizer will be made clear throughout the next two chapters.
 
@@ -150,8 +135,8 @@ The exact purpose of the loss function and the optimizer will be made clear thro
 ```{r}
 network %>% compile(
   optimizer = "rmsprop",
-  loss      = "categorical_crossentropy",
-  metrics   = c("accuracy"))
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy"))
 ```
 
 Before training, we'll preprocess the data by reshaping it into the shape the network expects and scaling it so that all values are in the `[0, 1]` interval. Previously, our training images, for instance, were stored in an array of shape `(60000, 28, 28)` of type integer with values in the `[0, 255]` interval. We transform it into a double array of shape `(60000, 28 * 28)` with values between 0 and 1.
@@ -165,10 +150,8 @@ test_images  <- array_reshape(test_images, c(10000, 28 * 28))
 test_images  <- test_images / 255
 ```
 
-_Let's look at the first 4 training images and their labels._
-
-
 We also need to categorically encode the labels, a step which we explain in chapter 3:
+
 
 ### Listing 2.5 Preparing the labels
 
@@ -184,8 +167,6 @@ network %>% fit(train_images, train_labels, epochs = 5, batch_size = 128)
 ```
 
 Two quantities are being displayed during training: the "loss" of the network over the training data, and the accuracy of the network over the training data.
-
-_**Loss** is a measure of the distance in value between predicted versus truth, which can have arbitrary units; whereas **accuracy** is the percent of correct values predicted._
 
 _Notice the Viewer pane plotted output in RStudio of **loss** and **accuracy**._
 

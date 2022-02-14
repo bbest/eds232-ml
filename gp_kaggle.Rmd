@@ -1,0 +1,20 @@
+---
+title: "Group Projects: Kaggle Competition"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+-   Find Competition: [Kaggle.com/Competitions](https://www.kaggle.com/competitions)\
+    See existing notebooks at [Kaggle.com/code](https://www.kaggle.com/code)
+
+-   Enter Group (3-6 people each): [EDS232 Kaggle Group Projects](https://docs.google.com/spreadsheets/d/1jgdiUgqLYACnI-g322JAMHLa6lIEIneJf8GFAHSa4Dw/edit#gid=0) Google Sheet (UCSB login required)
+
+-   Describe Competition: Copy [EDS232 Kaggle Group Project Template](https://docs.google.com/document/d/1n8P9JGO6oW4IjcS0XNnT4H9v62aR48dnzFTnEo1YMks/edit#) Google Doc (UCSB login required)
+
+-   Submit Entry\
+    See [How to Enter a Kaggle Competition (using Kernels) \| Kaggle - YouTube](https://www.youtube.com/watch?v=GJBOMWpLpTQ)
+
+-   Present March 9th\
