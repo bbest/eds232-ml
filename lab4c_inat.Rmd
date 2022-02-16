@@ -1,0 +1,78 @@
+---
+title: "Lab 4c. Deep Learning - iNaturalist"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+## Deep Learning with R / Python Exercises
+
+You'll first learn about Computer Vision techniques by going through the Chapter 5 labs:
+
+- 5.1 Introduction to convnets
+  R: [html](./lab4c_5.1.intro-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.1.intro-convnets.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb)
+
+- 5.2 Training a convnet from scratch on a small dataset
+  R: [html](./lab4c_5.2.small-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.2.small-convnets.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.1-introduction-to-convnets.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.1-introduction-to-convnets.ipynb)
+
+The subsequent lab exercises meet the limits of using a CPU over a GPU, which is not available on `taylor.bren.ucsb.edu`. Here's as far as I was able to get for demonstration sake, but you're not expected to run this. You might want to try if you have personal computer with a GPU setup.
+
+- 5.3 Using a pretrained convnet
+  R: [html](./lab4c_5.3-using-a-pretrained-convnet.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.3-using-a-pretrained-convnet.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.3-using-a-pretrained-convnet.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.3-using-a-pretrained-convnet.ipynb)
+
+## iNaturalist
+
+The main lab that you'll turn in is to apply these techniques to a small subset of the iNaturalist species imagery. These data were downloaded from the links provided at [github.com/visipedia/inat_comp:2021/](https://github.com/visipedia/inat_comp/tree/master/2021). Of all the 10,000 species and many images for each from training (Train), training mini (Train Mini), validation (Val) and test images, you'll draw only from the Train Mini set of images:
+
+![](https://github.com/visipedia/inat_comp/raw/master/2021/assets/train_val_distribution.png)
+
+
+```{r, echo=F, eval=F}
+# in Terminal:
+#   cd /courses/EDS232; mkdir 'inaturalist-2021'
+#   curl -o train_mini.tar.gz https://ml-inat-competition-datasets.s3.amazonaws.com/2021/train_mini.tar.gz
+#   tar -xzf train_mini.tar.gz 
+
+librarian::shelf(
+  dplyr, glue, jsonlite, listviewer, purrr, readr, tidyjson, tidyr)
+
+train_mini <- jsonlite::read_json("~/Desktop/iNat/train_mini.json")
+
+write_meta <- function(m){
+  train_mini[[m]]  %>% 
+    tidyjson::spread_all() %>% 
+    tibble() %>% 
+    select(-document.id, -`..JSON`) %>% 
+    write_csv(
+      glue("~/Desktop/iNat/train_mini_{m}.csv"))
+}
+write_meta("images")
+write_meta("annotations")
+write_meta("categories")
+```
+
+The images are available under
+
+```{r}
+dir_train_mini <- "/courses/EDS232/Courses/inaturalist-2021/train_mini"
+dirs_spp <- list.dirs(dir_train_mini, recursive = F)
+n_spp <- length(dirs_spp) # 10,000 species directories
+
+# set seed (for reproducible results) 
+# just before sampling (otherwise get different results)
+# based on your username (unique amongst class)
+Sys.info()[["user"]] %>% 
+  digest::digest2int() %>% 
+  set.seed()
+i10 <- sample(1:n_spp, 10)
+
+# show the 10 indices sampled of the 10,000 possible 
+i10
+
+# show the 10 directory names
+basename(dirs_spp)[i10]
+```
+
