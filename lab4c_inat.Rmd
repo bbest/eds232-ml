@@ -5,7 +5,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(echo = T)
 ```
 
 ## Deep Learning with R / Python Exercises
@@ -86,10 +86,18 @@ basename(dirs_spp)[i2]
 
 Your task is to apply your deep learning skills to build the following models:
 
-1. **2 Species (binary) - neural net**. Draw from 
+1. **2 Species (binary classification) - neural net**. Draw from [3.4 🍿 Movies (binary classification)](./lab4b_examples.html). You'll need to pre-process the images to be a consistent shape first though -- see 5.2.4 Data preprocessing.
 
-1. **2 Species (binary) - convolutional neural net**.  
+1. **2 Species (binary classification) - convolutional neural net**. Draw from the [dogs vs cats example](https://bbest.github.io/eds232-ml/lab4c_5.2.small-convnets.html).
 
-1. **10 Species (multiclass) - neural net**.  
+1. **10 Species (multi-class classification) - neural net**.  Draw from [3.5 📰 Newswires (multi-class classification)](./lab4b_examples.html).
 
-1. **10 Species (multiclass) - convolutional neural net**.  
+1. **10 Species (multi-class classification) - convolutional neural net**. Draw from [dogs vs cats example](https://bbest.github.io/eds232-ml/lab4c_5.2.small-convnets.html) and update necessary values to go from binary to mult-class classification.
+
+In your models, be sure to include the following:
+
+- Split the original images per species (n=50) into train (n=30), validate (n=10) and test (n=10). These are almost absurdly few files to feed into these complex deep learning models but will serve as a good learning example.
+
+- Include accuracy metric and validation in the fitting process and history plot.
+
+- Evaluate loss and accuracy on your test model results. Compare standard neural network and convolutional neural network results.
