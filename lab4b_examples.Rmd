@@ -11,16 +11,16 @@ knitr::opts_chunk$set(echo = F)
 In today's lab you'll run through introductory examples with the most common types of response variables, i.e. targets, from *Deep Learning with R/Python*.
 
 -   3.4 🍿 Movies (binary classification)\
-    Classify movie reviews as positive or negative.\
+    Classify movie reviews (`dataset_imdb()`) as positive or negative.\
     R: [html](./lab4b_3.4.movies.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.4.movies.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.5-classifying-movie-reviews.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.5-classifying-movie-reviews.ipynb)
 
 -   3.5 📰 Newswires (multi-class classification)\
-    Classify news wires by topic.\
-    R: [html](./lab4b_3.5.newswires.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.5.newswires.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb)
+    Classify news wires (`dataset_reuters()`) by topic.\
+    R: [html](./lab4b_3.5.newswires.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.5.newswires.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb),  [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.6-classifying-newswires.ipynb)
 
 -   3.6 🏠 House prices (regression)\
-    Estimate the price of a house, given real-estate data.\
-    R: [html](./lab4b_3.6.houseprices.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.6.houseprices.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb)
+    Estimate the price of a house (`dataset_boston_housing()`), given real-estate data.\
+    R: [html](./lab4b_3.6.houseprices.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4b_3.6.houseprices.Rmd); Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb),  [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/3.7-predicting-house-prices.ipynb)
 
 -   4.4 🍿 Overfitting and underfitting\
     Refine movie review classification model.\
