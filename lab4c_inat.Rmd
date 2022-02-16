@@ -57,9 +57,13 @@ write_meta("categories")
 The images are available under
 
 ```{r}
-dir_train_mini <- "/courses/EDS232/Courses/inaturalist-2021/train_mini"
+librarian::shelf(
+  digest, dplyr)
+
+dir_train_mini <- "/courses/EDS232/inaturalist-2021/train_mini"
 dirs_spp <- list.dirs(dir_train_mini, recursive = F)
 n_spp <- length(dirs_spp) # 10,000 species directories
+n_spp
 
 # set seed (for reproducible results) 
 # just before sampling (otherwise get different results)
@@ -72,7 +76,20 @@ i10 <- sample(1:n_spp, 10)
 # show the 10 indices sampled of the 10,000 possible 
 i10
 
-# show the 10 directory names
+# show the 10 species directory names
 basename(dirs_spp)[i10]
+
+# show the first 2 species directory names
+i2 <- i10[1:2]
+basename(dirs_spp)[i2]
 ```
 
+Your task is to apply your deep learning skills to build the following models:
+
+1. **2 Species (binary) - neural net**. Draw from 
+
+1. **2 Species (binary) - convolutional neural net**.  
+
+1. **10 Species (multiclass) - neural net**.  
+
+1. **10 Species (multiclass) - convolutional neural net**.  
