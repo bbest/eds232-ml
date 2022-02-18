@@ -34,7 +34,7 @@ The main lab that you'll turn in is to apply these techniques to a small subset 
 # in Terminal:
 #   cd /courses/EDS232; mkdir 'inaturalist-2021'
 #   curl -o train_mini.tar.gz https://ml-inat-competition-datasets.s3.amazonaws.com/2021/train_mini.tar.gz
-#   tar -xzf train_mini.tar.gz 
+#   tar -xf train_mini.tar.gz 
 
 librarian::shelf(
   dplyr, glue, jsonlite, listviewer, purrr, readr, tidyjson, tidyr)

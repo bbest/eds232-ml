@@ -77,7 +77,7 @@ if (!file.exists(pu_shp)){
 
 ## Data import
 
-```{r, include = FALSE}
+```{r}
 n_features <- raster::nlayers(raster::stack(vegetation_tif))
 ```
 
