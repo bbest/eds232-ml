@@ -58,7 +58,7 @@ The images are available under
 
 ```{r}
 librarian::shelf(
-  digest, dplyr, DT, purrr, readr, tidyr)
+  digest, dplyr, DT, glue, purrr, readr, stringr, tidyr)
 
 # path to folder containing species directories of images
 dir_train_mini <- "/courses/EDS232/inaturalist-2021/train_mini"
@@ -98,14 +98,28 @@ d <- tibble(
 DT::datatable(d)
 d <- d %>% 
   mutate(
+    # construct full path to species directory
     dir_species = file.path(dir_train_mini, species),
     tbl_images  = purrr::map(dir_species, function(dir){
+      # create a tibble per species
       tibble(
+        # list files in the species directory (n=50)
         image = list.files(dir),
+        # assign subset per species
         subset = c(rep("train", 30), rep("validation", 10), rep("test", 10))) })) %>% 
+  # go from a tibble with 10 species rows containing a nested tbl_images to unnested, ie 10 species * 50 images = 500 rows
   tidyr::unnest(tbl_images)
+
+# write tibble to CSV file for subsequent reading
 readr::write_csv(d, inat_spp_images_csv)
-DT::datatable(d)
+
+# show counts of image files per species and subset
+d %>% 
+  mutate(
+    # truncate species to show one line per species
+    species_trunc = stringr::str_trunc(species, 40)) %>% 
+  select(species_trunc, subset) %>% 
+  table()
 ```
 
 Your task is to apply your deep learning skills to build the following models:
