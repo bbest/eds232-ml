@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = T)
 
 ## Deep Learning with R / Python Exercises
 
-You'll first learn about Computer Vision techniques by going through the Chapter 5 labs:
+You'll first learn about Computer Vision techniques by going through the Chapter 5 lab exercises:
 
 - 5.1 Introduction to convnets
   R: [html](./lab4c_5.1.intro-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.1.intro-convnets.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb)
@@ -60,9 +60,15 @@ The images are available under
 librarian::shelf(
   digest, dplyr)
 
+# path to folder containing species directories of images
 dir_train_mini <- "/courses/EDS232/inaturalist-2021/train_mini"
+
+# path to output table of paths, which could be read by R, eg read_csv(), or Python, eg 
+inat_spp_dirs_csv <- "~/inat_species_dirs.csv"
+
+# get list of directories, one per species (n = 10,000 species)
 dirs_spp <- list.dirs(dir_train_mini, recursive = F)
-n_spp <- length(dirs_spp) # 10,000 species directories
+n_spp <- length(dirs_spp)
 n_spp
 
 # set seed (for reproducible results) 
