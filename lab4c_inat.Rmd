@@ -13,15 +13,15 @@ knitr::opts_chunk$set(echo = T)
 You'll first learn about Computer Vision techniques by going through the Chapter 5 labs:
 
 - 5.1 Introduction to convnets
-  R: [html](./lab4c_5.1.intro-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.1.intro-convnets.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.2-using-convnets-with-small-datasets.ipynb)
+  R: [html](./lab4c_5.1.intro-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.1.intro-convnets.Rmd) ; Python: [html](https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.1-introduction-to-convnets.ipynb), [ipynb](https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.1-introduction-to-convnets.ipynb)
 
 - 5.2 Training a convnet from scratch on a small dataset
-  R: [html](./lab4c_5.2.small-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.2.small-convnets.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.1-introduction-to-convnets.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.1-introduction-to-convnets.ipynb)
+  R: [html](./lab4c_5.2.small-convnets.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.2.small-convnets.Rmd) ; Python: [html](https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.2-using-convnets-with-small-datasets.ipynb), [ipynb](https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.2-using-convnets-with-small-datasets.ipynb)
 
 The subsequent lab exercises meet the limits of using a CPU over a GPU, which is not available on `taylor.bren.ucsb.edu`. Here's as far as I was able to get for demonstration sake, but you're not expected to run this. You might want to try if you have personal computer with a GPU setup.
 
 - 5.3 Using a pretrained convnet
-  R: [html](./lab4c_5.3-using-a-pretrained-convnet.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.3-using-a-pretrained-convnet.Rmd) ; Python: [html](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.3-using-a-pretrained-convnet.ipynb), [ipynb](https://raw.githubusercontent.com/fchollet/deep-learning-with-python-notebooks/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/5.3-using-a-pretrained-convnet.ipynb)
+  R: [html](./lab4c_5.3-using-a-pretrained-convnet.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.3-using-a-pretrained-convnet.Rmd) ; Python: [html](https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.3-using-a-pretrained-convnet.ipynb), [ipynb](https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.3-using-a-pretrained-convnet.ipynb)
 
 ## iNaturalist
 
