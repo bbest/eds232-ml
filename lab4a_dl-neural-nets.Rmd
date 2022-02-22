@@ -204,9 +204,10 @@ This concludes our first example -- you just saw how you can build and a train a
 
 ## Python
 
-Visit [fchollet/deep-learning-with-python-notebooks at 8a30b90](https://github.com/fchollet/deep-learning-with-python-notebooks/tree/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40), which is the author's repository of Python notebooks at the 2017 commit before switching to the second edition in 2021.
+I forked [fchollet/deep-learning-with-python-notebooks](https://github.com/fchollet/deep-learning-with-python-notebooks) into
+[bbest/deep-learning-with-python-notebooks](https://github.com/bbest/deep-learning-with-python-notebooks) and updated the [first_edition](https://github.com/bbest/deep-learning-with-python-notebooks/tree/master/first_edition) folder with all the minor tweaks to work with the current versions of `keras` and `tensorflow`. Note that these were run from `taylor.bren.ucsb.edu` which does not have a GPU so error messages about missing GPU/NVIDIA/CUDA software appear, but still run through the CPU.
 
-You can then download the first notebook, i.e. [2.1-a-first-look-at-a-neural-network.ipynb](https://github.com/fchollet/deep-learning-with-python-notebooks/raw/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/) by right-clicking to Save link as... locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as...
+You can then download the first notebook, i.e. [2.1-a-first-look-at-a-neural-network.ipynb](https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/2.1-a-first-look-at-a-neural-network.ipynb) by right-clicking to Save link as... locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as...
 
 Then you can start a new JupyterLab Session and Python 3 (ipykernel) Notebook and upload the notebook file (`*.ipynb`) you previously downloaded.
 
