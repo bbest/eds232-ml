@@ -103,11 +103,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:title" content="EDS 232: Lab 4a. Deep Learning - Neural Networks"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output","bibliography","css","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 4a. Deep Learning - Neural Networks"]},{"type":"character","attributes":{},"value":["html_document"]},{"type":"character","attributes":{},"value":["ml-env.bib"]},{"type":"character","attributes":{},"value":["files/prioritizr-style.css"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 4a. Deep Learning - Neural Networks"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2460,7 +2459,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="files/prioritizr-style.css" type="text/css"/>
 
 </head>
 
@@ -2493,9 +2491,12 @@ Labs
 <a href="lab1d_sdm-evaluate.html">1d. Species: evaluate</a>
 <a href="lab2a_community-cluster.html">2a. Community: cluster</a>
 <a href="lab2b_community-ordination.html">2b. Community: ordination</a>
-<a href="lab3_reserves.html">3. Conservation Planning</a>
+<a href="lab3_reserves.html">3. Reserve Design: prioritize</a>
 <a href="review_midterm.html">Mid-Term Review</a>
-<a href="lab4a_dl-neural-nets.html">4. Deep Learning: neural networks</a>
+<a href="lab4a_dl-neural-nets.html">4a. Deep Learning: neural networks</a>
+<a href="lab4b_examples.html">4b. Deep Learning: keras</a>
+<a href="lab4c_inat.html">4c. Deep Learning: iNaturalist</a>
+<a href="gp_kaggle.html">Group Project: Kaggle Competition</a>
 </div>
 </div>
 <a href="glossary.html">Glosssary</a>
@@ -2632,7 +2633,7 @@ Loaded Tensorflow version 2.7.1</code></pre>
 </div>
 <pre><code> int [1:10000(1d)] 7 2 1 0 4 1 4 9 5 9 ...</code></pre>
 </div>
-<p><em>Let’s look at the first 4 training images and their labels.</em></p>
+<p>The workflow will be as follows: first we’ll feed the neural network the training data, <code>train_images</code> and <code>train_labels</code>. The network will then learn to associate images and labels. Finally, we’ll ask the network to produce predictions for <code>test_images</code>, and we’ll verify whether these predictions match the labels from <code>test_labels</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span><span class='va'>glue</span><span class='op'>)</span>
@@ -2649,10 +2650,9 @@ Loaded Tensorflow version 2.7.1</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span>
-  <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span>
-      <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>[</span><span class='va'>i</span>,,<span class='op'>]</span>, <span class='fl'>2</span>, <span class='va'>rev</span><span class='op'>)</span><span class='op'>)</span>,
-      col  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.colors.html'>gray.colors</a></span><span class='op'>(</span><span class='fl'>256</span><span class='op'>)</span>, 
+  <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span> <span class='co'># i = 5</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://rdrr.io/r/grDevices/as.raster.html'>as.raster</a></span><span class='op'>(</span><span class='va'>train_images</span><span class='op'>[</span><span class='va'>i</span>,,<span class='op'>]</span><span class='op'>/</span><span class='fl'>255</span><span class='op'>)</span>,
       main <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"image_{i}: label = {train_labels[i]}"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2669,7 +2669,6 @@ NULL
 [[4]]
 NULL</code></pre>
 </div>
-<p>The workflow will be as follows: first we’ll feed the neural network the training data, <code>train_images</code> and <code>train_labels</code>. The network will then learn to associate images and labels. Finally, we’ll ask the network to produce predictions for <code>test_images</code>, and we’ll verify whether these predictions match the labels from <code>test_labels</code>.</p>
 <p>Let’s build the network – again, remember that you aren’t supposed to understand everything about this example yet.</p>
 <h3 data-number="2.1.3" id="listing-2.2-the-network-architecture"><span class="header-section-number">2.1.3</span> Listing 2.2 The network architecture</h3>
 <div class="layout-chunk" data-layout="l-body">
@@ -2711,6 +2710,7 @@ NULL</code></pre>
 </code></pre>
 </div>
 </div>
+<p><em>Let’s look at the first 4 training images and their labels.</em></p>
 <p>We also need to categorically encode the labels, a step which we explain in chapter 3:</p>
 <h3 data-number="2.1.6" id="listing-2.5-preparing-the-labels"><span class="header-section-number">2.1.6</span> Listing 2.5 Preparing the labels</h3>
 <div class="layout-chunk" data-layout="l-body">
@@ -2739,13 +2739,13 @@ NULL</code></pre>
 </code></pre>
 </div>
 <pre><code>      loss   accuracy 
-0.08055136 0.97539997 </code></pre>
+0.07303085 0.97920001 </code></pre>
 </div>
-<p>Our test set accuracy turns out to be 98.1% – that’s quite a bit lower than the training set accuracy. This gap between training accuracy and test accuracy is an example of “overfitting,” the fact that machine learning models tend to perform worse on new data than on their training data. Overfitting will be a central topic in chapter 3.</p>
+<p>Our test set accuracy turns out to be 98.1% – that’s quite a bit lower than the training set accuracy. This gap between training accuracy and test accuracy is an example of “overfitting”, the fact that machine learning models tend to perform worse on new data than on their training data. Overfitting will be a central topic in chapter 3.</p>
 <p>This concludes our first example – you just saw how you can build and a train a neural network to classify handwritten digits in less than 20 lines of R code. In the next chapter, we’ll go into detail about every moving piece we just previewed and clarify what’s going on behind the scenes. You’ll learn about tensors, the data-storing objects going into the network; about tensor operations, which layers are made of; and about gradient descent, which allows your network to learn from its training examples.</p>
 <h2 data-number="2.2" id="python"><span class="header-section-number">2.2</span> Python</h2>
-<p>Visit <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/tree/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40">fchollet/deep-learning-with-python-notebooks at 8a30b90</a>, which is the author’s repository of Python notebooks at the 2017 commit before switching to the second edition in 2021.</p>
-<p>You can then download the first notebook, i.e. <a href="https://github.com/fchollet/deep-learning-with-python-notebooks/raw/8a30b90fed187aaddaaf1fc868ec8e0ac92bca40/">2.1-a-first-look-at-a-neural-network.ipynb</a> by right-clicking to Save link as… locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as…</p>
+<p>I forked <a href="https://github.com/fchollet/deep-learning-with-python-notebooks">fchollet/deep-learning-with-python-notebooks</a> into <a href="https://github.com/bbest/deep-learning-with-python-notebooks">bbest/deep-learning-with-python-notebooks</a> and updated the <a href="https://github.com/bbest/deep-learning-with-python-notebooks/tree/master/first_edition">first_edition</a> folder with all the minor tweaks to work with the current versions of <code>keras</code> and <code>tensorflow</code>. Note that these were run from <code>taylor.bren.ucsb.edu</code> which does not have a GPU so error messages about missing GPU/NVIDIA/CUDA software appear, but still run through the CPU.</p>
+<p>You can then download the first notebook, i.e. <a href="https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/2.1-a-first-look-at-a-neural-network.ipynb">2.1-a-first-look-at-a-neural-network.ipynb</a> by right-clicking to Save link as… locally, or perhaps if navigating from the Github folder similarly right-clicking on Raw to Save link as…</p>
 <p>Then you can start a new JupyterLab Session and Python 3 (ipykernel) Notebook and upload the notebook file (<code>*.ipynb</code>) you previously downloaded.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2759,10 +2759,7 @@ NULL</code></pre>
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
