@@ -58,13 +58,10 @@ The images are available under
 
 ```{r}
 librarian::shelf(
-  digest, dplyr)
+  digest, dplyr, DT, purrr, readr, tidyr)
 
 # path to folder containing species directories of images
 dir_train_mini <- "/courses/EDS232/inaturalist-2021/train_mini"
-
-# path to output table of paths, which could be read by R, eg read_csv(), or Python, eg 
-inat_spp_dirs_csv <- "~/inat_species_dirs.csv"
 
 # get list of directories, one per species (n = 10,000 species)
 dirs_spp <- list.dirs(dir_train_mini, recursive = F)
@@ -88,6 +85,27 @@ basename(dirs_spp)[i10]
 # show the first 2 species directory names
 i2 <- i10[1:2]
 basename(dirs_spp)[i2]
+
+# path to output table of paths, which could be read by R, eg readr::read_csv(), or Python, eg pandas.read_csv()
+inat_spp_images_csv <- "~/inat_spp_images.csv"
+
+d <- tibble(
+  # get 10 species names
+  species = basename(dirs_spp)[i10],
+  # assign TRUE/FALSE for: 10 species (multi-class) and 2 species (binary)
+  spp10 = TRUE,
+  spp2  = c(T,T,rep(F,8)))
+DT::datatable(d)
+d <- d %>% 
+  mutate(
+    dir_species = file.path(dir_train_mini, species),
+    tbl_images  = purrr::map(dir_species, function(dir){
+      tibble(
+        image = list.files(dir),
+        subset = c(rep("train", 30), rep("validation", 10), rep("test", 10))) })) %>% 
+  tidyr::unnest(tbl_images)
+readr::write_csv(d, inat_spp_images_csv)
+DT::datatable(d)
 ```
 
 Your task is to apply your deep learning skills to build the following models:
