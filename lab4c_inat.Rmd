@@ -54,7 +54,7 @@ write_meta("annotations")
 write_meta("categories")
 ```
 
-The images are available under
+Let's generate an output table as a CSV file (defaulting to your home folder `~/inat_spp_images.csv`, but feel free to change that path) for subsequently reading in R (e.g., with `readr::read_csv()`) or Python (e.g., with `pandas.read_csv()`) for the 10 species directories uniquely sampled  (using your username) from all 10,000 species and containing fields for: full path to image file (`image`); species label (`species`); whether in the 2 species binary classification set (`spp2`);  and whether to be included in train, validation or test subset (`subset`).
 
 ```{r}
 librarian::shelf(
