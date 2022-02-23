@@ -87,26 +87,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: EDS 232: Machine Learning in Environmental Science</title>
+  <title>EDS 232: Lab 5a. Machine Learning in Google Earth Engine - JavaScript</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="og:title" content="EDS 232: Lab 5a. Machine Learning in Google Earth Engine - JavaScript"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="twitter:title" content="EDS 232: Lab 5a. Machine Learning in Google Earth Engine - JavaScript"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 5a. Machine Learning in Google Earth Engine - JavaScript"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2448,17 +2448,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/datatables-binding-0.19/datatables.js"></script>
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-  <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-  <link href="site_libs/dt-ext-rowgroup-1.10.20/css/rowGroup.dataTables.min.css" rel="stylesheet" />
-  <script src="site_libs/dt-ext-rowgroup-1.10.20/js/dataTables.rowGroup.min.js"></script>
-  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2478,7 +2467,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"EDS 232: Machine Learning in Environmental Science","authors":[]}
+{"title":"Lab 5a. Machine Learning in Google Earth Engine - JavaScript","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2525,7 +2514,7 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>EDS 232: Machine Learning in Environmental Science</h1>
+<h1>Lab 5a. Machine Learning in Google Earth Engine - JavaScript</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2537,127 +2526,472 @@ Labs
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#course-schedule">Course Schedule</a></li>
-<li><a href="#course-description">Course Description</a></li>
-<li><a href="#grading">Grading</a></li>
-<li><a href="#readings">Readings</a>
-<ul>
-<li><a href="#textbooks">Textbooks</a></li>
-<li><a href="#articles">Articles</a></li>
-</ul></li>
+<li><a href="#learning-objectives">Learning Objectives</a></li>
+<li><a href="#google-earth-engine-gee-setup"><span class="toc-section-number">1</span> Google Earth Engine (GEE) Setup</a></li>
+<li><a href="#gee-code-editor-javascript"><span class="toc-section-number">2</span> GEE Code Editor &amp; JavaScript</a></li>
+<li><a href="#unsupervised-classification---clustering"><span class="toc-section-number">3</span> Unsupervised Classification - Clustering</a></li>
+<li><a href="#supervised-classification---decision-trees"><span class="toc-section-number">4</span> Supervised Classification - Decision Trees</a></li>
+<li><a href="#going-further"><span class="toc-section-number">5</span> Going Further</a></li>
 </ul>
 </nav>
 </div>
-<blockquote>
-<p>“Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.” – Stephen Hawking.</p>
-</blockquote>
-<h1 id="course-schedule">Course Schedule</h1>
+<h1 class="unnumbered" id="learning-objectives">Learning Objectives</h1>
+<p>Google Earth Engine (GEE) is an online platform for spatial analytics with access to over 40 petabytes of data globally spanning over 30 years, largely composed of satellite imagery. Huge <strong>storage</strong> is combined with massive <strong>computation</strong> for the ultimate <strong>cloud</strong> solution. For instance, global climatologies spanning the satellite record of Landsat since 1984 (30m pixels covering the globe every 16 days) can be calculated and visualized instantly. You can also <strong><em>classify</em></strong> satellite images, e.g. into land cover or wetlands, using machine learning techniques. And it’s free!</p>
+<p>You will start using the native GEE Code Editor interface that uses <strong>JavaScript</strong>, which is by far the most common web-based programming language used on the front end (i.e., client web browser interactivity) and increasingly the back end (e.g., server Node JS using the React web framework).</p>
+<p>Next week you will learn to run these techniques in a Google Colab notebook, a <strong>Python</strong> based variant of a Jupyter notebook hosted by Google.</p>
+<p>It is possible to run <strong>Deep Learning</strong> models directly within GEE (see <a href="https://developers.google.com/earth-engine/guides/tf_examples">TensorFlow example workflows | GEE</a>)) for more complex models, e.g. identifying ships or crops from satellite imagery, however that requires at least one of the following paid services that we haven’t yet setup for class: Cloud Storage, AI Platform Prediction and/or AI Platform Training.</p>
+<p><u><strong>Today</strong></u> you’ll learn how to perform <strong>Clustering</strong> (<strong><em>K-Means</em></strong>) and <strong>Decision Trees</strong> (<strong><em>CART</em></strong> and <strong><em>RandomForest</em></strong>) on satellite imagery using Google Earth Engine.</p>
+<h1 data-number="1" id="google-earth-engine-gee-setup"><span class="header-section-number">1</span> Google Earth Engine (GEE) Setup</h1>
+<p>A GEE account that is associated with a Google account, preferably your UCSB login, is required to log into the GEE Code Editor (<a href="https://code.earthengine.google.com">code.earthengine.google.com</a>).</p>
+<p>If you need a GEE account, please visit <a href="https://signup.earthengine.google.com">signup.earthengine.google.com</a>.</p>
+<p>You may need to log out and back into your web browser as the preferred Google account to request permissions. This approval process usually takes a couple minutes.</p>
+<p>Here are a couple of the fields I entered which you’re welcome to use:</p>
 <ul>
-<li><p><strong>Lectures/Labs</strong>: MW 9:30am - 10:45am at NCEAS. For Covid compliance, lectures will be available via Zoom link that is shared in your Google Calendar invite and on the #eds-232 Slack Channel for MEDS (and not shared publicly to avoid <a href="https://en.wikipedia.org/wiki/Zoombombing">Zoombombing</a>).</p></li>
-<li><p><a href="https://forms.gle/GW9SBEXg9fuQvX3A7" target="_blank"><strong>Feedback Form</strong></a>. Please share any/all feedback anonymously and as frequently, e.g. weekly, as you like. Your input is always welcome and appreciated.</p></li>
-<li><p><strong>Instructor</strong>: Ben Best (ben@ecoquants.com)</p></li>
-<li><p><strong>Office hours</strong>: Mondays 11am-12:30 pm on Zoom / NCEAS office</p></li>
+<li><p>Affiliation/Institution<br />
+<a href="https://bbest.github.io/eds232-ml/" class="uri">https://bbest.github.io/eds232-ml/</a></p></li>
+<li><p>What would you like to accomplish with Earth Engine?<br />
+I will learn to apply machine learning to satellite imagery for both unsupervised (clustering) and supervised (RandomForest) learning.</p></li>
 </ul>
+<h1 data-number="2" id="gee-code-editor-javascript"><span class="header-section-number">2</span> GEE Code Editor &amp; JavaScript</h1>
+<p>The GEE documentation is quite good starting with <a href="https://developers.google.com/earth-engine/guides/getstarted">Get Started with Earth Engine | GEE</a>, visiting <a href="https://developers.google.com/earth-engine/tutorials/tutorial_js_01">Introduction to JavaScript for Earth Engine | GEE</a> for a quick JavaScript refresher and going through the <a href="https://developers.google.com/earth-engine/guides/playground">Earth Engine Code Editor | GEE</a> if you’re not yet familiar.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-9b480f3226a4ede34570" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9b480f3226a4ede34570">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,5,6,6,7,7,8,8,9,9,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9"],["Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Community Analyses (Unsupervised Learning)","Community Analyses (Unsupervised Learning)","Reserve Design (Optimization)","Mid-Term","Mid-Term","Mid-Term","Species Images (Deep Learning)","Species Images (Deep Learning)","Species Images (Deep Learning)","Species Images (Deep Learning)","Satellite Imagery (Google Earth Engine)","Satellite Imagery (Google Earth Engine)","Reflection","Reflection","Reflection"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>  <a href=\"https://youtu.be/KmQzGVx6lO8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing' target='_blank'>Logistic Regression<\/a>  <a href=\"https://youtu.be/5z5dcmHg1tY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1R4y-QXcIAcRDpmU9_-blpU4_Jkd7olwzVe3BU2w0lF0/edit?usp=sharing' target='_blank'>Decision Trees<\/a>  <a href=\"https://youtu.be/8BsNybYh0Ls\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1wPfEEhhSdtA6q7wXpucrxop3dTgJrzYdyFskDQAbq3E/edit?usp=sharing' target='_blank'>Model Evaluation<\/a>  <a href=\"https://youtu.be/taAM6Bo8bDU\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","HOLIDAY","<a href='https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit?usp=sharing' target='_blank'>Clustering<\/a>  <a href=\"https://youtu.be/4zXXjgEqPA0\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing' target='_blank'>Ordination<\/a>  <a href=\"https://youtu.be/p_nZbI9taIc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/13BmRTMSv_XFeiwJYymbfrQ0ZF5xhI6Yr_OWqD4MXn08/edit?usp=sharing' target='_blank'>Conservation Planning<\/a>  <a href=\"https://youtu.be/ZAc7TaCDlMY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/15IS6w8AdaomRGd8kyzIKNVR6NG0qGe0r4KlOtCoiVtc/edit?usp=sharing' target='_blank'>Mid-Term Review<\/a>  <a href=\"https://youtu.be/hTfZBbgoRZc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing' target='_blank'>Ordination Recap<\/a>  <a href=\"https://youtu.be/42SJVEp0-2Y\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","Mid-Term Exam","<a href='https://docs.google.com/presentation/d/15IS6w8AdaomRGd8kyzIKNVR6NG0qGe0r4KlOtCoiVtc/edit?usp=sharing' target='_blank'>Neural Networks<\/a>  <a href=\"https://youtu.be/rDMhgmCvCNc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/19l29RTwwKdM-BtAufo_UBZnz7RS5XjMNgMNPKO1o5yw/edit?usp=sharing' target='_blank'>TensorFlow and Keras<\/a>  <a href=\"https://youtu.be/tvZQGastDjQ\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1MrQGnyBIK_Cj7BtbBGhp2tkBzMY2wC7exAJD1xpNDKo/edit?usp=sharing' target='_blank'>Computer Vision<\/a>  <a href=\"https://youtu.be/VPt4fnZeIs8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","HOLIDAY","<a href='https://docs.google.com/presentation/d/1leyl5r3LQAttjN4AbSxVXkZxlLqyK_nqdzrmcQuUGdc/edit?usp=sharing' target='_blank'>ML in GEE: JavaScript<\/a>","ML in GEE: Python","Ethics, Justice and Bias","Expert Panel Discussion","Group Project Presentations"],["<a href='https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html' target='_blank'>Species: explore<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html' target='_blank'>Species: regress<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html' target='_blank'>Species: trees<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html' target='_blank'>Species: evaluate<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab2a_community-cluster.html' target='_blank'>Communities: cluster<\/a>","<a href='https://bbest.github.io/eds232-ml/lab2b_community-ordination.html' target='_blank'>Communities: ordinate<\/a>","<a href='https://bbest.github.io/eds232-ml/lab3_reserves.html' target='_blank'>Reserves<\/a>","<a href='https://bbest.github.io/eds232-ml/review_midterm.html' target='_blank'>Mid-Term Review<\/a>","<a href='https://bbest.github.io/eds232-ml/lab2b_community-ordination.html' target='_blank'>Communities: ordinate<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab4a_dl-neural-nets.html' target='_blank'>DL: neural networks<\/a>","<a href='https://bbest.github.io/eds232-ml/lab4b_examples.html' target='_blank'>DL: keras<\/a>","<a href='https://bbest.github.io/eds232-ml/lab4c_inat.html' target='_blank'>DL: iNaturalist<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab5a_gee-js.html' target='_blank'>GEE: javascript<\/a>","GEE: python","","",""],["Data Prep <a href=\"https://rspatial.org/raster/sdm/2_sdm_occdata.html\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs\">Zhong et al. (2021)<\/a>","Model Fitting <a href=\"https://rspatial.org/raster/sdm/5_sdm_models.html\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs\">Elith &amp; Leathwick (2009)<\/a>","Ch. 9, 11 <a href=\"https://bradleyboehmke.github.io/HOML/DT.html\"><em>HOMLR<\/em><\/a>; Random Forest <a href=\"https://rspatial.org/raster/sdm/6_sdm_methods.html#random-forest\"><em>SDMR<\/em><\/a>;  <a href=\"https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing\">Evans et al. (2011)<\/a>","Model Evaluation <a href=\"https://rspatial.org/raster/sdm/5_sdm_models.html#model-evaluation\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\">Andrade et al. (2020)<\/a>",null,"Ch. 8-9 <a href=\"https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>TDA<\/em><\/a>; Ch. 21 <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\"><em>HOMLR<\/em><\/a>","Ch. 17 <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components\"><em>HOMLR<\/em><\/a>; <a href=\"https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf\">Oksanen (2022)<\/a>",null,null,null,null,"Ch 1-2 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a> / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>","Ch 3-4 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a>  / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>","Ch 5 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a>  / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>",null,null,null,null,null,null],["","","","","","","","1. Species (20 pts)","","","2. Communities (10 pts)","","3. Reserves (10 pts)","","","","","4. Deep Learning (15 pts)","","5. Google Earth Engine (10 pts)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading *<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"displayStart":11,"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://developers.google.com/earth-engine/images/Code_editor_diagram.png" alt="Diagram of components of the Earth Engine Code Editor at [code.earthengine.google.com](code.earthengine.google.com). Source: [Earth Engine Code Editor](https://developers.google.com/earth-engine/guides/playground)" class=external />
+<p class="caption">
+Figure 1: Diagram of components of the Earth Engine Code Editor at <a href="code.earthengine.google.com">code.earthengine.google.com</a>. Source: <a href="https://developers.google.com/earth-engine/guides/playground">Earth Engine Code Editor</a>
+</p>
 </div>
-<p>* NOTE: Readings in the Course Schedule reference articles in Author (Year) format and <em>textbooks</em> with acronyms in italics. PDFs are in a Google Drive folder requiring a <em><strong>UCSB Google login</strong></em> for access to prevent copyright infringement. The full references are listed below under <a href="#readings">Readings</a>.</p>
-<h1 id="course-description">Course Description</h1>
-<p>Machine learning enables predictions from big, complex data into actionable insights. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition with environmental data. Supervised learning (logistic regression, decision trees and neural networks) and unsupervised learning (clustering and ordination) techniques will be applied to the environmental tasks of mapping species distributions and ecological community analyses, respectively. Integer linear programming will be used to optimize biodiversity in planning a reserve. Deep learning techniques (convolutional neural networks) will enable species classification from photos and landcover classification from satellite imagery using Google Earth Engine. The first half of the course will use R and Rmarkdown on the desktop and second half will use Python and Jupyter notebooks in the cloud. This class teaches a broad sweep of advanced scientific programming skills for environmental problem solving.</p>
-<h1 id="grading">Grading</h1>
-<p>The majority of points (100 total) will come from the labs. The Mid-Term exam will draw questions from lecture, lab and reading materials. For the <a href="./gp_kaggle.html">Group Project</a> you will select a <a href="https://www.kaggle.com/competitions">Kaggle competition</a>, submit an entry, and present on it for the last day of class. Participation will be based on class attendance.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Item</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lab</td>
-<td>1. Species Distributions</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>2. Communities</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>3. Reserves</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td>Exam</td>
-<td>Mid-Term</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>4. Species Images</td>
-<td>15</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>5. Satellite</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>GP</td>
-<td>Group Project</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Other</td>
-<td>Participation</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h1 id="readings">Readings</h1>
-<h2 id="textbooks">Textbooks</h2>
+</div>
+<h1 data-number="3" id="unsupervised-classification---clustering"><span class="header-section-number">3</span> Unsupervised Classification - Clustering</h1>
+<p>We previously assigned clusters that minimize variation in observations across 2 variables, i.e. using <code>kmeans()</code> on the length and width of penguin bills (<a href="https://bbest.github.io/eds232-ml/lab2a_community-cluster.html#cluster-penguins-using-kmeans">Lab 2a. Community - Cluster</a>). In this case, the variable space is the intensity of the different bands in the raster image (e.g. Red, Green, Blue). You similar input the number of clusters. Try out the following code from <a href="https://developers.google.com/earth-engine/guides/clustering">Unsupervised Classification (clustering) | GEE</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Load a pre-computed Landsat composite for input.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> input <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">&#39;LANDSAT/LE7_TOA_1YEAR/2001&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a region in which to generate a sample of the input.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> region <span class="op">=</span> ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">Rectangle</span>(<span class="fl">29.7</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="fl">32.5</span><span class="op">,</span> <span class="fl">31.7</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Display the sample region.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setCenter</span>(<span class="fl">31.5</span><span class="op">,</span> <span class="fl">31.0</span><span class="op">,</span> <span class="dv">8</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ee<span class="op">.</span><span class="fu">Image</span>()<span class="op">.</span><span class="fu">paint</span>(region<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">,</span> {}<span class="op">,</span> <span class="st">&#39;region&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Make the training dataset.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> training <span class="op">=</span> input<span class="op">.</span><span class="fu">sample</span>({</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">region</span><span class="op">:</span> region<span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">numPixels</span><span class="op">:</span> <span class="dv">5000</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Instantiate the clusterer and train it.</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> clusterer <span class="op">=</span> ee<span class="op">.</span><span class="at">Clusterer</span><span class="op">.</span><span class="fu">wekaKMeans</span>(<span class="dv">15</span>)<span class="op">.</span><span class="fu">train</span>(training)<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">// Cluster the input using the trained clusterer.</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> result <span class="op">=</span> input<span class="op">.</span><span class="fu">cluster</span>(clusterer)<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Display the clusters with random colors.</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(result<span class="op">.</span><span class="fu">randomVisualizer</span>()<span class="op">,</span> {}<span class="op">,</span> <span class="st">&#39;clusters&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<p>Click <strong>Run</strong> and you should see the resulting <code>15</code> classes based on the training <code>region</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="img/lab5_gee/gee_clustering.png" alt="Map output from clustering, with 'clusters' layer opacity reduced." width="100%" class=external />
+<p class="caption">
+Figure 2: Map output from clustering, with ‘clusters’ layer opacity reduced.
+</p>
+</div>
+</div>
+<p>Now zoom out and notice how this classification is applied to LANDSAT globally!</p>
+<p>Next, try changing the number of classes to <code>3</code>.</p>
+<p>Next, try changing the <code>region</code> to a drawn region of interest (<code>roi</code>) that you will interactively create in the Map using the <a href="https://developers.google.com/earth-engine/guides/playground?hl=en#geometry-tools"><strong>Geometry tools</strong> - Earth Engine Code Editor | GEE</a> (visit this help for details). Start off by drawing a polygon on the coast that includes the ocean: <code>roi_coast</code>. Then try another one inland: <code>roi_inland</code>. You can swap out relevant lines above with the following to use the imported geometry.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a region in which to generate a sample of the input.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> region <span class="op">=</span> roi_coast<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ctr <span class="op">=</span> region<span class="op">.</span><span class="fu">centroid</span>({<span class="st">&#39;maxError&#39;</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ctr_lon <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(ctr<span class="op">.</span><span class="fu">coordinates</span>()<span class="op">.</span><span class="fu">get</span>(<span class="dv">0</span>))<span class="op">.</span><span class="fu">getInfo</span>()<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ctr_lat <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(ctr<span class="op">.</span><span class="fu">coordinates</span>()<span class="op">.</span><span class="fu">get</span>(<span class="dv">1</span>))<span class="op">.</span><span class="fu">getInfo</span>()<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setCenter</span>(ctr_lon<span class="op">,</span> ctr_lat<span class="op">,</span> <span class="dv">8</span>)<span class="op">;</span></span></code></pre></div>
+<p>You can save scripts in the <a href="https://developers.google.com/earth-engine/guides/playground#script-manager-scripts-tab"><strong>Script Manager (Scripts tab)</strong> - Earth Engine Code Editor | GEE</a>, e.g. <code>clustering</code>, <code>clustering_3</code>, <code>clustering_3coast</code>, and <code>clustering_3inland</code>.</p>
+<p>For the lab, turn in the following:</p>
+<ol type="1">
+<li><p>Image of original <code>clustering</code> for 15 classes in the original region of Egypt.</p></li>
+<li><p>Image of modified <code>clustering_3</code> for 3 classes in the original region of Egypt.</p></li>
+<li><p>Image of modified <code>clustering_3coast</code> for 3 classes in a new coastal region of your creation.</p></li>
+<li><p>Image of modified <code>clustering_3inland</code> for 3 classes in a new inland region of your creation.</p></li>
+<li><p>What do you notice about the differences between these classified outputs in qualitative terms?</p></li>
+</ol>
+<h1 data-number="4" id="supervised-classification---decision-trees"><span class="header-section-number">4</span> Supervised Classification - Decision Trees</h1>
+<p>Next, you’ll apply a Supervised Learning technique, whereby we have a set of points in which we have identified the classes, like land cover type. You will start by using a classification and regression tree (CART; <code>smileCart()</code>), similar to how you applied <code>rpart()</code> in <a href="https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html">Lab 1c. Species Distribution Modeling - Decision Trees</a>. In this case each point has a set of values corresponding to the bands in the image rather than a more explicit environmental value (e.g. from WorldClim). These values are extracted from the raster with the <code>sampleRegions()</code> function. Notice how the pattern from Lab 1 repeats with fitting (<code>smileCart().train()</code>) and predicting (<code>classify()</code>). The output <code>classified</code> raster image gets added to the map. Please run this first code chunk from <a href="https://developers.google.com/earth-engine/guides/clustering">Unsupervised Classification (clustering) | GEE</a> with an additional line to display the training points.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a function that scales and masks Landsat 8 surface reflectance images.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">prepSrL8</span>(image) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Develop masks for unwanted pixels (fill, cloud, cloud shadow).</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> qaMask <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;QA_PIXEL&#39;</span>)<span class="op">.</span><span class="fu">bitwiseAnd</span>(<span class="pp">parseInt</span>(<span class="st">&#39;11111&#39;</span><span class="op">,</span> <span class="dv">2</span>))<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> saturationMask <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;QA_RADSAT&#39;</span>)<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Apply the scaling factors to the appropriate bands.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> getFactorImg <span class="op">=</span> <span class="kw">function</span>(factorNames) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> factorList <span class="op">=</span> image<span class="op">.</span><span class="fu">toDictionary</span>()<span class="op">.</span><span class="fu">select</span>(factorNames)<span class="op">.</span><span class="fu">values</span>()<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ee<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">constant</span>(factorList)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> scaleImg <span class="op">=</span> <span class="fu">getFactorImg</span>([</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;REFLECTANCE_MULT_BAND_.|TEMPERATURE_MULT_BAND_ST_B10&#39;</span>])<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> offsetImg <span class="op">=</span> <span class="fu">getFactorImg</span>([</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;REFLECTANCE_ADD_BAND_.|TEMPERATURE_ADD_BAND_ST_B10&#39;</span>])<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> scaled <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;SR_B.|ST_B10&#39;</span>)<span class="op">.</span><span class="fu">multiply</span>(scaleImg)<span class="op">.</span><span class="fu">add</span>(offsetImg)<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Replace original bands with scaled bands and apply masks.</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> image<span class="op">.</span><span class="fu">addBands</span>(scaled<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">true</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">updateMask</span>(qaMask)<span class="op">.</span><span class="fu">updateMask</span>(saturationMask)<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">// Make a cloud-free Landsat 8 surface reflectance composite.</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C02/T1_L2&#39;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">&#39;2021-03-01&#39;</span><span class="op">,</span> <span class="st">&#39;2021-07-01&#39;</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">map</span>(prepSrL8)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">// Use these bands for prediction.</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> bands <span class="op">=</span> [<span class="st">&#39;SR_B2&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B3&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B4&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B5&#39;</span><span class="op">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;SR_B6&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B7&#39;</span><span class="op">,</span> <span class="st">&#39;ST_B10&#39;</span>]<span class="op">;</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Load training points. The numeric property &#39;class&#39; stores known labels.</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> points <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(<span class="st">&#39;GOOGLE/EE/DEMOS/demo_landcover_labels&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">// This property stores the land cover labels as consecutive</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">// integers starting from zero.</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> label <span class="op">=</span> <span class="st">&#39;landcover&#39;</span><span class="op">;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">// Overlay the points on the imagery to get training.</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> training <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(bands)<span class="op">.</span><span class="fu">sampleRegions</span>({</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> points<span class="op">,</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">properties</span><span class="op">:</span> [label]<span class="op">,</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">// Train a CART classifier with default parameters.</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> trained <span class="op">=</span> ee<span class="op">.</span><span class="at">Classifier</span><span class="op">.</span><span class="fu">smileCart</span>()<span class="op">.</span><span class="fu">train</span>(training<span class="op">,</span> label<span class="op">,</span> bands)<span class="op">;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">// Classify the image with the same bands used for training.</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> classified <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(bands)<span class="op">.</span><span class="fu">classify</span>(trained)<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">// Display the inputs and the results.</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setCenter</span>(<span class="op">-</span><span class="fl">122.0877</span><span class="op">,</span> <span class="fl">37.7880</span><span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(image<span class="op">,</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>             {<span class="dt">bands</span><span class="op">:</span> [<span class="st">&#39;SR_B4&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B3&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B2&#39;</span>]<span class="op">,</span> <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.25</span>}<span class="op">,</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;image&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(classified<span class="op">,</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>             {<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">&#39;orange&#39;</span><span class="op">,</span> <span class="st">&#39;green&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>]}<span class="op">,</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;classification&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">// Add the training points to map</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(points<span class="op">,</span> {<span class="dt">color</span><span class="op">:</span> <span class="st">&#39;purple&#39;</span>}<span class="op">,</span> <span class="st">&#39;points&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<script type="text/javascript">
+// Define a function that scales and masks Landsat 8 surface reflectance images.
+function prepSrL8(image) {
+  // Develop masks for unwanted pixels (fill, cloud, cloud shadow).
+  var qaMask = image.select('QA_PIXEL').bitwiseAnd(parseInt('11111', 2)).eq(0);
+  var saturationMask = image.select('QA_RADSAT').eq(0);
 
+  // Apply the scaling factors to the appropriate bands.
+  var getFactorImg = function(factorNames) {
+    var factorList = image.toDictionary().select(factorNames).values();
+    return ee.Image.constant(factorList);
+  };
+  var scaleImg = getFactorImg([
+    'REFLECTANCE_MULT_BAND_.|TEMPERATURE_MULT_BAND_ST_B10']);
+  var offsetImg = getFactorImg([
+    'REFLECTANCE_ADD_BAND_.|TEMPERATURE_ADD_BAND_ST_B10']);
+  var scaled = image.select('SR_B.|ST_B10').multiply(scaleImg).add(offsetImg);
+
+  // Replace original bands with scaled bands and apply masks.
+  return image.addBands(scaled, null, true)
+    .updateMask(qaMask).updateMask(saturationMask);
+}
+
+// Make a cloud-free Landsat 8 surface reflectance composite.
+var image = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')
+  .filterDate('2021-03-01', '2021-07-01')
+  .map(prepSrL8)
+  .median();
+
+// Use these bands for prediction.
+var bands = ['SR_B2', 'SR_B3', 'SR_B4', 'SR_B5',
+             'SR_B6', 'SR_B7', 'ST_B10'];
+
+// Load training points. The numeric property 'class' stores known labels.
+var points = ee.FeatureCollection('GOOGLE/EE/DEMOS/demo_landcover_labels');
+
+// This property stores the land cover labels as consecutive
+// integers starting from zero.
+var label = 'landcover';
+
+// Overlay the points on the imagery to get training.
+var training = image.select(bands).sampleRegions({
+  collection: points,
+  properties: [label],
+  scale: 30
+});
+
+// Train a CART classifier with default parameters.
+var trained = ee.Classifier.smileCart().train(training, label, bands);
+
+// Classify the image with the same bands used for training.
+var classified = image.select(bands).classify(trained);
+
+// Display the inputs and the results.
+Map.setCenter(-122.0877, 37.7880, 11);
+Map.addLayer(image,
+             {bands: ['SR_B4', 'SR_B3', 'SR_B2'], min: 0, max: 0.25},
+             'image');
+Map.addLayer(classified,
+             {min: 0, max: 2, palette: ['orange', 'green', 'blue']},
+             'classification');
+
+// Add the training points to map
+Map.addLayer(points, {color: 'purple'}, 'points');
+</script>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="img/lab5_gee/gee_cart.png" alt="Decision tree model output from `smileCart()` with training points in purple." width="100%" class=external />
+<p class="caption">
+Figure 3: Decision tree model output from <code>smileCart()</code> with training points in purple.
+</p>
+</div>
+</div>
+<p>In the third code chunk from <a href="https://developers.google.com/earth-engine/guides/clustering">Unsupervised Classification (clustering) | GEE</a> , a RandomForest model (<code>smileRandomForest()</code>) is evaluated for its performance (<code>confusionMatrix()</code>) based on how well the model predicts the original inputs.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a region of interest.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> roi <span class="op">=</span> ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">BBox</span>(<span class="op">-</span><span class="fl">122.93</span><span class="op">,</span> <span class="fl">36.99</span><span class="op">,</span> <span class="op">-</span><span class="fl">121.20</span><span class="op">,</span> <span class="fl">38.16</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a function that scales and masks Landsat 8 surface reflectance images.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">prepSrL8</span>(image) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Develop masks for unwanted pixels (fill, cloud, cloud shadow).</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> qaMask <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;QA_PIXEL&#39;</span>)<span class="op">.</span><span class="fu">bitwiseAnd</span>(<span class="pp">parseInt</span>(<span class="st">&#39;11111&#39;</span><span class="op">,</span> <span class="dv">2</span>))<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> saturationMask <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;QA_RADSAT&#39;</span>)<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Apply the scaling factors to the appropriate bands.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> getFactorImg <span class="op">=</span> <span class="kw">function</span>(factorNames) {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> factorList <span class="op">=</span> image<span class="op">.</span><span class="fu">toDictionary</span>()<span class="op">.</span><span class="fu">select</span>(factorNames)<span class="op">.</span><span class="fu">values</span>()<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ee<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">constant</span>(factorList)<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> scaleImg <span class="op">=</span> <span class="fu">getFactorImg</span>([</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;REFLECTANCE_MULT_BAND_.|TEMPERATURE_MULT_BAND_ST_B10&#39;</span>])<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> offsetImg <span class="op">=</span> <span class="fu">getFactorImg</span>([</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;REFLECTANCE_ADD_BAND_.|TEMPERATURE_ADD_BAND_ST_B10&#39;</span>])<span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> scaled <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;SR_B.|ST_B10&#39;</span>)<span class="op">.</span><span class="fu">multiply</span>(scaleImg)<span class="op">.</span><span class="fu">add</span>(offsetImg)<span class="op">;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Replace original bands with scaled bands and apply masks.</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> image<span class="op">.</span><span class="fu">addBands</span>(scaled<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">true</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">updateMask</span>(qaMask)<span class="op">.</span><span class="fu">updateMask</span>(saturationMask)<span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Make a cloud-free Landsat 8 surface reflectance composite.</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> input <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C02/T1_L2&#39;</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterBounds</span>(roi)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">&#39;2020-03-01&#39;</span><span class="op">,</span> <span class="st">&#39;2020-07-01&#39;</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(prepSrL8)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">median</span>()</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">setDefaultProjection</span>(<span class="st">&#39;EPSG:4326&#39;</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="dv">30</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">select</span>([<span class="st">&#39;SR_B2&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B3&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B4&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B5&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B6&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B7&#39;</span>])<span class="op">;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">// Use MODIS land cover, IGBP classification, for training.</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> modis <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">&#39;MODIS/006/MCD12Q1/2020_01_01&#39;</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;LC_Type1&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">// Sample the input imagery to get a FeatureCollection of training data.</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> training <span class="op">=</span> input<span class="op">.</span><span class="fu">addBands</span>(modis)<span class="op">.</span><span class="fu">sample</span>({</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">region</span><span class="op">:</span> roi<span class="op">,</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">numPixels</span><span class="op">:</span> <span class="dv">5000</span><span class="op">,</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">seed</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">// Make a Random Forest classifier and train it.</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> classifier <span class="op">=</span> ee<span class="op">.</span><span class="at">Classifier</span><span class="op">.</span><span class="fu">smileRandomForest</span>(<span class="dv">10</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">train</span>({</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="dt">features</span><span class="op">:</span> training<span class="op">,</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>      <span class="dt">classProperty</span><span class="op">:</span> <span class="st">&#39;LC_Type1&#39;</span><span class="op">,</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>      <span class="dt">inputProperties</span><span class="op">:</span> [<span class="st">&#39;SR_B2&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B3&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B4&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B5&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B6&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B7&#39;</span>]</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">// Classify the input imagery.</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> classified <span class="op">=</span> input<span class="op">.</span><span class="fu">classify</span>(classifier)<span class="op">;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">// Get a confusion matrix representing resubstitution accuracy.</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> trainAccuracy <span class="op">=</span> classifier<span class="op">.</span><span class="fu">confusionMatrix</span>()<span class="op">;</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Resubstitution error matrix: &#39;</span><span class="op">,</span> trainAccuracy)<span class="op">;</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Training overall accuracy: &#39;</span><span class="op">,</span> trainAccuracy<span class="op">.</span><span class="fu">accuracy</span>())<span class="op">;</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">// Sample the input with a different random seed to get validation data.</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> validation <span class="op">=</span> input<span class="op">.</span><span class="fu">addBands</span>(modis)<span class="op">.</span><span class="fu">sample</span>({</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">region</span><span class="op">:</span> roi<span class="op">,</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">numPixels</span><span class="op">:</span> <span class="dv">5000</span><span class="op">,</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">seed</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Filter the result to get rid of any null pixels.</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">notNull</span>(input<span class="op">.</span><span class="fu">bandNames</span>()))<span class="op">;</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="co">// Classify the validation data.</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> validated <span class="op">=</span> validation<span class="op">.</span><span class="fu">classify</span>(classifier)<span class="op">;</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co">// Get a confusion matrix representing expected accuracy.</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> testAccuracy <span class="op">=</span> validated<span class="op">.</span><span class="fu">errorMatrix</span>(<span class="st">&#39;LC_Type1&#39;</span><span class="op">,</span> <span class="st">&#39;classification&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Validation error matrix: &#39;</span><span class="op">,</span> testAccuracy)<span class="op">;</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Validation overall accuracy: &#39;</span><span class="op">,</span> testAccuracy<span class="op">.</span><span class="fu">accuracy</span>())<span class="op">;</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co">// Define a palette for the IGBP classification.</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> igbpPalette <span class="op">=</span> [</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;aec3d4&#39;</span><span class="op">,</span> <span class="co">// water</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;152106&#39;</span><span class="op">,</span> <span class="st">&#39;225129&#39;</span><span class="op">,</span> <span class="st">&#39;369b47&#39;</span><span class="op">,</span> <span class="st">&#39;30eb5b&#39;</span><span class="op">,</span> <span class="st">&#39;387242&#39;</span><span class="op">,</span> <span class="co">// forest</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;6a2325&#39;</span><span class="op">,</span> <span class="st">&#39;c3aa69&#39;</span><span class="op">,</span> <span class="st">&#39;b76031&#39;</span><span class="op">,</span> <span class="st">&#39;d9903d&#39;</span><span class="op">,</span> <span class="st">&#39;91af40&#39;</span><span class="op">,</span>  <span class="co">// shrub, grass</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;111149&#39;</span><span class="op">,</span> <span class="co">// wetlands</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;cdb33b&#39;</span><span class="op">,</span> <span class="co">// croplands</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;cc0013&#39;</span><span class="op">,</span> <span class="co">// urban</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;33280d&#39;</span><span class="op">,</span> <span class="co">// crop mosaic</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;d7cdcc&#39;</span><span class="op">,</span> <span class="co">// snow and ice</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;f7e084&#39;</span><span class="op">,</span> <span class="co">// barren</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;6f6f6f&#39;</span>  <span class="co">// tundra</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="co">// Display the input and the classification.</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(roi<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(input<span class="op">.</span><span class="fu">clip</span>(roi)<span class="op">,</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>             {<span class="dt">bands</span><span class="op">:</span> [<span class="st">&#39;SR_B4&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B3&#39;</span><span class="op">,</span> <span class="st">&#39;SR_B2&#39;</span>]<span class="op">,</span> <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.25</span>}<span class="op">,</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;landsat&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(classified<span class="op">.</span><span class="fu">clip</span>(roi)<span class="op">,</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>             {<span class="dt">palette</span><span class="op">:</span> igbpPalette<span class="op">,</span> <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">17</span>}<span class="op">,</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;classification&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<script type="text/javascript">
+// Define a region of interest.
+var roi = ee.Geometry.BBox(-122.93, 36.99, -121.20, 38.16);
+
+// Define a function that scales and masks Landsat 8 surface reflectance images.
+function prepSrL8(image) {
+  // Develop masks for unwanted pixels (fill, cloud, cloud shadow).
+  var qaMask = image.select('QA_PIXEL').bitwiseAnd(parseInt('11111', 2)).eq(0);
+  var saturationMask = image.select('QA_RADSAT').eq(0);
+
+  // Apply the scaling factors to the appropriate bands.
+  var getFactorImg = function(factorNames) {
+    var factorList = image.toDictionary().select(factorNames).values();
+    return ee.Image.constant(factorList);
+  };
+  var scaleImg = getFactorImg([
+    'REFLECTANCE_MULT_BAND_.|TEMPERATURE_MULT_BAND_ST_B10']);
+  var offsetImg = getFactorImg([
+    'REFLECTANCE_ADD_BAND_.|TEMPERATURE_ADD_BAND_ST_B10']);
+  var scaled = image.select('SR_B.|ST_B10').multiply(scaleImg).add(offsetImg);
+
+  // Replace original bands with scaled bands and apply masks.
+  return image.addBands(scaled, null, true)
+    .updateMask(qaMask).updateMask(saturationMask);
+}
+
+// Make a cloud-free Landsat 8 surface reflectance composite.
+var input = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')
+    .filterBounds(roi)
+    .filterDate('2020-03-01', '2020-07-01')
+    .map(prepSrL8)
+    .median()
+    .setDefaultProjection('EPSG:4326', null, 30)
+    .select(['SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7']);
+
+// Use MODIS land cover, IGBP classification, for training.
+var modis = ee.Image('MODIS/006/MCD12Q1/2020_01_01')
+    .select('LC_Type1');
+
+// Sample the input imagery to get a FeatureCollection of training data.
+var training = input.addBands(modis).sample({
+  region: roi,
+  numPixels: 5000,
+  seed: 0
+});
+
+// Make a Random Forest classifier and train it.
+var classifier = ee.Classifier.smileRandomForest(10)
+    .train({
+      features: training,
+      classProperty: 'LC_Type1',
+      inputProperties: ['SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7']
+    });
+
+// Classify the input imagery.
+var classified = input.classify(classifier);
+
+// Get a confusion matrix representing resubstitution accuracy.
+var trainAccuracy = classifier.confusionMatrix();
+print('Resubstitution error matrix: ', trainAccuracy);
+print('Training overall accuracy: ', trainAccuracy.accuracy());
+
+// Sample the input with a different random seed to get validation data.
+var validation = input.addBands(modis).sample({
+  region: roi,
+  numPixels: 5000,
+  seed: 1
+  // Filter the result to get rid of any null pixels.
+}).filter(ee.Filter.notNull(input.bandNames()));
+
+// Classify the validation data.
+var validated = validation.classify(classifier);
+
+// Get a confusion matrix representing expected accuracy.
+var testAccuracy = validated.errorMatrix('LC_Type1', 'classification');
+print('Validation error matrix: ', testAccuracy);
+print('Validation overall accuracy: ', testAccuracy.accuracy());
+
+// Define a palette for the IGBP classification.
+var igbpPalette = [
+  'aec3d4', // water
+  '152106', '225129', '369b47', '30eb5b', '387242', // forest
+  '6a2325', 'c3aa69', 'b76031', 'd9903d', '91af40',  // shrub, grass
+  '111149', // wetlands
+  'cdb33b', // croplands
+  'cc0013', // urban
+  '33280d', // crop mosaic
+  'd7cdcc', // snow and ice
+  'f7e084', // barren
+  '6f6f6f'  // tundra
+];
+
+// Display the input and the classification.
+Map.centerObject(roi, 10);
+Map.addLayer(input.clip(roi),
+             {bands: ['SR_B4', 'SR_B3', 'SR_B2'], min: 0, max: 0.25},
+             'landsat');
+Map.addLayer(classified.clip(roi),
+             {palette: igbpPalette, min: 0, max: 17},
+             'classification');
+</script>
+</div>
+<p>Notice how the training and validation points are sampled from the MODIS land cover (<code>modis</code>) and how the outputs are printed in the Console.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="img/lab5_gee/gee_randomforest.png" alt="Code Editor showing evaluation code for a  RandomForest model and Console output of model performance with classified image in Map." width="100%" class=external />
+<p class="caption">
+Figure 4: Code Editor showing evaluation code for a RandomForest model and Console output of model performance with classified image in Map.
+</p>
+</div>
+</div>
+<p>Modify the following parameters above and report the changes in accuracy for training and validation:</p>
+<ol type="1">
+<li><p>Change the <code>numberOfTrees</code> in <a href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest"><code>smileRandomForest()</code></a> to a lesser and higher number.</p></li>
+<li><p>Change the <code>numPixels</code> in the training sample to a lesser and higher number.</p></li>
+<li><p>Qualitatively explain how these changes affect the two accuracy metrics.</p></li>
+</ol>
+<h1 data-number="5" id="going-further"><span class="header-section-number">5</span> Going Further</h1>
+<p>GEE Tutorials:</p>
 <ul>
-<li><a href="https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>DLR</em></a>
-<p>
-<cite>Chollet, F. and J. J. Allaire (2018). <em>Deep Learning with R</em>. Shelter Island, NY: Manning Publications Co. ISBN: 978-1-61729-554-6.</cite>
-</p></li>
-<li><a href="https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>DLPy</em></a>
-<p>
-<cite>Chollet, F. (2018). <em>Deep Learning with Python</em>. 1st edition. Shelter Island, New York: Manning. ISBN: 978-1-61729-443-3.</cite>
-</p></li>
-<li><a href="https://bradleyboehmke.github.io/HOML/"><em>HOMLR</em></a>
-<p>
-<cite>Greenwell, B. B. &amp;. B. (2020). <em>Hands-On Machine Learning with R</em>.</cite>
-</p></li>
-<li><a href="https://rspatial.org/raster/sdm/"><em>SDMR</em></a>
-<p>
-<cite>Hijmans, R. J. and J. Elith (2021). <em>Species Distribution Modeling with R</em>.</cite>
-</p></li>
-<li><a href="https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>TDA</em></a>
-<p>
-<cite>Kindt, R. and R. Coe (2005). <em>Tree Diversity Analysis: A Manual and Software for Common Statistical Methods for Ecological and Biodiversity Studies</em>. Nairobi, Kenya: World Agrofirestry Centre. ISBN: 978-92-9059-179-5.</cite>
-</p></li>
+<li><a href="https://geohackweek.github.io/GoogleEarthEngine/">Google Earth Engine | Software Carpentry style</a></li>
+<li><a href="https://developers.google.com/earth-engine/tutorials/community/beginners-cookbook?hl=en">Beginner’s Cookbook | GEE</a></li>
+<li><a href="https://developers.google.com/earth-engine/tutorials/tutorial_forest_01">Forest Change Analysis in Earth Engine | GEE</a></li>
+<li><a href="https://developers.google.com/earth-engine/tutorials/tutorial_global_surface_water_01">Global Surface Water Analysis in Earth Engine | GEE</a></li>
 </ul>
-</div>
-<h2 id="articles">Articles</h2>
-<div class="layout-chunk" data-layout="l-body">
-<p><a name=bib-elithSpeciesDistributionModels2009></a><a href="#cite-elithSpeciesDistributionModels2009">Elith, J. and J. R. Leathwick</a> (2009). “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time”. In: <em>Annu. Rev. Ecol. Evol. Syst.</em> 40.1, pp. 677-697. ISSN: 1543-592X. DOI: <a href="https://doi.org/10.1146%2Fannurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
-<p><a name=bib-evansModelingSpeciesDistribution2011></a><a href="#cite-evansModelingSpeciesDistribution2011">Evans, J. S., M. A. Murphy, Z. A. Holden, et al.</a> (2011). “Modeling Species Distribution and Change Using Random Forest”. In: <em>Predictive Species and Habitat Modeling in Landscape Ecology: Concepts and Applications</em>. Ed. by C. A. Drew, Y. F. Wiersma and F. Huettmann. New York, NY: Springer, pp. 139-159. ISBN: 978-1-4419-7390-0. DOI: <a href="https://doi.org/10.1007%2F978-1-4419-7390-0_8">10.1007/978-1-4419-7390-0_8</a>.</p>
-<p><a
-name=bib-andradeENMTMLPackageStraightforward2020></a><a href="#cite-andradeENMTMLPackageStraightforward2020">Andrade, A. F. A. de, S. J. E. Velazco, and P. De Marco Júnior</a> (2020). “ENMTML: An R Package for a Straightforward Construction of Complex Ecological Niche Models”. In: <em>Environmental Modelling &amp; Software</em> 125, p. 104615. ISSN: 1364-8152. DOI: <a href="https://doi.org/10.1016%2Fj.envsoft.2019.104615">10.1016/j.envsoft.2019.104615</a>.</p>
-<p><a name=bib-zhongMachineLearningNew2021></a><a href="#cite-zhongMachineLearningNew2021">Zhong, S., K. Zhang, M. Bagheri, et al.</a> (2021). “Machine Learning: New Ideas and Tools in Environmental Science and Engineering”. In: <em>Environ. Sci. Technol.</em> 55.19, pp. 12741-12754. ISSN: 0013-936X. DOI: <a href="https://doi.org/10.1021%2Facs.est.1c01339">10.1021/acs.est.1c01339</a>.</p>
-<p><a
-name=bib-oksanenMultivariateAnalysisEcological2022></a><a href="#cite-oksanenMultivariateAnalysisEcological2022">Oksanen, J.</a> (2022). “Multivariate Analysis of Ecological Communities in R: Vegan Tutorial” , p. 43.</p>
-</div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>GEE &amp; TensorFlow:</p>
+<ul>
+<li><a href="https://developers.google.com/earth-engine/guides/tensorflow">TensorFlow and Earth Engine | GEE</a></li>
+<li><a href="https://developers.google.com/earth-engine/guides/tf_examples">TensorFlow example workflows | GEE</a></li>
+<li><a href="https://csaybar.github.io/blog/2019/05/30/eetf/">Integrating Earth Engine with Tensorflow I - DNN</a></li>
+<li><a href="https://csaybar.github.io/blog/2019/06/21/eetf2/">Integrating Earth Engine with Tensorflow II - U-Net</a></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

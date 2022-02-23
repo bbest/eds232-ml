@@ -1,0 +1,19 @@
+---
+title: "Lab 5a. Machine Learning in Google Earth Engine - Python"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T)
+```
+
+# Learning Objectives {.unnumbered}
+
+
+
+# Introduction to Python
+
+* [An Intro to the Earth Engine Python API](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard)
+
+# Submit Lab 5

@@ -29,6 +29,8 @@ navbar:
           href: lab4b_examples.html
         - text: "4c. Deep Learning: iNaturalist"
           href: lab4c_inat.html
+        - text: "5a. Google Earth Engine: JavaScript"
+          href: lab5a_gee-js.html
         - text: "Group Project: Kaggle Competition"
           href: gp_kaggle.html
     - text: "Glosssary"

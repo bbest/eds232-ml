@@ -87,26 +87,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>EDS 232: EDS 232: Machine Learning in Environmental Science</title>
+  <title>EDS 232: Lab 5a. Google Earth Engine - Classification</title>
 
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="og:title" content="EDS 232: Lab 5a. Google Earth Engine - Classification"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="EDS 232"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="EDS 232: EDS 232: Machine Learning in Environmental Science"/>
+  <meta property="twitter:title" content="EDS 232: Lab 5a. Google Earth Engine - Classification"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 232: Machine Learning in Environmental Science"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["pandoc_args"]}},"value":[{"type":"NULL"}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Lab 5a. Google Earth Engine - Classification"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["html_document"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["fig_caption"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2448,17 +2448,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/datatables-binding-0.19/datatables.js"></script>
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-  <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-  <link href="site_libs/dt-ext-rowgroup-1.10.20/css/rowGroup.dataTables.min.css" rel="stylesheet" />
-  <script src="site_libs/dt-ext-rowgroup-1.10.20/js/dataTables.rowGroup.min.js"></script>
-  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2478,7 +2467,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"EDS 232: Machine Learning in Environmental Science","authors":[]}
+{"title":"Lab 5a. Google Earth Engine - Classification","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2507,7 +2496,6 @@ Labs
 <a href="lab4a_dl-neural-nets.html">4a. Deep Learning: neural networks</a>
 <a href="lab4b_examples.html">4b. Deep Learning: keras</a>
 <a href="lab4c_inat.html">4c. Deep Learning: iNaturalist</a>
-<a href="lab5a_gee-js.html">5a. Google Earth Engine: JavaScript</a>
 <a href="gp_kaggle.html">Group Project: Kaggle Competition</a>
 </div>
 </div>
@@ -2525,7 +2513,7 @@ Labs
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>EDS 232: Machine Learning in Environmental Science</h1>
+<h1>Lab 5a. Google Earth Engine - Classification</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2537,126 +2525,41 @@ Labs
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#course-schedule">Course Schedule</a></li>
-<li><a href="#course-description">Course Description</a></li>
-<li><a href="#grading">Grading</a></li>
-<li><a href="#readings">Readings</a>
-<ul>
-<li><a href="#textbooks">Textbooks</a></li>
-<li><a href="#articles">Articles</a></li>
-</ul></li>
+<li><a href="#learning-objectives">Learning Objectives</a></li>
+<li><a href="#google-earth-engine-gee-setup"><span class="toc-section-number">1</span> Google Earth Engine (GEE) Setup</a></li>
+<li><a href="#gee-code-editor"><span class="toc-section-number">2</span> GEE Code Editor</a></li>
 </ul>
 </nav>
 </div>
-<blockquote>
-<p>“Everything that civilisation has to offer is a product of human intelligence; we cannot predict what we might achieve when this intelligence is magnified by the tools that AI may provide, but the eradication of war, disease, and poverty would be high on anyone’s list. Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last.” – Stephen Hawking.</p>
-</blockquote>
-<h1 id="course-schedule">Course Schedule</h1>
+<h1 class="unnumbered" id="learning-objectives">Learning Objectives</h1>
+<p>Google Earth Engine (GEE) is an online platform for spatial analytics with access to over 40 petabytes of data globally spanning over 30 years, largely composed of satellite imagery. Huge <strong>storage</strong> is combined with massive <strong>computation</strong> for the ultimate <strong>cloud</strong> solution. For instance, global climatologies spanning the satellite record of Landsat since 1984 (30m pixels covering the globe every 16 days) can be calculated and visualized instantly. You can also classify satellite images, e.g. into land cover or wetlands, using machine learning techniques. And it’s free!</p>
+<p>You will start using the native GEE Code Editor interface that uses <strong>JavaScript</strong>, which is by far the most common web-based programming language used on the front end (i.e., client web browser interactivity) and increasingly the back end (e.g., server Node JS using the React web framework).</p>
+<p>Next week you will learn to run these techniques in a Google Colab notebook, a <strong>Python</strong> based variant of a Jupyter notebook hosted by Google.</p>
+<p>It is possible to run Deep Learning models directly within GEE (see <a href="https://developers.google.com/earth-engine/guides/tf_examples">TensorFlow example workflows</a>)) for more complex models, e.g. identifying ships or crops from satellite imagery, however that requires at least one of the following paid services that we haven’t yet setup for class: Cloud Storage, AI Platform Prediction and/or AI Platform Training.</p>
+<h1 data-number="1" id="google-earth-engine-gee-setup"><span class="header-section-number">1</span> Google Earth Engine (GEE) Setup</h1>
+<p>A GEE account that is associated with a Google account, preferably your UCSB login, is required to log into the GEE Code Editor (<a href="https://code.earthengine.google.com">code.earthengine.google.com</a>).</p>
+<p>If you need a GEE account, please visit <a href="https://signup.earthengine.google.com">signup.earthengine.google.com</a>.</p>
+<p>You may need to log out and back into your web browser as the preferred Google account to request permissions. This approval process usually takes a couple minutes.</p>
+<p>Here are a couple of the fields I entered which you’re welcome to use:</p>
 <ul>
-<li><p><strong>Lectures/Labs</strong>: MW 9:30am - 10:45am at NCEAS. For Covid compliance, lectures will be available via Zoom link that is shared in your Google Calendar invite and on the #eds-232 Slack Channel for MEDS (and not shared publicly to avoid <a href="https://en.wikipedia.org/wiki/Zoombombing">Zoombombing</a>).</p></li>
-<li><p><a href="https://forms.gle/GW9SBEXg9fuQvX3A7" target="_blank"><strong>Feedback Form</strong></a>. Please share any/all feedback anonymously and as frequently, e.g. weekly, as you like. Your input is always welcome and appreciated.</p></li>
-<li><p><strong>Instructor</strong>: Ben Best (ben@ecoquants.com)</p></li>
-<li><p><strong>Office hours</strong>: Mondays 11am-12:30 pm on Zoom / NCEAS office</p></li>
+<li><p>Affiliation/Institution<br />
+<a href="https://bbest.github.io/eds232-ml/" class="uri">https://bbest.github.io/eds232-ml/</a></p></li>
+<li><p>What would you like to accomplish with Earth Engine?<br />
+I will learn to apply machine learning to satellite imagery for both unsupervised (clustering) and supervised (RandomForest) learning.</p></li>
 </ul>
+<h1 data-number="2" id="gee-code-editor"><span class="header-section-number">2</span> GEE Code Editor</h1>
+<p>The GEE documentation is quite good starting with <a href="https://developers.google.com/earth-engine/guides/getstarted">Get Started with Earth Engine</a>, visiting <a href="https://developers.google.com/earth-engine/tutorials/tutorial_js_01">Introduction to JavaScript for Earth Engine</a> for a quick JavaScript refresher and going through the <a href="https://developers.google.com/earth-engine/guides/playground">Earth Engine Code Editor</a> if you’re not yet familiar.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-9b480f3226a4ede34570" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9b480f3226a4ede34570">{"x":{"filter":"none","vertical":false,"extensions":["RowGroup"],"data":[[1,1,2,2,3,3,4,4,5,5,5,6,6,7,7,8,8,9,9,10],["Mon, Jan 3","Wed, Jan 5","Mon, Jan 10","Wed, Jan 12","Mon, Jan 17","Wed, Jan 19","Mon, Jan 24","Wed, Jan 26","Mon, Jan 31","Wed, Feb 2","Mon, Feb 7","Wed, Feb 9","Mon, Feb 14","Wed, Feb 16","Mon, Feb 21","Wed, Feb 23","Mon, Feb 28","Wed, Mar 2","Mon, Mar 7","Wed, Mar 9"],["Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Species Distributions (Supervised Learning)","Community Analyses (Unsupervised Learning)","Community Analyses (Unsupervised Learning)","Reserve Design (Optimization)","Mid-Term","Mid-Term","Mid-Term","Species Images (Deep Learning)","Species Images (Deep Learning)","Species Images (Deep Learning)","Species Images (Deep Learning)","Satellite Imagery (Google Earth Engine)","Satellite Imagery (Google Earth Engine)","Reflection","Reflection","Reflection"],["<a href='https://docs.google.com/presentation/d/1ZNIH-DdHy2B-gJhbVmrMPPiICP_1Q0B0YfqaDmz-mRw/edit?usp=sharing' target='_blank'>Introduction<\/a>  <a href=\"https://youtu.be/KmQzGVx6lO8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1Oh6lgAAuoktI-M8pjDYSRp0FqTh3JANQhczeR4uVHYw/edit?usp=sharing' target='_blank'>Logistic Regression<\/a>  <a href=\"https://youtu.be/5z5dcmHg1tY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1R4y-QXcIAcRDpmU9_-blpU4_Jkd7olwzVe3BU2w0lF0/edit?usp=sharing' target='_blank'>Decision Trees<\/a>  <a href=\"https://youtu.be/8BsNybYh0Ls\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1wPfEEhhSdtA6q7wXpucrxop3dTgJrzYdyFskDQAbq3E/edit?usp=sharing' target='_blank'>Model Evaluation<\/a>  <a href=\"https://youtu.be/taAM6Bo8bDU\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","HOLIDAY","<a href='https://docs.google.com/presentation/d/1TdIjzc5Lu1WCNMMoxyddnt_GO8jLNS_Vc7cCgrxG3lA/edit?usp=sharing' target='_blank'>Clustering<\/a>  <a href=\"https://youtu.be/4zXXjgEqPA0\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing' target='_blank'>Ordination<\/a>  <a href=\"https://youtu.be/p_nZbI9taIc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/13BmRTMSv_XFeiwJYymbfrQ0ZF5xhI6Yr_OWqD4MXn08/edit?usp=sharing' target='_blank'>Conservation Planning<\/a>  <a href=\"https://youtu.be/ZAc7TaCDlMY\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/15IS6w8AdaomRGd8kyzIKNVR6NG0qGe0r4KlOtCoiVtc/edit?usp=sharing' target='_blank'>Mid-Term Review<\/a>  <a href=\"https://youtu.be/hTfZBbgoRZc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1xsRkZq-5U2MakxHTujMPhTJWOeGe7Bs1RGzHM_XPlU0/edit?usp=sharing' target='_blank'>Ordination Recap<\/a>  <a href=\"https://youtu.be/42SJVEp0-2Y\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","Mid-Term Exam","<a href='https://docs.google.com/presentation/d/15IS6w8AdaomRGd8kyzIKNVR6NG0qGe0r4KlOtCoiVtc/edit?usp=sharing' target='_blank'>Neural Networks<\/a>  <a href=\"https://youtu.be/rDMhgmCvCNc\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/19l29RTwwKdM-BtAufo_UBZnz7RS5XjMNgMNPKO1o5yw/edit?usp=sharing' target='_blank'>TensorFlow and Keras<\/a>  <a href=\"https://youtu.be/tvZQGastDjQ\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","<a href='https://docs.google.com/presentation/d/1MrQGnyBIK_Cj7BtbBGhp2tkBzMY2wC7exAJD1xpNDKo/edit?usp=sharing' target='_blank'>Computer Vision<\/a>  <a href=\"https://youtu.be/VPt4fnZeIs8\" target=\"_blank\">\n  <i class=\"fab fa-youtube\" role=\"presentation\" aria-label=\"youtube icon\"><\/i>\n<\/a>","HOLIDAY","<a href='https://docs.google.com/presentation/d/1leyl5r3LQAttjN4AbSxVXkZxlLqyK_nqdzrmcQuUGdc/edit?usp=sharing' target='_blank'>ML in GEE: JavaScript<\/a>","ML in GEE: Python","Ethics, Justice and Bias","Expert Panel Discussion","Group Project Presentations"],["<a href='https://bbest.github.io/eds232-ml/lab1a_sdm-explore.html' target='_blank'>Species: explore<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1b_sdm-regress.html' target='_blank'>Species: regress<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1c_sdm-trees.html' target='_blank'>Species: trees<\/a>","<a href='https://bbest.github.io/eds232-ml/lab1d_sdm-evaluate.html' target='_blank'>Species: evaluate<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab2a_community-cluster.html' target='_blank'>Communities: cluster<\/a>","<a href='https://bbest.github.io/eds232-ml/lab2b_community-ordination.html' target='_blank'>Communities: ordinate<\/a>","<a href='https://bbest.github.io/eds232-ml/lab3_reserves.html' target='_blank'>Reserves<\/a>","<a href='https://bbest.github.io/eds232-ml/review_midterm.html' target='_blank'>Mid-Term Review<\/a>","<a href='https://bbest.github.io/eds232-ml/lab2b_community-ordination.html' target='_blank'>Communities: ordinate<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab4a_dl-neural-nets.html' target='_blank'>DL: neural networks<\/a>","<a href='https://bbest.github.io/eds232-ml/lab4b_examples.html' target='_blank'>DL: keras<\/a>","<a href='https://bbest.github.io/eds232-ml/lab4c_inat.html' target='_blank'>DL: iNaturalist<\/a>","","<a href='https://bbest.github.io/eds232-ml/lab5a_gee-js.html' target='_blank'>GEE: javascript<\/a>","GEE: python","","",""],["Data Prep <a href=\"https://rspatial.org/raster/sdm/2_sdm_occdata.html\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=1-LYnsLS7ze68f3CNp6I-kFxuGPceGk5c&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs\">Zhong et al. (2021)<\/a>","Model Fitting <a href=\"https://rspatial.org/raster/sdm/5_sdm_models.html\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=1-LPyMekhOQPkwOJzDYj6RQf7S5wlH8wn&amp;authuser=benbest%40ucsb.edu&amp;usp=drive_fs\">Elith &amp; Leathwick (2009)<\/a>","Ch. 9, 11 <a href=\"https://bradleyboehmke.github.io/HOML/DT.html\"><em>HOMLR<\/em><\/a>; Random Forest <a href=\"https://rspatial.org/raster/sdm/6_sdm_methods.html#random-forest\"><em>SDMR<\/em><\/a>;  <a href=\"https://drive.google.com/file/d/1FYzbDjCxwacR0iZZmmDJ0Albcw00jru2/view?usp=sharing\">Evans et al. (2011)<\/a>","Model Evaluation <a href=\"https://rspatial.org/raster/sdm/5_sdm_models.html#model-evaluation\"><em>SDMR<\/em><\/a>; <a href=\"https://drive.google.com/open?id=16SIJiRTII6Lj5Ht0xd23DlYacVi477RJ&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\">Andrade et al. (2020)<\/a>",null,"Ch. 8-9 <a href=\"https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>TDA<\/em><\/a>; Ch. 21 <a href=\"https://bradleyboehmke.github.io/HOML/hierarchical.html#agglomerative-hierarchical-clustering\"><em>HOMLR<\/em><\/a>","Ch. 17 <a href=\"https://bradleyboehmke.github.io/HOML/pca.html#finding-principal-components\"><em>HOMLR<\/em><\/a>; <a href=\"https://github.com/bbest/eds232-ml/raw/main/files/vegantutor.pdf\">Oksanen (2022)<\/a>",null,null,null,null,"Ch 1-2 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a> / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>","Ch 3-4 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a>  / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>","Ch 5 <a href=\"https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLR<\/em><\/a>  / <a href=\"https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs\"><em>DLPy<\/em><\/a>",null,null,null,null,null,null],["","","","","","","","1. Species (20 pts)","","","2. Communities (10 pts)","","3. Reserves (10 pts)","","","","","4. Deep Learning (15 pts)","","5. Google Earth Engine (10 pts)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Week<\/th>\n      <th>Date<\/th>\n      <th>Module<\/th>\n      <th>Lecture<\/th>\n      <th>Lab<\/th>\n      <th>Reading *<\/th>\n      <th>Lab Due<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"displayStart":11,"rowGroup":{"dataSrc":2},"columnDefs":[{"visible":false,"targets":2},{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://developers.google.com/earth-engine/images/Code_editor_diagram.png" alt="Diagram of components of the Earth Engine Code Editor at [code.earthengine.google.com](code.earthengine.google.com). Source: [Earth Engine Code Editor](https://developers.google.com/earth-engine/guides/playground)" class=external />
+<p class="caption">
+Figure 1: Diagram of components of the Earth Engine Code Editor at <a href="code.earthengine.google.com">code.earthengine.google.com</a>. Source: <a href="https://developers.google.com/earth-engine/guides/playground">Earth Engine Code Editor</a>
+</p>
 </div>
-<p>* NOTE: Readings in the Course Schedule reference articles in Author (Year) format and <em>textbooks</em> with acronyms in italics. PDFs are in a Google Drive folder requiring a <em><strong>UCSB Google login</strong></em> for access to prevent copyright infringement. The full references are listed below under <a href="#readings">Readings</a>.</p>
-<h1 id="course-description">Course Description</h1>
-<p>Machine learning enables predictions from big, complex data into actionable insights. It forms one of the foundations in data science. This course provides a broad introduction to machine learning and statistical pattern recognition with environmental data. Supervised learning (logistic regression, decision trees and neural networks) and unsupervised learning (clustering and ordination) techniques will be applied to the environmental tasks of mapping species distributions and ecological community analyses, respectively. Integer linear programming will be used to optimize biodiversity in planning a reserve. Deep learning techniques (convolutional neural networks) will enable species classification from photos and landcover classification from satellite imagery using Google Earth Engine. The first half of the course will use R and Rmarkdown on the desktop and second half will use Python and Jupyter notebooks in the cloud. This class teaches a broad sweep of advanced scientific programming skills for environmental problem solving.</p>
-<h1 id="grading">Grading</h1>
-<p>The majority of points (100 total) will come from the labs. The Mid-Term exam will draw questions from lecture, lab and reading materials. For the <a href="./gp_kaggle.html">Group Project</a> you will select a <a href="https://www.kaggle.com/competitions">Kaggle competition</a>, submit an entry, and present on it for the last day of class. Participation will be based on class attendance.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Item</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lab</td>
-<td>1. Species Distributions</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>2. Communities</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>3. Reserves</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td>Exam</td>
-<td>Mid-Term</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Lab</td>
-<td>4. Species Images</td>
-<td>15</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
-<td>5. Satellite</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>GP</td>
-<td>Group Project</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Other</td>
-<td>Participation</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h1 id="readings">Readings</h1>
-<h2 id="textbooks">Textbooks</h2>
-<div class="layout-chunk" data-layout="l-body">
-
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<ul>
-<li><a href="https://drive.google.com/open?id=16Tr0IYufMnTqszkyzXzRM0XmQDjWuwXv&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>DLR</em></a>
-<p>
-<cite>Chollet, F. and J. J. Allaire (2018). <em>Deep Learning with R</em>. Shelter Island, NY: Manning Publications Co. ISBN: 978-1-61729-554-6.</cite>
-</p></li>
-<li><a href="https://drive.google.com/open?id=16TxVeHT_7ktz6Oh7xcZ3uMzxHaNQ16Dc&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>DLPy</em></a>
-<p>
-<cite>Chollet, F. (2018). <em>Deep Learning with Python</em>. 1st edition. Shelter Island, New York: Manning. ISBN: 978-1-61729-443-3.</cite>
-</p></li>
-<li><a href="https://bradleyboehmke.github.io/HOML/"><em>HOMLR</em></a>
-<p>
-<cite>Greenwell, B. B. &amp;. B. (2020). <em>Hands-On Machine Learning with R</em>.</cite>
-</p></li>
-<li><a href="https://rspatial.org/raster/sdm/"><em>SDMR</em></a>
-<p>
-<cite>Hijmans, R. J. and J. Elith (2021). <em>Species Distribution Modeling with R</em>.</cite>
-</p></li>
-<li><a href="https://drive.google.com/open?id=16T7kAO9W5Rz7xSHqwJrOdDu8RUTmTJ89&amp;authuser=ben%40ecoquants.com&amp;usp=drive_fs"><em>TDA</em></a>
-<p>
-<cite>Kindt, R. and R. Coe (2005). <em>Tree Diversity Analysis: A Manual and Software for Common Statistical Methods for Ecological and Biodiversity Studies</em>. Nairobi, Kenya: World Agrofirestry Centre. ISBN: 978-92-9059-179-5.</cite>
-</p></li>
-</ul>
-</div>
-<h2 id="articles">Articles</h2>
-<div class="layout-chunk" data-layout="l-body">
-<p><a name=bib-elithSpeciesDistributionModels2009></a><a href="#cite-elithSpeciesDistributionModels2009">Elith, J. and J. R. Leathwick</a> (2009). “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time”. In: <em>Annu. Rev. Ecol. Evol. Syst.</em> 40.1, pp. 677-697. ISSN: 1543-592X. DOI: <a href="https://doi.org/10.1146%2Fannurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
-<p><a name=bib-evansModelingSpeciesDistribution2011></a><a href="#cite-evansModelingSpeciesDistribution2011">Evans, J. S., M. A. Murphy, Z. A. Holden, et al.</a> (2011). “Modeling Species Distribution and Change Using Random Forest”. In: <em>Predictive Species and Habitat Modeling in Landscape Ecology: Concepts and Applications</em>. Ed. by C. A. Drew, Y. F. Wiersma and F. Huettmann. New York, NY: Springer, pp. 139-159. ISBN: 978-1-4419-7390-0. DOI: <a href="https://doi.org/10.1007%2F978-1-4419-7390-0_8">10.1007/978-1-4419-7390-0_8</a>.</p>
-<p><a
-name=bib-andradeENMTMLPackageStraightforward2020></a><a href="#cite-andradeENMTMLPackageStraightforward2020">Andrade, A. F. A. de, S. J. E. Velazco, and P. De Marco Júnior</a> (2020). “ENMTML: An R Package for a Straightforward Construction of Complex Ecological Niche Models”. In: <em>Environmental Modelling &amp; Software</em> 125, p. 104615. ISSN: 1364-8152. DOI: <a href="https://doi.org/10.1016%2Fj.envsoft.2019.104615">10.1016/j.envsoft.2019.104615</a>.</p>
-<p><a name=bib-zhongMachineLearningNew2021></a><a href="#cite-zhongMachineLearningNew2021">Zhong, S., K. Zhang, M. Bagheri, et al.</a> (2021). “Machine Learning: New Ideas and Tools in Environmental Science and Engineering”. In: <em>Environ. Sci. Technol.</em> 55.19, pp. 12741-12754. ISSN: 0013-936X. DOI: <a href="https://doi.org/10.1021%2Facs.est.1c01339">10.1021/acs.est.1c01339</a>.</p>
-<p><a
-name=bib-oksanenMultivariateAnalysisEcological2022></a><a href="#cite-oksanenMultivariateAnalysisEcological2022">Oksanen, J.</a> (2022). “Multivariate Analysis of Ecological Communities in R: Vegan Tutorial” , p. 43.</p>
-</div>
+<p><br />
+<br />
+</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
