@@ -297,6 +297,9 @@ Notice how the training and validation points are sampled from the MODIS land co
 knitr::include_graphics("img/lab5_gee/gee_randomforest.png")
 ```
 
+
+(Fun facts: the `smile` in `smileCart()` and `smileRandomForest()` comes from the Java library [Statistical Machine Intelligence and Learning Engine](https://haifengl.github.io/index.html) similar to how the `weka` in `wekaKMeans()` clustering comes from the Java library [Waikato Environment for Knowledge Analysis](https://www.cs.waikato.ac.nz/ml/weka/).)
+
 Modify the following parameters above and report the changes in accuracy for training and validation:
 
 1.  Change the `numberOfTrees` in [`smileRandomForest()`](https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest) to a lesser and higher number.
