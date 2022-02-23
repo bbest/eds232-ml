@@ -2534,12 +2534,13 @@ Labs
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#deep-learning-with-r-python-exercises"><span class="toc-section-number">0.1</span> Deep Learning with R / Python Exercises</a></li>
-<li><a href="#inaturalist"><span class="toc-section-number">0.2</span> iNaturalist</a></li>
+<li><a href="#deep-learning-with-r-python-exercises"><span class="toc-section-number">1</span> Deep Learning with R / Python Exercises</a></li>
+<li><a href="#inaturalist"><span class="toc-section-number">2</span> iNaturalist</a></li>
+<li><a href="#submit-lab-4"><span class="toc-section-number">3</span> Submit Lab 4</a></li>
 </ul>
 </nav>
 </div>
-<h2 data-number="0.1" id="deep-learning-with-r-python-exercises"><span class="header-section-number">0.1</span> Deep Learning with R / Python Exercises</h2>
+<h1 data-number="1" id="deep-learning-with-r-python-exercises"><span class="header-section-number">1</span> Deep Learning with R / Python Exercises</h1>
 <p>You’ll first learn about Computer Vision techniques by going through the Chapter 5 lab exercises:</p>
 <ul>
 <li><p>5.1 Introduction to convnets R: <a href="./lab4c_5.1.intro-convnets.html">html</a>, <a href="https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.1.intro-convnets.Rmd">Rmd</a> ; Python: <a href="https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.1-introduction-to-convnets.ipynb">html</a>, <a href="https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.1-introduction-to-convnets.ipynb">ipynb</a></p></li>
@@ -2549,7 +2550,7 @@ Labs
 <ul>
 <li>5.3 Using a pretrained convnet R: <a href="./lab4c_5.3-using-a-pretrained-convnet.html">html</a>, <a href="https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.3-using-a-pretrained-convnet.Rmd">Rmd</a> ; Python: <a href="https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.3-using-a-pretrained-convnet.ipynb">html</a>, <a href="https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.3-using-a-pretrained-convnet.ipynb">ipynb</a></li>
 </ul>
-<h2 data-number="0.2" id="inaturalist"><span class="header-section-number">0.2</span> iNaturalist</h2>
+<h1 data-number="2" id="inaturalist"><span class="header-section-number">2</span> iNaturalist</h1>
 <p>The main lab that you’ll turn in is to apply these techniques to a small subset of the iNaturalist species imagery. These data were downloaded from the links provided at <a href="https://github.com/visipedia/inat_comp/tree/master/2021">github.com/visipedia/inat_comp:2021/</a>. Of all the 10,000 species and many images for each from training (Train), training mini (Train Mini), validation (Val) and test images, you’ll draw only from the Train Mini set of images:</p>
 <p><img src="https://github.com/visipedia/inat_comp/raw/master/2021/assets/train_val_distribution.png" /></p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2675,6 +2676,11 @@ species_trunc                              test train validation
 <li><p>Split the original images per species (n=50) into train (n=30), validate (n=10) and test (n=10). These are almost absurdly few files to feed into these complex deep learning models but will serve as a good learning example.</p></li>
 <li><p>Include accuracy metric and validation in the fitting process and history plot.</p></li>
 <li><p>Evaluate loss and accuracy on your test model results. Compare standard neural network and convolutional neural network results.</p></li>
+</ul>
+<h1 data-number="3" id="submit-lab-4"><span class="header-section-number">3</span> Submit Lab 4</h1>
+<p>To submit Lab 4, please submit the path (<code>/Users/*</code>) on <a href="https://taylor.bren.ucsb.edu">taylor.bren.ucsb.edu</a> to your iNaturalist Rmarkdown (<code>*.Rmd</code>) or Jupyter Notebook (<code>*.pynb</code>) file here:</p>
+<ul>
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSddHuLejY_V-PAIQOO19TLHAyyQRyTUSsfEwpgeJP-Jx4MClA/viewform?usp=sf_link" target="_blank">Submit Lab 4. iNaturalist</a></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

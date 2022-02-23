@@ -8,7 +8,7 @@ editor_options:
 knitr::opts_chunk$set(echo = T)
 ```
 
-## Deep Learning with R / Python Exercises
+# Deep Learning with R / Python Exercises
 
 You'll first learn about Computer Vision techniques by going through the Chapter 5 lab exercises:
 
@@ -23,7 +23,7 @@ The subsequent lab exercises meet the limits of using a CPU over a GPU, which is
 - 5.3 Using a pretrained convnet
   R: [html](./lab4c_5.3-using-a-pretrained-convnet.html), [Rmd](https://raw.githubusercontent.com/bbest/eds232-ml/main/lab4c_5.3-using-a-pretrained-convnet.Rmd) ; Python: [html](https://github.com/bbest/deep-learning-with-python-notebooks/blob/master/first_edition/5.3-using-a-pretrained-convnet.ipynb), [ipynb](https://github.com/bbest/deep-learning-with-python-notebooks/raw/master/first_edition/5.3-using-a-pretrained-convnet.ipynb)
 
-## iNaturalist
+# iNaturalist
 
 The main lab that you'll turn in is to apply these techniques to a small subset of the iNaturalist species imagery. These data were downloaded from the links provided at [github.com/visipedia/inat_comp:2021/](https://github.com/visipedia/inat_comp/tree/master/2021). Of all the 10,000 species and many images for each from training (Train), training mini (Train Mini), validation (Val) and test images, you'll draw only from the Train Mini set of images:
 
@@ -139,3 +139,10 @@ In your models, be sure to include the following:
 - Include accuracy metric and validation in the fitting process and history plot.
 
 - Evaluate loss and accuracy on your test model results. Compare standard neural network and convolutional neural network results.
+
+# Submit Lab 4
+
+To submit Lab 4, please submit the path (`/Users/*`) on [taylor.bren.ucsb.edu](https://taylor.bren.ucsb.edu) to your iNaturalist Rmarkdown (`*.Rmd`) or Jupyter Notebook (`*.pynb`) file here:
+
+
+- [Submit Lab 4. iNaturalist](https://docs.google.com/forms/d/e/1FAIpQLSddHuLejY_V-PAIQOO19TLHAyyQRyTUSsfEwpgeJP-Jx4MClA/viewform?usp=sf_link){target="_blank"}
