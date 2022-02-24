@@ -71,8 +71,8 @@ The first step is to move the images into directories for the variety of models.
 │   │   │   └── ...[n_img=30]
 │   │   └── ...[+n_spp=9]
 │   └── validation
-│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
-│   │   │   └── ...[n_img=10]
+│       ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│       │   └── ...[n_img=10]
 │       └── ...[+n_spp=9]
 └── spp2
     ├── test
