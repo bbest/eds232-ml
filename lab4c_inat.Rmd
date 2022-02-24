@@ -5,7 +5,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T)
+knitr::opts_chunk$set(echo = T, warning = F)
 ```
 
 # Deep Learning with R / Python Exercises
@@ -54,19 +54,47 @@ write_meta("annotations")
 write_meta("categories")
 ```
 
-Let's generate an output table as a CSV file (defaulting to your home folder `~/inat_spp_images.csv`, but feel free to change that path) for subsequently reading in R (e.g., with `readr::read_csv()`) or Python (e.g., with `pandas.read_csv()`) for the 10 species directories uniquely sampled  (using your username) from all 10,000 species and containing fields for: full path to image file (`image`); species label (`species`); whether in the 2 species binary classification set (`spp2`);  and whether to be included in train, validation or test subset (`subset`).
+The first step is to move the images into directories for the variety of models. The `keras::`[`flow_images_from_directory()`](https://keras.rstudio.com/reference/flow_images_from_directory.html) expects the first argument `directory` to "contain one subdirectory per class". We are building models for two species `spp2` (binary) and ten species `spp10` (multiclass), plus we want to have `train` (n=30), `validation` (n=10) and `test` (n=10) images assigned to each. So we want a directory structure that looks something like this:
+
+```
+├── spp10
+│   ├── test
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   ├── cfd17d74-c7aa-49a2-9417-0a4e6aa4170d.jpg
+│   │   │   ├── d6c2cf8f-89ef-40a2-824b-f51c85be030b.jpg
+│   │   │   └── ...[+n_img=8]
+│   │   ├── 06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens
+│   │   │   └── ...[n_img=10]
+│   │   └── ...[+n_spp=8]
+│   ├── train
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   └── ...[n_img=30]
+│   │   └── ...[+n_spp=9]
+│   └── validation
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   └── ...[n_img=10]
+│       └── ...[+n_spp=9]
+└── spp2
+    ├── test
+    │   └── ...[n_spp=2]
+    ├── train
+    │   └── ...[n_spp=2]
+    └── validation
+        └── ...[n_spp=2]
+```
 
 ```{r}
 librarian::shelf(
   digest, dplyr, DT, glue, purrr, readr, stringr, tidyr)
 
 # path to folder containing species directories of images
-dir_train_mini <- "/courses/EDS232/inaturalist-2021/train_mini"
+dir_src  <- "/courses/EDS232/inaturalist-2021/train_mini"
+dir_dest <- "~/inat"
+dir.create(dir_dest, showWarnings = F)
 
 # get list of directories, one per species (n = 10,000 species)
-dirs_spp <- list.dirs(dir_train_mini, recursive = F)
+dirs_spp <- list.dirs(dir_src, recursive = F, full.names = T)
 n_spp <- length(dirs_spp)
-n_spp
 
 # set seed (for reproducible results) 
 # just before sampling (otherwise get different results)
@@ -86,40 +114,32 @@ basename(dirs_spp)[i10]
 i2 <- i10[1:2]
 basename(dirs_spp)[i2]
 
-# path to output table of paths, which could be read by R, eg readr::read_csv(), or Python, eg pandas.read_csv()
-inat_spp_images_csv <- "~/inat_spp_images.csv"
-
+# setup data frame with source (src) and destination (dest) paths to images
 d <- tibble(
-  # get 10 species names
-  species = basename(dirs_spp)[i10],
-  # assign TRUE/FALSE for: 10 species (multi-class) and 2 species (binary)
-  spp10 = TRUE,
-  spp2  = c(T,T,rep(F,8)))
-DT::datatable(d)
-d <- d %>% 
+  set     = c(rep("spp2", 2), rep("spp10", 10)),
+  dir_sp  = c(dirs_spp[i2], dirs_spp[i10]),
+  tbl_img = map(dir_sp, function(dir_sp){
+    tibble(
+      src_img = list.files(dir_sp, full.names = T),
+      subset  = c(rep("train", 30), rep("validation", 10), rep("test", 10))) })) %>% 
+  unnest(tbl_img) %>% 
   mutate(
-    # construct full path to species directory
-    dir_species = file.path(dir_train_mini, species),
-    tbl_images  = purrr::map(dir_species, function(dir){
-      # create a tibble per species
-      tibble(
-        # list files in the species directory (n=50)
-        image = list.files(dir),
-        # assign subset per species
-        subset = c(rep("train", 30), rep("validation", 10), rep("test", 10))) })) %>% 
-  # go from a tibble with 10 species rows containing a nested tbl_images to unnested, ie 10 species * 50 images = 500 rows
-  tidyr::unnest(tbl_images)
+    sp       = basename(dir_sp),
+    img      = basename(src_img),
+    dest_img = glue("{dir_dest}/{set}/{subset}/{sp}/{img}"))
 
-# write tibble to CSV file for subsequent reading
-readr::write_csv(d, inat_spp_images_csv)
-
-# show counts of image files per species and subset
+# show source and destination for first 10 rows of tibble
 d %>% 
-  mutate(
-    # truncate species to show one line per species
-    species_trunc = stringr::str_trunc(species, 40)) %>% 
-  select(species_trunc, subset) %>% 
-  table()
+  select(src_img, dest_img)
+
+# iterate over rows, creating directory if needed and copying files 
+d %>% 
+  pwalk(function(src_img, dest_img, ...){
+    dir.create(dirname(dest_img), recursive = T, showWarnings = F)
+    file.copy(src_img, dest_img) })
+
+# uncomment to show the entire tree of your destination directory
+# system(glue("tree {dir_dest}"))
 ```
 
 Your task is to apply your deep learning skills to build the following models:

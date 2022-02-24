@@ -2448,15 +2448,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/datatables-binding-0.20/datatables.js"></script>
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-  <script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2505,6 +2496,7 @@ Labs
 <a href="lab4a_dl-neural-nets.html">4a. Deep Learning: neural networks</a>
 <a href="lab4b_examples.html">4b. Deep Learning: keras</a>
 <a href="lab4c_inat.html">4c. Deep Learning: iNaturalist</a>
+<a href="lab5a_gee-js.html">5a. Google Earth Engine: JavaScript</a>
 <a href="gp_kaggle.html">Group Project: Kaggle Competition</a>
 </div>
 </div>
@@ -2556,24 +2548,46 @@ Labs
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Let’s generate an output table as a CSV file (defaulting to your home folder <code>~/inat_spp_images.csv</code>, but feel free to change that path) for subsequently reading in R (e.g., with <code>readr::read_csv()</code>) or Python (e.g., with <code>pandas.read_csv()</code>) for the 10 species directories uniquely sampled (using your username) from all 10,000 species and containing fields for: full path to image file (<code>image</code>); species label (<code>species</code>); whether in the 2 species binary classification set (<code>spp2</code>); and whether to be included in train, validation or test subset (<code>subset</code>).</p>
+<p>The first step is to move the images into directories for the variety of models. The <code>keras::</code><a href="https://keras.rstudio.com/reference/flow_images_from_directory.html"><code>flow_images_from_directory()</code></a> expects the first argument <code>directory</code> to “contain one subdirectory per class”. We are building models for two species <code>spp2</code> (binary) and ten species <code>spp10</code> (multiclass), plus we want to have <code>train</code> (n=30), <code>validation</code> (n=10) and <code>test</code> (n=10) images assigned to each. So we want a directory structure that looks something like this:</p>
+<pre><code>├── spp10
+│   ├── test
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   ├── cfd17d74-c7aa-49a2-9417-0a4e6aa4170d.jpg
+│   │   │   ├── d6c2cf8f-89ef-40a2-824b-f51c85be030b.jpg
+│   │   │   └── ...[+n_img=8]
+│   │   ├── 06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens
+│   │   │   └── ...[n_img=10]
+│   │   └── ...[+n_spp=8]
+│   ├── train
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   └── ...[n_img=30]
+│   │   └── ...[+n_spp=9]
+│   └── validation
+│   │   ├── 01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata
+│   │   │   └── ...[n_img=10]
+│       └── ...[+n_spp=9]
+└── spp2
+    ├── test
+    │   └── ...[n_spp=2]
+    ├── train
+    │   └── ...[n_spp=2]
+    └── validation
+        └── ...[n_spp=2]</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>librarian</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/librarian/man/shelf.html'>shelf</a></span><span class='op'>(</span>
   <span class='va'>digest</span>, <span class='va'>dplyr</span>, <span class='va'>DT</span>, <span class='va'>glue</span>, <span class='va'>purrr</span>, <span class='va'>readr</span>, <span class='va'>stringr</span>, <span class='va'>tidyr</span><span class='op'>)</span>
 
 <span class='co'># path to folder containing species directories of images</span>
-<span class='va'>dir_train_mini</span> <span class='op'>&lt;-</span> <span class='st'>"/courses/EDS232/inaturalist-2021/train_mini"</span>
+<span class='va'>dir_src</span>  <span class='op'>&lt;-</span> <span class='st'>"/courses/EDS232/inaturalist-2021/train_mini"</span>
+<span class='va'>dir_dest</span> <span class='op'>&lt;-</span> <span class='st'>"~/inat"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>dir_dest</span>, showWarnings <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
 
 <span class='co'># get list of directories, one per species (n = 10,000 species)</span>
-<span class='va'>dirs_spp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.dirs</a></span><span class='op'>(</span><span class='va'>dir_train_mini</span>, recursive <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
+<span class='va'>dirs_spp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.dirs</a></span><span class='op'>(</span><span class='va'>dir_src</span>, recursive <span class='op'>=</span> <span class='cn'>F</span>, full.names <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
 <span class='va'>n_spp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>)</span>
-<span class='va'>n_spp</span>
-</code></pre>
-</div>
-<pre><code>[1] 10000</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># set seed (for reproducible results) </span>
+
+<span class='co'># set seed (for reproducible results) </span>
 <span class='co'># just before sampling (otherwise get different results)</span>
 <span class='co'># based on your username (unique amongst class)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Sys.info.html'>Sys.info</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"user"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>%&gt;%</span> 
@@ -2610,59 +2624,50 @@ Labs
 <pre><code>[1] &quot;06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens&quot;
 [2] &quot;06273_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_vulpinoidea&quot;         </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># path to output table of paths, which could be read by R, eg readr::read_csv(), or Python, eg pandas.read_csv()</span>
-<span class='va'>inat_spp_images_csv</span> <span class='op'>&lt;-</span> <span class='st'>"~/inat_spp_images.csv"</span>
-
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># setup data frame with source (src) and destination (dest) paths to images</span>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>
-  <span class='co'># get 10 species names</span>
-  species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i10</span><span class='op'>]</span>,
-  <span class='co'># assign TRUE/FALSE for: 10 species (multi-class) and 2 species (binary)</span>
-  spp10 <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  spp2  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>T</span>,<span class='cn'>T</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>F</span>,<span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
-</code></pre>
-</div>
-<div id="htmlwidget-94932d23150b134917d6" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-94932d23150b134917d6">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens","06273_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_vulpinoidea","07030_Plantae_Tracheophyta_Magnoliopsida_Asterales_Asteraceae_Symphyotrichum_sericeum","06472_Plantae_Tracheophyta_Lycopodiopsida_Lycopodiales_Lycopodiaceae_Lycopodium_volubile","01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata","08342_Plantae_Tracheophyta_Magnoliopsida_Gentianales_Rubiaceae_Galium_odoratum","07845_Plantae_Tracheophyta_Magnoliopsida_Ericales_Primulaceae_Bonellia_macrocarpa","06247_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_intumescens","07245_Plantae_Tracheophyta_Magnoliopsida_Brassicales_Brassicaceae_Diplotaxis_tenuifolia","07897_Plantae_Tracheophyta_Magnoliopsida_Fabales_Fabaceae_Acacia_saligna"],[true,true,true,true,true,true,true,true,true,true],[true,true,false,false,false,false,false,false,false,false]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>species<\/th>\n      <th>spp10<\/th>\n      <th>spp2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span> 
+  set     <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"spp2"</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"spp10"</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>,
+  dir_sp  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>[</span><span class='va'>i2</span><span class='op'>]</span>, <span class='va'>dirs_spp</span><span class='op'>[</span><span class='va'>i10</span><span class='op'>]</span><span class='op'>)</span>,
+  tbl_img <span class='op'>=</span> <span class='fu'>map</span><span class='op'>(</span><span class='va'>dir_sp</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>dir_sp</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='fu'>tibble</span><span class='op'>(</span>
+      src_img <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='va'>dir_sp</span>, full.names <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,
+      subset  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"train"</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"validation"</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"test"</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>unnest</span><span class='op'>(</span><span class='va'>tbl_img</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>
-    <span class='co'># construct full path to species directory</span>
-    dir_species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dir_train_mini</span>, <span class='va'>species</span><span class='op'>)</span>,
-    tbl_images  <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>dir_species</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>dir</span><span class='op'>)</span><span class='op'>{</span>
-      <span class='co'># create a tibble per species</span>
-      <span class='fu'>tibble</span><span class='op'>(</span>
-        <span class='co'># list files in the species directory (n=50)</span>
-        image <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='va'>dir</span><span class='op'>)</span>,
-        <span class='co'># assign subset per species</span>
-        subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"train"</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"validation"</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"test"</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='co'># go from a tibble with 10 species rows containing a nested tbl_images to unnested, ie 10 species * 50 images = 500 rows</span>
-  <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>tbl_images</span><span class='op'>)</span>
+    sp       <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>dir_sp</span><span class='op'>)</span>,
+    img      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>src_img</span><span class='op'>)</span>,
+    dest_img <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"{dir_dest}/{set}/{subset}/{sp}/{img}"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># write tibble to CSV file for subsequent reading</span>
-<span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='va'>inat_spp_images_csv</span><span class='op'>)</span>
-
-<span class='co'># show counts of image files per species and subset</span>
+<span class='co'># show source and destination for first 10 rows of tibble</span>
 <span class='va'>d</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>
-    <span class='co'># truncate species to show one line per species</span>
-    species_trunc <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_trunc.html'>str_trunc</a></span><span class='op'>(</span><span class='va'>species</span>, <span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>species_trunc</span>, <span class='va'>subset</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>src_img</span>, <span class='va'>dest_img</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                                          subset
-species_trunc                              test train validation
-  01172_Animalia_Arthropoda_Insecta_Lep...   10    30         10
-  06033_Plantae_Tracheophyta_Liliopsida...   10    30         10
-  06247_Plantae_Tracheophyta_Liliopsida...   10    30         10
-  06273_Plantae_Tracheophyta_Liliopsida...   10    30         10
-  06472_Plantae_Tracheophyta_Lycopodiop...   10    30         10
-  07030_Plantae_Tracheophyta_Magnoliops...   10    30         10
-  07245_Plantae_Tracheophyta_Magnoliops...   10    30         10
-  07845_Plantae_Tracheophyta_Magnoliops...   10    30         10
-  07897_Plantae_Tracheophyta_Magnoliops...   10    30         10
-  08342_Plantae_Tracheophyta_Magnoliops...   10    30         10</code></pre>
+<pre><code># A tibble: 600 × 2
+   src_img                           dest_img                         
+   &lt;chr&gt;                             &lt;glue&gt;                           
+ 1 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 2 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 3 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 4 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 5 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 6 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 7 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 8 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+ 9 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+10 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
+# … with 590 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># iterate over rows, creating directory if needed and copying files </span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pwalk</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>src_img</span>, <span class='va'>dest_img</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>dest_img</span><span class='op'>)</span>, recursive <span class='op'>=</span> <span class='cn'>T</span>, showWarnings <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>src_img</span>, <span class='va'>dest_img</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+
+<span class='co'># uncomment to show the entire tree of your destination directory</span>
+<span class='co'># system(glue("tree {dir_dest}"))</span>
+</code></pre>
+</div>
 </div>
 <p>Your task is to apply your deep learning skills to build the following models:</p>
 <ol type="1">
