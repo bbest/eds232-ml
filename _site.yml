@@ -31,6 +31,8 @@ navbar:
           href: lab4c_inat.html
         - text: "5a. Google Earth Engine: JavaScript"
           href: lab5a_gee-js.html
+        - text: "5b. Google Earth Engine: Python"
+          href: lab5b_gee-python.html
         - text: "Group Project: Kaggle Competition"
           href: gp_kaggle.html
     - text: "Glosssary"

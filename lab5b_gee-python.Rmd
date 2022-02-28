@@ -1,5 +1,5 @@
 ---
-title: "Lab 5a. Machine Learning in Google Earth Engine - Python"
+title: "Lab 5b. Machine Learning in Google Earth Engine - Python"
 editor_options: 
   chunk_output_type: console
 ---
@@ -10,10 +10,24 @@ knitr::opts_chunk$set(echo = T)
 
 # Learning Objectives {.unnumbered}
 
+In this lab you will learn to:
 
+- Code in **Python** for applying Machine Learning to Google Earth Engine. You will create your own function to cluster an image and render an interactive map.
 
-# Introduction to Python
+- Use **Colab notebook** ([colab.research.google.com](https://colab.research.google.com)), which is a Jupyter notebook hosted by Google for free limited access to compute resources including GPUs. (See [Get started with Google Colaboratory (Coding TensorFlow) - YouTube](https://www.youtube.com/watch?v=inN8seMm7UI);  [Google Colab features you may have missed - YouTube](https://www.youtube.com/watch?v=rNgswRZ2C1Y); [Google Colab FAQ](https://research.google.com/colaboratory/faq.html).)
 
-* [An Intro to the Earth Engine Python API](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard)
+# Save Python Colab Notebook into your Google Drive
+
+Please visit [gee-ml-py.ipynb - Colaboratory](https://colab.research.google.com/drive/1zf59xX0HAqv4MSyNEDA2O-ArEThK0-DB#scrollTo=ega4dHtMCJGO) and follow the instructions to copy it into your Google Drive. Run the code cells and complete the task of writing your own Python function to classify an Earth Engine image.
 
 # Submit Lab 5
+
+To submit Lab 5, you will submit: 
+
+1. A standalone file, preferably a pdf or docx, containing the requested outputs from [Lab 5a. Machine Learning in Google Earth Engine - JavaScript](https://bbest.github.io/eds232-ml/lab5a_gee-js.html). Please prefix the name of the file with your UCSB username.
+
+2. The link to your Colab notebook from [Lab 5b. Machine Learning in Google Earth Engine - Python](https://bbest.github.io/eds232-ml/lab5a_gee-js.html). Be sure the file is viewable by me (benbest@ucsb.edu) when you go to [Share a link to the file | Google](https://support.google.com/drive/answer/2494822?hl=en&co=GENIE.Platform%3DDesktop#zippy=%2Cshare-a-link-to-the-file).
+
+Please submit using this form:
+
+- [Submit Lab 5. Google Earth Engine](https://docs.google.com/forms/d/e/1FAIpQLSchWH2Ue3av-vSknHzuJSvfRAYBXMdwhgyQEVHFeajh1-yYmg/viewform?usp=sf_link){target="_blank"}
