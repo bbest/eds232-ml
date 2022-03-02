@@ -1,0 +1,64 @@
+---
+title: "Lab 6. AI Ethics"
+bibliography: ["ml-env.bib"]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F)
+```
+
+For this lab, you will simply run through these excellent materials:
+
+-   [Intro to AI Ethics \| Kaggle](https://www.kaggle.com/learn/intro-to-ai-ethics)
+
+The modules present concepts in the tutorial followed by exercises to run in Kaggle hosted Jupyter notebooks, most of which use [scikit-learn](https://scikit-learn.org/stable/), probably the most commonly used Python-based machine learning platform.
+
+You do not need to turn in this lab, but please do go through all the tutorials and exercises.
+
+# Learning Objectives {.unnumbered}
+
+Upon completion of these materials, you should have an understanding of:
+
+-   **Human-centered design\
+    **to design an AI system to ensure that it serves the needs of the people that it is intended for.
+
+-   **Bias**\
+    to determine how AI systems can learn to discriminate against certain groups. @sureshFrameworkUnderstandingSources2021 identified six types of bias:
+
+    -   **Historical bias**\
+        occurs when the state of the world in which the data was generated is flawed.
+
+    -   **Representation bias**\
+        occurs when building datasets for training a model, if those datasets poorly represent the people that the model will serve.
+
+    -   **Measurement bias**\
+        occurs when the accuracy of the data varies across groups.
+
+    -   **Aggregation bias**\
+        occurs when groups are inappropriately combined, resulting in a model that does not perform well for any group or only performs well for the majority group.
+
+    -   **Evaluation bias**\
+        occurs when evaluating a model, if the benchmark data (used to compare the model to other models that perform similar tasks) does not represent the population that the model will serve.
+
+    -   **Deployment bias**\
+        occurs when the problem the model is intended to solve is different from the way it is actually used.
+
+-   **Fairness**\
+    to quantify the extent of the bias in AI. @gajaneFormalizingFairnessPrediction2018 explore four types of fairness:
+
+    -   **Demographic parity**\
+        says the model is fair if the composition of people who are selected by the model matches the group membership percentages of the applicants.
+
+    -   **Equal opportunity**\
+        fairness ensures that the proportion of people who should be selected by the model ("positives") that are correctly selected by the model is the same for each group.
+
+    -   E**qual accuracy\
+        **fairness is an alternative metric to equal opportunity. That is, the percentage of correct classifications (people who should be denied and are denied, and people who should be approved who are approved) should be the same for each group.
+
+    -   **Group unaware / "Fairness through unawareness"\
+        **fairness removes all group membership information from the dataset.
+
+-   **Model cards**\
+    to improve public accountability for AI models.
