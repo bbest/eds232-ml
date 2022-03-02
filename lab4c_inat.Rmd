@@ -83,7 +83,7 @@ The first step is to move the images into directories for the variety of models.
         └── ...[n_spp=2]
 ```
 
-```{r, eval=F}
+```{r}
 librarian::shelf(
   digest, dplyr, DT, glue, purrr, readr, stringr, tidyr)
 
