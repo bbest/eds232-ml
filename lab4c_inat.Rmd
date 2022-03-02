@@ -83,7 +83,7 @@ The first step is to move the images into directories for the variety of models.
         └── ...[n_spp=2]
 ```
 
-```{r}
+```{r, eval=F}
 librarian::shelf(
   digest, dplyr, DT, glue, purrr, readr, stringr, tidyr)
 
@@ -159,6 +159,16 @@ In your models, be sure to include the following:
 - Include accuracy metric and validation in the fitting process and history plot.
 
 - Evaluate loss and accuracy on your test model results. Compare standard neural network and convolutional neural network results.
+
+# Deep Learning Cheat Sheets
+
+Parameterizing all the image processing and layers can be confusing. Here are a few cheat sheets to help with a deeper understanding:
+
+* [Deep learning with Keras cheatsheet | RStudio](https://raw.githubusercontent.com/rstudio/cheatsheets/main/keras.pdf)
+* [Understanding Convolutions and Pooling in Neural Networks: a simple explanation | by Miguel Fernández Zafra | Towards Data Science](https://towardsdatascience.com/understanding-convolutions-and-pooling-in-neural-networks-a-simple-explanation-885a2d78f211)
+* [Classification: Image Classification Cheatsheet | Codecademy](https://www.codecademy.com/learn/dlsp-classification-track/modules/dlsp-image-classification/cheatsheet)
+* [CS 230 - Convolutional Neural Networks Cheatsheet | Stanford](https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks)
+* [CS231n Convolutional Neural Networks for Visual Recognition | Stanford](https://cs231n.github.io/convolutional-networks/)
 
 # Submit Lab 4
 

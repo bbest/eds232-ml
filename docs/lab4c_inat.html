@@ -2497,6 +2497,7 @@ Labs
 <a href="lab4b_examples.html">4b. Deep Learning: keras</a>
 <a href="lab4c_inat.html">4c. Deep Learning: iNaturalist</a>
 <a href="lab5a_gee-js.html">5a. Google Earth Engine: JavaScript</a>
+<a href="lab5b_gee-python.html">5b. Google Earth Engine: Python</a>
 <a href="gp_kaggle.html">Group Project: Kaggle Competition</a>
 </div>
 </div>
@@ -2528,7 +2529,8 @@ Labs
 <ul>
 <li><a href="#deep-learning-with-r-python-exercises"><span class="toc-section-number">1</span> Deep Learning with R / Python Exercises</a></li>
 <li><a href="#inaturalist"><span class="toc-section-number">2</span> iNaturalist</a></li>
-<li><a href="#submit-lab-4"><span class="toc-section-number">3</span> Submit Lab 4</a></li>
+<li><a href="#deep-learning-cheat-sheets"><span class="toc-section-number">3</span> Deep Learning Cheat Sheets</a></li>
+<li><a href="#submit-lab-4"><span class="toc-section-number">4</span> Submit Lab 4</a></li>
 </ul>
 </nav>
 </div>
@@ -2597,34 +2599,15 @@ Labs
 
 <span class='co'># show the 10 indices sampled of the 10,000 possible </span>
 <span class='va'>i10</span>
-</code></pre>
-</div>
-<pre><code> [1] 6034 6274 7031 6473 1173 8343 7846 6248 7246 7898</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># show the 10 species directory names</span>
+
+<span class='co'># show the 10 species directory names</span>
 <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i10</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code> [1] &quot;06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens&quot;      
- [2] &quot;06273_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_vulpinoidea&quot;               
- [3] &quot;07030_Plantae_Tracheophyta_Magnoliopsida_Asterales_Asteraceae_Symphyotrichum_sericeum&quot;   
- [4] &quot;06472_Plantae_Tracheophyta_Lycopodiopsida_Lycopodiales_Lycopodiaceae_Lycopodium_volubile&quot;
- [5] &quot;01172_Animalia_Arthropoda_Insecta_Lepidoptera_Geometridae_Circopetes_obtusata&quot;           
- [6] &quot;08342_Plantae_Tracheophyta_Magnoliopsida_Gentianales_Rubiaceae_Galium_odoratum&quot;          
- [7] &quot;07845_Plantae_Tracheophyta_Magnoliopsida_Ericales_Primulaceae_Bonellia_macrocarpa&quot;       
- [8] &quot;06247_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_intumescens&quot;               
- [9] &quot;07245_Plantae_Tracheophyta_Magnoliopsida_Brassicales_Brassicaceae_Diplotaxis_tenuifolia&quot; 
-[10] &quot;07897_Plantae_Tracheophyta_Magnoliopsida_Fabales_Fabaceae_Acacia_saligna&quot;                </code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># show the first 2 species directory names</span>
+
+<span class='co'># show the first 2 species directory names</span>
 <span class='va'>i2</span> <span class='op'>&lt;-</span> <span class='va'>i10</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>
 <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i2</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;06033_Plantae_Tracheophyta_Liliopsida_Asparagales_Orchidaceae_Epipactis_atrorubens&quot;
-[2] &quot;06273_Plantae_Tracheophyta_Liliopsida_Poales_Cyperaceae_Carex_vulpinoidea&quot;         </code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># setup data frame with source (src) and destination (dest) paths to images</span>
+
+<span class='co'># setup data frame with source (src) and destination (dest) paths to images</span>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>
   set     <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"spp2"</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"spp10"</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>,
   dir_sp  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>dirs_spp</span><span class='op'>[</span><span class='va'>i2</span><span class='op'>]</span>, <span class='va'>dirs_spp</span><span class='op'>[</span><span class='va'>i10</span><span class='op'>]</span><span class='op'>)</span>,
@@ -2641,24 +2624,8 @@ Labs
 <span class='co'># show source and destination for first 10 rows of tibble</span>
 <span class='va'>d</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>src_img</span>, <span class='va'>dest_img</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 600 × 2
-   src_img                           dest_img                         
-   &lt;chr&gt;                             &lt;glue&gt;                           
- 1 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 2 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 3 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 4 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 5 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 6 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 7 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 8 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
- 9 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
-10 /courses/EDS232/inaturalist-2021… ~/inat/spp2/train/06033_Plantae_…
-# … with 590 more rows</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># iterate over rows, creating directory if needed and copying files </span>
+
+<span class='co'># iterate over rows, creating directory if needed and copying files </span>
 <span class='va'>d</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>pwalk</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>src_img</span>, <span class='va'>dest_img</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
     <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>dest_img</span><span class='op'>)</span>, recursive <span class='op'>=</span> <span class='cn'>T</span>, showWarnings <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
@@ -2682,12 +2649,21 @@ Labs
 <li><p>Include accuracy metric and validation in the fitting process and history plot.</p></li>
 <li><p>Evaluate loss and accuracy on your test model results. Compare standard neural network and convolutional neural network results.</p></li>
 </ul>
-<h1 data-number="3" id="submit-lab-4"><span class="header-section-number">3</span> Submit Lab 4</h1>
+<h1 data-number="3" id="deep-learning-cheat-sheets"><span class="header-section-number">3</span> Deep Learning Cheat Sheets</h1>
+<p>Parameterizing all the image processing and layers can be confusing. Here are a few cheat sheets to help with a deeper understanding:</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/keras.pdf">Deep learning with Keras cheatsheet | RStudio</a></li>
+<li><a href="https://towardsdatascience.com/understanding-convolutions-and-pooling-in-neural-networks-a-simple-explanation-885a2d78f211">Understanding Convolutions and Pooling in Neural Networks: a simple explanation | by Miguel Fernández Zafra | Towards Data Science</a></li>
+<li><a href="https://www.codecademy.com/learn/dlsp-classification-track/modules/dlsp-image-classification/cheatsheet">Classification: Image Classification Cheatsheet | Codecademy</a></li>
+<li><a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks">CS 230 - Convolutional Neural Networks Cheatsheet | Stanford</a></li>
+<li><a href="https://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition | Stanford</a></li>
+</ul>
+<h1 data-number="4" id="submit-lab-4"><span class="header-section-number">4</span> Submit Lab 4</h1>
 <p>To submit Lab 4, please submit the path (<code>/Users/*</code>) on <a href="https://taylor.bren.ucsb.edu">taylor.bren.ucsb.edu</a> to your iNaturalist Rmarkdown (<code>*.Rmd</code>) or Jupyter Notebook (<code>*.pynb</code>) file here:</p>
 <ul>
 <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSddHuLejY_V-PAIQOO19TLHAyyQRyTUSsfEwpgeJP-Jx4MClA/viewform?usp=sf_link" target="_blank">Submit Lab 4. iNaturalist</a></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
