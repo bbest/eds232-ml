@@ -45,7 +45,7 @@ The majority of points (100 total) will come from the labs. The Mid-Term exam wi
 | Lab   | 3\. Reserves              | 10     |
 | Exam  | Mid-Term                  | 10     |
 | Lab   | 4\. Species Images        | 15     |
-| Lab   | 5\. Satellite             | 10     |
+| Lab   | 5\. Satellite Imagery            | 10     |
 | GP    | Group Project             | 20     |
 | Other | Participation             | 5      |
 
