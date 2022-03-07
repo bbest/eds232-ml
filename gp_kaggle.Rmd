@@ -17,4 +17,36 @@ knitr::opts_chunk$set(echo = TRUE)
 -   Submit Entry\
     See [How to Enter a Kaggle Competition (using Kernels) \| Kaggle - YouTube](https://www.youtube.com/watch?v=GJBOMWpLpTQ)
 
--   Present March 9th\
+-   Present March 9th
+
+    -   **Time** (10 min max per group)\
+        8 min presentation\
+        2 min questions\
+
+    -   Not every single member has to present, but everyone in the group has to be available for questions and those not presenting preferably answer the questions\
+
+    -   The format is flexible, but should at a minimum include elements described in the [EDS232 Kaggle Group Project Template](https://docs.google.com/document/d/1n8P9JGO6oW4IjcS0XNnT4H9v62aR48dnzFTnEo1YMks/edit#):
+
+        -   **About**\
+            group members, competition/notebook name
+
+        -   **Challenge**\
+            What's the data-driven question being answered? Why is it important?
+
+        -   **Data\
+            **What data is available? Describe in terms of response and predictor data with subsets for training, (validating) and testing.
+
+        -   **Evaluation**\
+            How will your submission be evaluated and scored?
+
+        -   **Methods**\
+            What types of supervised or unsupervised machine learning techniques could be most applicable?
+
+        -   **Results\
+            **Please include link to any notebooks attempted and link to leaderboard with group name if actual submission made
+
+        -   **Conclusion**\
+            What are some of the biggest lessons learned going through this process?\
+
+    -   Please add a link to your group project presentation into [EDS232 Kaggle Group Projects](https://docs.google.com/spreadsheets/d/1jgdiUgqLYACnI-g322JAMHLa6lIEIneJf8GFAHSa4Dw/edit#gid=0)\
+        \

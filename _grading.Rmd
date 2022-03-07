@@ -1,0 +1,187 @@
+---
+  title: "_grading"
+author: "Ben Best"
+date: "11/22/2021"
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Lab Submissions:
+
+  * [Lab 1. Proposal (Responses) - Google Sheets](https://docs.google.com/spreadsheets/d/1QFQxFqOl4D7yLq765545etyVwZdTIoDC30HIp0BEb8o/edit#gid=1953637063)
+                                                  * [Lab 3. Github (Responses) - Google Sheets](https://docs.google.com/spreadsheets/d/10JR8JN7iv0jSXpUA63jjK29B656HBrFk3Wmkl--lwRM/edit?resourcekey#gid=1961930663)
+                                                                                                * [Lab 2. Time (Responses) - Google Sheets](https://docs.google.com/spreadsheets/d/1bmDsAp7Qs2s_r286Fv81U74IUm0rTtxN2nXie4MB4cI/edit?resourcekey#gid=200359140)
+
+                                                                                                                                            ```{r}
+                                                                                                                                            librarian::shelf(
+                                                                                                                                              dplyr, googledrive, googlesheets4, stringr, tidyr)
+                                                                                                                                            #options(gargle_oauth_email = "ben@ecoquants.com")
+
+                                                                                                                                            # auth_json <- "~/My Drive (ben@ecoquants.com)/private/ben@ecoquants_google-oauth-id_1008311771534.json"
+                                                                                                                                            # stopifnot(file.exists(auth_json))
+                                                                                                                                            #gs4_auth() # path = auth_json)
+
+                                                                                                                                            lab1_gs <- "https://docs.google.com/spreadsheets/d/1QFQxFqOl4D7yLq765545etyVwZdTIoDC30HIp0BEb8o/edit"
+                                                                                                                                            lab2_gs <- "https://docs.google.com/spreadsheets/d/1bmDsAp7Qs2s_r286Fv81U74IUm0rTtxN2nXie4MB4cI/edit"
+                                                                                                                                            grades_gs <- "https://docs.google.com/spreadsheets/d/1L6-HGEndXUkDLms55uSc8HKal4RiLJmp-Gv8m38HwIQ/edit"
+                                                                                                                                            dir_students <- "~/My Drive (ben@ecoquants.com)/teaching/2021-11 Team Science, MEDS/grades/students"
+
+                                                                                                                                            d_lab1 <- read_sheet(lab1_gs)
+                                                                                                                                            d_lab1 <- d_lab1 %>%
+                                                                                                                                              filter(`Email Address` != "ben@ecoquants.com") %>%
+                                                                                                                                              mutate(
+                                                                                                                                                user_ucsb = `Email Address` %>%
+                                                                                                                                                  str_replace("@ucsb.edu", "") %>%
+                                                                                                                                                  str_replace("@bren.ucsb.edu", ""))
+
+                                                                                                                                            d_roster <- d_lab1 %>%
+                                                                                                                                              select(user_ucsb, group = `Group project Key`)
+
+                                                                                                                                            write_sheet(d_roster, ss = grades_gs, sheet = "roster")
+
+                                                                                                                                            d_roster_students <- read_sheet(grades_gs, "roster_students")
+                                                                                                                                            d_labs   <- read_sheet(grades_gs, "labs")
+
+                                                                                                                                            d_student_roster <- d_labs %>%
+                                                                                                                                              select(-points_possible, -points_checksum) %>%
+                                                                                                                                              filter(
+                                                                                                                                                who == "student") %>%
+                                                                                                                                              select(-who) %>%
+                                                                                                                                              bind_rows(
+                                                                                                                                                d_roster %>%
+                                                                                                                                                  select(user_ucsb)) %>%
+                                                                                                                                              expand(user_ucsb, nesting(lab, part)) %>%
+                                                                                                                                              drop_na() %>%
+                                                                                                                                              mutate(
+                                                                                                                                                points = NA)
+
+                                                                                                                                            write_sheet(d_student_roster, ss = grades_gs, sheet = "roster_students")
+
+                                                                                                                                            d_group_roster <- d_lab1 %>%
+                                                                                                                                              select(group = `Group project Key`) %>%
+                                                                                                                                              group_by(group) %>%
+                                                                                                                                              summarize()
+                                                                                                                                            write_sheet(d_group_roster, ss = grades_gs, sheet = "roster_groups")
+
+                                                                                                                                            d_group_roster <- read_sheet(ss = grades_gs, sheet = "roster_groups")
+
+                                                                                                                                            d_groups <- read_sheet(ss = grades_gs, sheet = "groups")
+
+                                                                                                                                            d_groups_add <- d_labs %>%
+                                                                                                                                              select(-points_possible, -points_checksum) %>%
+                                                                                                                                              filter(who == "group") %>%
+                                                                                                                                              select(-who) %>%
+                                                                                                                                              anti_join(
+                                                                                                                                                d_groups %>%
+                                                                                                                                                  group_by(lab, part) %>%
+                                                                                                                                                  summarize(),
+                                                                                                                                                by = c("lab", "part")) %>%
+                                                                                                                                              bind_rows(
+                                                                                                                                                d_group_roster) %>%
+                                                                                                                                              expand(group, nesting(lab, part)) %>%
+                                                                                                                                              drop_na()
+
+                                                                                                                                            d_groups <- d_groups %>%
+                                                                                                                                              bind_rows(d_groups_add) %>%
+                                                                                                                                              arrange(lab, group, part)
+
+                                                                                                                                            d_groups <- d_groups %>%
+                                                                                                                                              left_join(
+                                                                                                                                                d_labs %>%
+                                                                                                                                                  select(lab, part, points_possible),
+                                                                                                                                                by = c("lab", "part"))
+
+                                                                                                                                            write_sheet(d_groups, ss = grades_gs, sheet = "groups")
+
+                                                                                                                                            d_students <- read_sheet(grades_gs, "students")
+                                                                                                                                            d_students <- d_students %>%
+                                                                                                                                              left_join(
+                                                                                                                                                d_labs %>%
+                                                                                                                                                  select(lab, part, points_possible),
+                                                                                                                                                by = c("lab", "part"))
+                                                                                                                                            write_sheet(d_students, ss = grades_gs, sheet = "students")
+
+
+                                                                                                                                            d_student_roster <- read_sheet(grades_gs, "roster_students")
+                                                                                                                                            d_lab2   <- read_sheet(lab2_gs)
+
+                                                                                                                                            d_student_roster <- d_student_roster %>%
+                                                                                                                                              left_join(
+                                                                                                                                                d_lab2 %>%
+                                                                                                                                                  mutate(
+                                                                                                                                                    email = `Email Address`,
+                                                                                                                                                    user_ucsb = email %>%
+                                                                                                                                                      str_replace("@ucsb.edu", "") %>%
+                                                                                                                                                      str_replace("@bren.ucsb.edu", ""),
+                                                                                                                                                    time_github = `Link to your time tracking website, i.e. https://{user}.github.io/time`,
+                                                                                                                                                    user_github = time_github %>%
+                                                                                                                                                      str_replace("https://(.*?).github.io/.*", "\\1")) %>%
+                                                                                                                                                  select(user_ucsb, email, user_github),
+                                                                                                                                                by = "user_ucsb")
+                                                                                                                                            write_sheet(d_student_roster, ss = grades_gs, sheet = "roster_students")
+                                                                                                                                            ```
+
+                                                                                                                                            ```{r}
+                                                                                                                                            d_student_roster <- read_sheet(grades_gs, "roster_students")
+                                                                                                                                            d_students       <- read_sheet(grades_gs, "students")
+                                                                                                                                            d_groups         <- read_sheet(grades_gs, "groups")
+
+                                                                                                                                            usrs <- d_student_roster$user_ucsb[6:25]
+                                                                                                                                            for (usr in usrs){
+
+                                                                                                                                              grp <- d_student_roster %>%
+                                                                                                                                                filter(user_ucsb == usr) %>%
+                                                                                                                                                pull(group)
+
+                                                                                                                                              email <- d_student_roster %>%
+                                                                                                                                                filter(user_ucsb == usr) %>%
+                                                                                                                                                pull(email)
+
+                                                                                                                                              d <- d_students %>%
+                                                                                                                                                filter(user_ucsb == !!usr) %>%
+                                                                                                                                                bind_rows(
+                                                                                                                                                  d_groups %>%
+                                                                                                                                                    filter(group == grp)) %>%
+                                                                                                                                                select(
+                                                                                                                                                  lab, part, user_ucsb, group, points, psbl, comments) %>%
+                                                                                                                                                arrange(lab, part)
+
+                                                                                                                                              ss <- gs4_create(usr)
+                                                                                                                                              write_sheet(d, ss, "Sheet1")
+
+                                                                                                                                              ss %>%
+                                                                                                                                                drive_share(
+                                                                                                                                                  role = "commenter",
+                                                                                                                                                  type = "user",
+                                                                                                                                                  emailAddress = email)
+                                                                                                                                            }
+                                                                                                                                            ```
+
+
+
+                                                                                                                                            user_ucsb <- "icole"
+                                                                                                                                            googlesheets::
+                                                                                                                                              dir.create(dir_students, user_ucsb)
+
+
+                                                                                                                                            aqi_gs <- "https://docs.google.com/spreadsheets/d/1vwFWAwXAuydEDAaZyuY_C7eHka6kntddIG44VvwR0i4/edit"
+
+                                                                                                                                            x <- drive_get(aqi_gs)
+
+                                                                                                                                            x %>%
+                                                                                                                                              drive_reveal("permissions")
+
+                                                                                                                                            x %>%
+                                                                                                                                              drive_share(
+                                                                                                                                                role = "commenter",
+                                                                                                                                                type = "user",
+                                                                                                                                                emailAddress = "bdbest@gmail.com")
+
+                                                                                                                                            ```
+
