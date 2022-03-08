@@ -26,10 +26,10 @@ dt_sched <- function(d_sched){
       # select(Lecture_youtube, lec_youtube)
       Lecture = ifelse(
         is.na(Lecture),
-        "",
+        glue::glue("{lec_youtube}"),
         ifelse(
           is.na(Lecture_link),
-          Lecture,
+          glue::glue("{Lecture} {lec_youtube}"),
           glue::glue("<a href='{Lecture_link}' target='_blank'>{Lecture}</a>{lec_youtube}"))),
       Lab     = ifelse(
         is.na(Lab),
@@ -62,6 +62,8 @@ dt_sched <- function(d_sched){
 }
 
 get_sched <- function(){
+  # googlesheets4::gs4_deauth() # cd ~/Library/Caches/gargle; rm ...
+  gs4_deauth() # since gave Anyone View/Comment rights to sched_gsheet
   d_sched <- googlesheets4::read_sheet(sched_gsheet) %>%
     tidyr::fill(Week, Module)
   names(d_sched) <- names(d_sched) %>% stringr::str_replace("\n", " ")
