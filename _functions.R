@@ -53,8 +53,8 @@ dt_sched <- function(d_sched){
     extensions = 'RowGroup',
     options = list(
       #dom = 't',
-      pageLength = 11,
-      displayStart = 11,
+      pageLength   = 20, # 2nd half: 11
+      displayStart =  0, # 2nd half: 11
       rowGroup = list(
         dataSrc=c(i_mod)),
       columnDefs = list(list(visible=F, targets=c(i_mod)))),
