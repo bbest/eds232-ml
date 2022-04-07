@@ -57,7 +57,7 @@ The majority of points (100 total) will come from the labs. The Mid-Term exam wi
 
 ```{r}
 librarian::shelf(
-  glue, RefManageR)
+  bibtex, glue, RefManageR)
 bib <- ReadBib("ml-env.bib", check = FALSE)
 BibOptions(check.entries = FALSE, style = "markdown", cite.style = "authoryear", bib.style = "authoryear")
 ```
